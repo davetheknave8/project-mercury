@@ -1,18 +1,68 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import './Dashboard.css';
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
+// Material UI Imports
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+const styles = theme => ({
+  table: {
+    width: '50%',
+    marginLeft: '25%'
+  }
+})
+
 
 class Dashboard extends Component {
-  render(){
+
+  render() {
+    const {classes} = this.props;
     return (
       <>
-        <h1>Dashboard</h1>
+        <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>PCN #</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Date Submitted</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableHead>
+            <TableRow>
+              <TableCell>Filter: </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>000-000</TableCell>
+              <TableCell>Needs Review</TableCell>
+              <TableCell>08/27/2019</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>000-001</TableCell>
+              <TableCell>Pending</TableCell>
+              <TableCell>08/27/2019</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>000-002</TableCell>
+              <TableCell>Published</TableCell>
+              <TableCell>08/27/2019</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </>
-    )
+    );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (reduxStore) => ({
+  reduxStore
+})
+
+export default withStyles(styles)(connect(mapStateToProps)(Dashboard));
