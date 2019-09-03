@@ -29,6 +29,15 @@ class Dashboard extends Component {
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id})
   }
 
+  // Change table row background color
+  changeColor = (user, index) => {
+    if (this.props.reduxStore.user.id == user.id){
+      return (<DashboardListItem key={user.id} user={user} />)
+    } else{
+      return (<></>);
+    }
+  }
+
   render() {
     const {classes} = this.props;
     return (
@@ -50,8 +59,8 @@ class Dashboard extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.reduxStore.getDashboard.map(item =>
-              <DashboardListItem key={item.id} item={item} />)}
+            {this.props.reduxStore.getDashboard.map((user, index) => this.changeColor(user, index)
+            )}
           </TableBody>
         </Table> 
       </>

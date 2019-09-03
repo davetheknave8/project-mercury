@@ -28,10 +28,10 @@ class DashboardListItem extends Component {
         return (
             <>
                 <TableRow align="center">
-                    <TableCell className={classes.tableCell}>{this.props.item.number}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
+                    <TableCell className={classes.tableCell}>{this.props.user.number}</TableCell>
+                    <TableCell className={classes.tableCell}>{this.props.user.type}</TableCell>
+                    <TableCell className={classes.tableCell}>{this.props.user.status}</TableCell>
+                    <TableCell className={classes.tableCell}>{this.props.user.date}</TableCell>
                 </TableRow>
             </>
         );
