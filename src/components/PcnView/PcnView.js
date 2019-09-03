@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 class PcnView extends Component {
 
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: this.props.match.params.id });
+        let data = {
+            id: this.props.match.params.id,
+            type: this.props.match.params.type
+        };
+        this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
     }
 
     render() {
