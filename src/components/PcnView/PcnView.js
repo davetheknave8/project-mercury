@@ -13,6 +13,7 @@ class PcnView extends Component {
             <>
                 <h1>PCN View</h1>
                 <h4>{this.props.match.params.id}</h4>
+                <h4>{this.props.match.params.type}</h4>
                 {/* <div>
                     <h2>React Quill - Rich Text</h2>
                     <br />
