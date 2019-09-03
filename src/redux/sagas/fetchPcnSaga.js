@@ -15,7 +15,7 @@ function* fetchSaga () {
     }
 }
 
-function* fetchPcnSaga(){
+function* fetchPcnSaga(){ 
     yield takeEvery('FETCH_PCN_LIST', fetchSaga);
 }
 
