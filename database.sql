@@ -8,6 +8,7 @@ CREATE TABLE "user" (
 CREATE TABLE eol (
     id SERIAL PRIMARY KEY,
     "type" character varying(200),
+    "status" character varying(10),
     "date" date,
     "number" integer,
     change_description character varying(2000),
@@ -22,6 +23,7 @@ CREATE TABLE eol (
 CREATE TABLE npi (
     id SERIAL PRIMARY KEY,
     "type" character varying(200),
+    "status" character varying(10),
     "date" date,
     "number" integer,
     "description" character varying(2000),
@@ -34,6 +36,7 @@ CREATE TABLE pcn (
     id SERIAL PRIMARY KEY,
     creator_id integer REFERENCES "user"(id),
     "type" character varying(200),
+    "status" character varying(10),
     "date" date,
     "number" integer,
     audience character varying(500),
