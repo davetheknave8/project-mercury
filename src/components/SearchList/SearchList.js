@@ -10,9 +10,10 @@ class SearchList extends Component {
         return(
             <>
             <TableRow align="center">
-            <TableCell className={classes.tableCell}>helloo</TableCell> 
-            <TableCell className={classes.tableCell}>hello</TableCell>
-            <TableCell className={classes.tableCell}>hello</TableCell>
+            <TableCell className={classes.tableCell}>{this.props.type}</TableCell> 
+            <TableCell className={classes.tableCell}>{this.props.number}</TableCell>
+            <TableCell className={classes.tableCell}>{this.props.date}</TableCell>
+            <TableCell className={classes.tableCell}>{this.props.description}</TableCell>
             </TableRow>
             </>
         );

@@ -4,24 +4,15 @@ import { connect } from 'react-redux';
 class PcnView extends Component {
 
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_NOTES' });
+        this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: this.props.match.params.id });
     }
-
-    handleChange(value) {
-        this.setState({ text: value })
-        console.log(this.state);
-    }
-
-    handleSubmit() {
-        this.props.dispatch({ type: 'ADD_NOTE', payload: this.state })
-    }
-
 
     render() {
         return (
 
             <>
                 <h1>PCN View</h1>
+                <h4>{this.props.match.params.id}</h4>
                 {/* <div>
                     <h2>React Quill - Rich Text</h2>
                     <br />
