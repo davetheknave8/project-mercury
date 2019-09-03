@@ -38,6 +38,8 @@ class PcnView extends Component {
                         }}></div>);
                     })}
                 </div> */}
+
+                {/* this.props.match.params.id */}
             </>
         )
     }
