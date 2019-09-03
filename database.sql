@@ -36,6 +36,7 @@ CREATE TABLE pcn (
     "type" character varying(200),
     "date" date,
     "number" integer,
+    audience character varying(500),
     change_description character varying(2000),
     contact_id integer REFERENCES "user"(id),
     notes character varying(2000)
