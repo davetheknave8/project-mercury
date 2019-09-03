@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     FROM npi);`
     pool.query(queryText)
     .then((result) =>{
-        res.send(rows);
+        res.send(result.rows);
     })
     .catch((error)=>{
         console.log(`error in get route for main search window${error}`)

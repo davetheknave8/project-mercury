@@ -96,6 +96,7 @@ class Search extends Component {
             <TableHead>
                 <TableRow component="tr" scope="row">
                     <TableCell className={classes.tableCell}>PCN - #</TableCell>
+                    <TableCell className={classes.tableCell}>type</TableCell>
                     <TableCell className={classes.tableCell}>Date</TableCell>
                     <TableCell className={classes.tableCell}>Description</TableCell>
                 </TableRow>
@@ -103,7 +104,7 @@ class Search extends Component {
                 <TableBody>
                     {this.props.reduxStore.getPcn.map(item => 
                     <SearchList  key={item.id} item={item}/>)}
-                    </TableBody>
+                </TableBody>
             </Table> 
       </Paper>
             </>
