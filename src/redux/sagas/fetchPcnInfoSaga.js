@@ -5,7 +5,7 @@ import axios from 'axios';
 function* fetchPcnInfo(action) {
     console.log('in fetchPcnInfo, action.payload is', action.payload)
     try {
-        const response = yield axios.get(`/api/Events/${action.payload}`);
+        const response = yield axios.get(`/api/pcn/info?id=${action.payload.id}&type=${action.payload.type}`);
         console.log('in fetchPcnInfo, response is:', response.data)
         yield put({ type: 'SET_PCN_INFO', payload: response.data })
     } catch (error) {
