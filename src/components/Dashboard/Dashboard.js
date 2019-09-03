@@ -29,6 +29,7 @@ class Dashboard extends Component {
           <TableHead>
             <TableRow>
               <TableCell>PCN #</TableCell>
+              <TableCell>Type</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Date Submitted</TableCell>
             </TableRow>
@@ -41,16 +42,19 @@ class Dashboard extends Component {
           <TableBody>
             <TableRow>
               <TableCell>000-000</TableCell>
+              <TableCell>PCN</TableCell>
               <TableCell>Needs Review</TableCell>
               <TableCell>08/27/2019</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>000-001</TableCell>
+              <TableCell>EOL</TableCell>
               <TableCell>Pending</TableCell>
               <TableCell>08/27/2019</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>000-002</TableCell>
+              <TableCell>NPI</TableCell>
               <TableCell>Published</TableCell>
               <TableCell>08/27/2019</TableCell>
             </TableRow>
