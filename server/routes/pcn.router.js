@@ -26,6 +26,10 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/', (req,res) =>{
+    // for searching through the database.
+})
+
 /**
  * POST route template
  */
