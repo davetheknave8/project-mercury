@@ -21,7 +21,8 @@ class PcnView extends Component {
         return (
 
             <>
-                <div>
+                <h1>PCN View</h1>
+                {/* <div>
                     <h2>React Quill - Rich Text</h2>
                     <br />
                     <h4>Add a note</h4>
@@ -36,7 +37,7 @@ class PcnView extends Component {
                                 note.text
                         }}></div>);
                     })}
-                </div>
+                </div> */}
             </>
         )
     }
