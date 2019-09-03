@@ -43,7 +43,7 @@ class App extends Component {
             component={Search} />
             <Route
             exact
-            path="/pcn-view/:id"
+            path="/pcn-view/:type/:id"
             component={PcnView}
             />
             {/* For protected routes, the view could show one of several things on the same route.

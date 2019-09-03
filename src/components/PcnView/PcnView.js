@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 class PcnView extends Component {
 
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: this.props.match.params.id });
+        let data = {
+            id: this.props.match.params.id,
+            type: this.props.match.params.type
+        };
+        this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
     }
 
     render() {
@@ -13,6 +17,7 @@ class PcnView extends Component {
             <>
                 <h1>PCN View</h1>
                 <h4>{this.props.match.params.id}</h4>
+                <h4>{this.props.match.params.type}</h4>
                 {/* <div>
                     <h2>React Quill - Rich Text</h2>
                     <br />

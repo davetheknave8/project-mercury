@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import SearchList from '../SearchList/SearchList'
 
-
+//Material UI imports
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-
-
+//table cells information
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TableHead from '@material-ui/core/TableHead';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
 
 const styles = {
     title:{
@@ -24,6 +29,11 @@ const styles = {
       marginLeft: 'auto',
       marginRight: 'auto',
       width: 400,
+    },
+    table:{
+        minWidth: 'auto',
+        marginLeft:20,
+        marginRight:20,
     },
     input: {
       marginLeft: 8,
@@ -71,15 +81,32 @@ class Search extends Component {
         return(
             <>
             <h1 className={classes.title}>Search</h1>
-            <Paper className={classes.root} elevation={1}>
+        <Paper className={classes.root} elevation={1}>
             <IconButton className={classes.iconButton} aria-label="Menu">
             </IconButton>
             <InputBase className={classes.input} placeholder="Search" onChange={(event) => this.handleChange(event, 'search')} />
             <IconButton className={classes.iconButton} aria-label="Search" onSubmit={(event) => this.handleSubmit()}>
             <SearchIcon />
             </IconButton>
-            </Paper>
+        </Paper>
 
+        <Paper className={classes.table} elevation={1}>
+        <h2 className={classes.title}>Results</h2> 
+            <Table className={classes.table}>
+            <TableHead>
+                <TableRow component="tr" scope="row">
+                    <TableCell className={classes.tableCell}>PCN - #</TableCell>
+                    <TableCell className={classes.tableCell}>type</TableCell>
+                    <TableCell className={classes.tableCell}>Date</TableCell>
+                    <TableCell className={classes.tableCell}>Description</TableCell>
+                </TableRow>
+            </TableHead>  
+                <TableBody>
+                    {this.props.reduxStore.getPcn.map(item => 
+                    <SearchList  key={item.id} item={item}/>)}
+                </TableBody>
+            </Table> 
+      </Paper>
             </>
         )
     }
