@@ -17,10 +17,10 @@ router.get('/', (req, res) => {
     npi.status as status, npi.date as date, npi.description as descripiton
     FROM npi);`
     pool.query(queryText)
-    .then((result) =>{
-        res.send(result.rows);
+    .then((response) => {
+        res.send(response.rows);
     })
-    .catch((error)=>{
+    .catch((error)=> {
         console.log(`error in get route for main search window${error}`)
         res.sendStatus(500);
     })
