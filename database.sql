@@ -7,16 +7,16 @@ CREATE TABLE "user" (
 
 CREATE TABLE eol (
     id SERIAL PRIMARY KEY,
-    type character varying(200),
-    date date,
-    number integer,
+    "type" character varying(200),
+    "date" date,
+    "number" integer,
     change_description character varying(2000),
-    contact_id integer REFERENCES user(id),
+    contact_id integer REFERENCES "user"(id),
     end_dates character varying(200),
     notes character varying(200),
     audience character varying(1000),
     images character varying(1000),
-    creator_id integer REFERENCES user(id)
+    creator_id integer REFERENCES "user"(id)
 );
 
 CREATE TABLE eol_image (
@@ -40,24 +40,24 @@ CREATE TABLE image (
 
 CREATE TABLE notifications (
     id SERIAL PRIMARY KEY,
-    message character varying(2000)
+    "message" character varying(2000)
 );
 
 CREATE TABLE npi (
     id SERIAL PRIMARY KEY,
-    type character varying(200),
-    date date,
-    number integer,
-    description character varying(2000),
-    contact_id integer REFERENCES user(id),
+    "type" character varying(200),
+    "date" date,
+    "number" integer,
+    "description" character varying(2000),
+    contact_id integer REFERENCES "user"(id),
     notes character varying(2000),
-    creator_id integer REFERENCES user(id)
+    creator_id integer REFERENCES "user"(id)
 );
 
 CREATE TABLE npi_image (
     id SERIAL PRIMARY KEY,
     npi_id integer REFERENCES npi(id),
-    image_id integer REFERENCES image(id)
+    image_id integer REFERENCES "image"(id)
 );
 
 CREATE TABLE npi_part (
@@ -68,19 +68,19 @@ CREATE TABLE npi_part (
 
 CREATE TABLE part (
     id SERIAL PRIMARY KEY,
-    name character varying(200),
-    number character varying(200),
-    description character varying(200)
+    "name" character varying(200),
+    "number" character varying(200),
+    "description" character varying(200)
 );
 
 CREATE TABLE pcn (
     id SERIAL PRIMARY KEY,
-    creator_id integer REFERENCES user(id),
-    type character varying(200),
-    date date,
-    number integer,
+    creator_id integer REFERENCES "user"(id),
+    "type" character varying(200),
+    "date" date,
+    "number" integer,
     change_description character varying(2000),
-    contact_id integer REFERENCES user(id),
+    contact_id integer REFERENCES "user"(id),
     notes character varying(2000)
 );
 
@@ -90,15 +90,8 @@ CREATE TABLE pcn_part (
     part_id integer REFERENCES part(id)
 );
 
-CREATE TABLE user (
-    id SERIAL PRIMARY KEY,
-    username character varying(80) NOT NULL UNIQUE,
-    password character varying(1000) NOT NULL,
-    admin integer
-);
-
 CREATE TABLE user_notification (
     id SERIAL PRIMARY KEY,
-    user_id integer REFERENCES user(id),
+    user_id integer REFERENCES "user"(id),
     notification_id integer REFERENCES notifications(id)
 );
