@@ -15,12 +15,16 @@ const styles = theme => ({
   table: {
     width: '50%',
     marginLeft: '25%'
+  },
+  tableCell: {
+    color: 'white',
   }
 })
 
 
 class Dashboard extends Component {
 
+  
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id})
   }
@@ -32,8 +36,8 @@ class Dashboard extends Component {
         <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
         <Table className={classes.table}>
           <TableHead>
-            <TableRow component="tr" scope="row">
-              <TableCell className={classes.tableCell}>PCN - #</TableCell>
+            <TableRow component="tr" scope="row" className="header">
+              <TableCell className={classes.tableCell}>PCN#</TableCell>
               <TableCell className={classes.tableCell}>Type</TableCell>
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>
