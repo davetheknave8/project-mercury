@@ -17,6 +17,8 @@ import Dashboard from '../Dashboard/Dashboard';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import Search from '../Search/Search';
+import PcnForm from '../PcnForm/PcnForm';
+import PcnView from '../PcnView/PcnView';
 
 import './App.css';
 
@@ -39,6 +41,11 @@ class App extends Component {
             exact
             path="/search"
             component={Search} />
+            <Route
+            exact
+            path="/pcn-view/:type/:id"
+            component={PcnView}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -52,6 +59,11 @@ class App extends Component {
               exact
               path="/home"
               component={UserPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/pcn-form"
+              component={PcnForm}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
