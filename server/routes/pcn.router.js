@@ -32,6 +32,7 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
     const sqlValues = [req.user.id]
     pool.query(sqlText, sqlValues)
     .then(response => {
+        console.log(response.rows)
         res.send(response.rows)
     })
     .catch(error => {

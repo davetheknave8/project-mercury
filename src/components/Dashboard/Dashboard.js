@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './Dashboard.css';
+import DashboardListItem from '../DashboardListItem/DashboardListItem';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -20,6 +21,10 @@ const styles = theme => ({
 
 class Dashboard extends Component {
 
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id})
+  }
+
   render() {
     const {classes} = this.props;
     return (
@@ -27,39 +32,24 @@ class Dashboard extends Component {
         <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
         <Table className={classes.table}>
           <TableHead>
-            <TableRow>
-              <TableCell>PCN #</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Date Submitted</TableCell>
+            <TableRow component="tr" scope="row">
+              <TableCell className={classes.tableCell}>PCN - #</TableCell>
+              <TableCell className={classes.tableCell}>Type</TableCell>
+              <TableCell className={classes.tableCell}>Status</TableCell>
+              <TableCell className={classes.tableCell}>Date</TableCell>
             </TableRow>
-          </TableHead>
-          <TableHead>
             <TableRow>
               <TableCell>Filter: </TableCell>
+              <TableCell><button>PENDING</button></TableCell>
+              <TableCell><button>PUBLISHED</button></TableCell>
+              <TableCell><button>ALL</button></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell>000-000</TableCell>
-              <TableCell>PCN</TableCell>
-              <TableCell>Needs Review</TableCell>
-              <TableCell>08/27/2019</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>000-001</TableCell>
-              <TableCell>EOL</TableCell>
-              <TableCell>Pending</TableCell>
-              <TableCell>08/27/2019</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>000-002</TableCell>
-              <TableCell>NPI</TableCell>
-              <TableCell>Published</TableCell>
-              <TableCell>08/27/2019</TableCell>
-            </TableRow>
+            {this.props.reduxStore.getDashboard.map(item =>
+              <DashboardListItem key={item.id} item={item} />)}
           </TableBody>
-        </Table>
+        </Table> 
       </>
     );
   }
