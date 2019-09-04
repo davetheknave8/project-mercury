@@ -22,7 +22,7 @@ class SearchList extends Component {
         return(
             <>
             <TableRow align="center">
-            <TableCell className={classes.tableCell}>{this.props.item.number}</TableCell> 
+            <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell> 
             <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell>
             <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
             <TableCell className={classes.tableCell}>{this.props.item.description}</TableCell>

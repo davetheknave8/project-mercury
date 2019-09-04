@@ -23,57 +23,57 @@ const styles = {
         width: 400,
     },
     root: {
-      padding: '2px 4px',
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: 400,
+        padding: '2px 4px',
+        display: 'flex',
+        alignItems: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: 400,
     },
     table:{
+        
         minWidth: 'auto',
         marginLeft:20,
         marginRight:20,
     },
     input: {
-      marginLeft: 8,
-      display: 'center',
-      flex: 1,
+        marginLeft: 8,
+        display: 'center',
+        flex: 1,
     },
     iconButton: {
-      padding: 10,
+        padding: 10,
     },
     divider: {
-      width: 1,
-      height: 28,
-      margin: 4,
+        width: 1,
+        height: 28,
+        margin: 4,
     },
   };
 
 class Search extends Component {
     
 
-    state = {
-        search: '',
-    }
+    // state = {
+    //     search: '',
+    // }
 
 
     componentDidMount(){
         this.props.dispatch({type:'FETCH_PCN_LIST'});
+        // this.props.dispatch({type: 'GET_SEARCH'});
     }
 //takes the input information and holds it in the new setState.
     handleChange = (event, propertyToChange) =>{
-        console.log('enetered search', event.target.value);
+        console.log('entered search', event.target.value);
         this.setState({
             [propertyToChange]:event.target.value,
         })
+        this.props.dispatch({type:'GET_SEARCH', payload: event.target.value})
+        // console.log(this.state.search);
     };
-// handle submit dispatches to the getPcnReducer.
-    handleSubmit = () => {
-        this.props.dispatch({type:'', payload: this.state.search})
-        console.log('clicked submit')
-    }
 
+  
     render() {
 
         const { classes } = this.props;
@@ -84,8 +84,8 @@ class Search extends Component {
         <Paper className={classes.root} elevation={1}>
             <IconButton className={classes.iconButton} aria-label="Menu">
             </IconButton>
-            <InputBase className={classes.input} placeholder="Search" onChange={(event) => this.handleChange(event, 'search')} />
-            <IconButton className={classes.iconButton} aria-label="Search" onSubmit={(event) => this.handleSubmit()}>
+            <InputBase className={classes.input} placeholder="Search" onChange={(event) => this.handleChange(event)} />
+            <IconButton className={classes.iconButton} aria-label="Search">
             <SearchIcon />
             </IconButton>
         </Paper>

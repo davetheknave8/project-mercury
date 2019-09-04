@@ -220,7 +220,7 @@ class PcnForm extends Component {
                     <h3 className={classes.userHeader}>Contact Info</h3>
                     <TextField className={classes.userName} value={this.props.reduxStore.user.username} label="Name" disabled />
                     <br />
-                    <TextField className={classes.contactInfo} label="Email" value="placeholder email" disabled />
+                    <TextField className={classes.contactInfo} label="Email" value={this.props.reduxStore.user.email} disabled />
                 </div>
                 <br />
                 <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>

@@ -3,24 +3,50 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
 router.get('/', (req, res) => {
-    const queryText = `(SELECT pcn."type" as "type", pcn.number as number, pcn.status as status, pcn.date as date, pcn.change_description as description
-    FROM pcn)
-    union
-    (SELECT eol."type" as "type", eol.number as number, 
-    eol.status as status, eol.date as date, eol.change_description as descripiton
-    FROM eol)
-    union
-    (SELECT npi."type" as "type", npi.number as number, 
-    npi.status as status, npi.date as date, npi.description as descripiton
-    FROM npi);`
+    const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
+            FROM pcn)
+            union
+            (SELECT eol."type" as "type", eol.id as id, 
+            eol.status as status, eol.date as date, eol.change_description as descripiton
+            FROM eol)
+            union
+            (SELECT npi."type" as "type", npi.id as id, 
+            npi.status as status, npi.date as date, npi.description as descripiton
+            FROM npi);`
     pool.query(queryText)
-    .then((result) =>{
-        res.send(result.rows);
+    .then((response) => {
+        res.send(response.rows);
     })
-    .catch((error)=>{
+    .catch((error)=> {
         console.log(`error in get route for main search window${error}`)
+        res.sendStatus(500);
+    })
+});
+// search route for main search page.
+router.get(`/search`, (req, res) => {
+    console.log('req.query', req.query);
+        sqlValues = [`%${req.query.search}%`]
+            const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
+            FROM pcn
+            WHERE "type" LIKE $1)
+            union
+            (SELECT eol."type" as "type", eol.id as id, 
+            eol.status as status, eol.date as date, eol.change_description as descripiton
+            FROM eol
+            WHERE "type" LIKE $1)
+            union
+            (SELECT npi."type" as "type", npi.id as id, 
+            npi.status as status, npi.date as date, npi.description as descripiton
+            FROM npi
+            WHERE "type" LIKE $1);`;
+    pool.query(queryText,sqlValues)
+    .then((response) => {
+        console.log('response.rows',response.rows);
+        res.send(response.rows);
+    })
+    .catch((error)=> {
+        console.log(`error in get route for main search window ${error}`)
         res.sendStatus(500);
     })
 });
