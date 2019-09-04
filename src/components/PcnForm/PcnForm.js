@@ -129,9 +129,14 @@ let length = 0;
 
 class PcnForm extends Component {
     state = {
-        newEol: {
+        newPcn: {
             date: 'yyyy-MM-dd',
             description: '<p></p>'
+        },
+        newPart: {
+            name: '',
+            description: '',
+            number: ''
         },
         descriptionLength: 2000
     }
@@ -139,12 +144,12 @@ class PcnForm extends Component {
     handleChange = (event, propToChange) => {
         console.log(propToChange);
         if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event.target.value}})
+            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event.target.value}})
         } else {
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event}})
+            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event}})
             console.log(this.state);
         }
-        let html = this.state.newEol.description;
+        let html = this.state.newPcn.description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
@@ -156,12 +161,18 @@ class PcnForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.newEol);
-        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newEol});
+        console.log(this.state.newPcn);
+        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newPcn});
     }
 
     handleSubmitPart = (event) => {
         console.log('submit part');
+        this.props.dispatch({type: 'CREATE_PART', payload: this.state.newPart})
+        this.setState({newPart: {name: '', number: '', description: ''}})
+    }
+
+    handleChangePart = (event, propToChange) => {
+        this.setState({newPart: {...this.state.newPart, [propToChange]: event.target.value}})
     }
 
     render(){
@@ -197,9 +208,9 @@ class PcnForm extends Component {
                     <TableBody>
                         {this.props.reduxStore.currentPcnParts ? this.props.reduxStore.currentPcnParts.map(part => <PartListItem part={part} />) : <></>}
                         <TableRow>
-                            <TableCell className={classes.cell}><TextField placeholder="Add Part #..." /></TableCell>
-                            <TableCell className={classes.cell}><TextField placeholder="Add Name..." /></TableCell>
-                            <TableCell className={classes.cell}><TextField placeholder="Add Description..." /></TableCell>
+                            <TableCell className={classes.cell}><TextField value={this.state.newPart.number} onChange={event => this.handleChangePart(event, 'number')} placeholder="Add Part #..." /></TableCell>
+                            <TableCell className={classes.cell}><TextField value={this.state.newPart.name} onChange={event => this.handleChangePart(event, 'name')} placeholder="Add Name..." /></TableCell>
+                            <TableCell className={classes.cell}><TextField value={this.state.newPart.description} onChange={event => this.handleChangePart(event, 'description')} placeholder="Add Description..." /></TableCell>
                             <TableCell className={classes.cell}><AddIcon style={{cursor: 'pointer'}} onClick={event => this.handleSubmitPart(event)} /></TableCell>
                         </TableRow>
                     </TableBody>
