@@ -128,7 +128,7 @@ let length = 0;
 
 class EolForm extends Component {
     state = {
-        newPcn: {
+        newEol: {
             date: 'yyyy-MM-dd',
             description: '<p></p>'
         },
@@ -138,12 +138,12 @@ class EolForm extends Component {
     handleChange = (event, propToChange) => {
         console.log(propToChange);
         if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
-            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event.target.value}})
+            this.setState({newEol: {...this.state.newEol, [propToChange]: event.target.value}})
         } else {
-            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event}})
+            this.setState({newEol: {...this.state.newEol, [propToChange]: event}})
             console.log(this.state);
         }
-        let html = this.state.newPcn.description;
+        let html = this.state.newEol.description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
@@ -155,8 +155,8 @@ class EolForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.newPcn);
-        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newPcn});
+        console.log(this.state.newEol);
+        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newEol});
     }
 
     handleSubmitPart = (event) => {
@@ -168,7 +168,7 @@ class EolForm extends Component {
         return(
             <>
             <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
-                <h1 className={classes.formHeader}>PCN Form</h1>
+                <h1 className={classes.formHeader}>EOL Form</h1>
                 <div className={classes.topElements}>
                     <TextField className={classes.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
                         shrink: true,
@@ -189,7 +189,7 @@ class EolForm extends Component {
                             <TableCell>Part Affected</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell>Description</TableCell>
-                            <TableCell>&nbsp;</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
