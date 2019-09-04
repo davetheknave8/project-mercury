@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Dashboard.css';
 import DashboardListItem from '../DashboardListItem/DashboardListItem';
 
@@ -15,7 +15,7 @@ const styles = theme => ({
   table: {
     width: '50%',
     marginLeft: '25%',
-    borderColor: 'black', 
+    borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: '2px',
     marginLeft: '25%'
@@ -28,9 +28,9 @@ const styles = theme => ({
 
 class Dashboard extends Component {
 
-  
+
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id})
+    this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id })
   }
 
   // // Change table row background color
@@ -43,15 +43,15 @@ class Dashboard extends Component {
   // }
   // Change table row background color
   changeColor = (user, index) => {
-    if (this.props.reduxStore.user.id == user.id){
+    if (this.props.reduxStore.user.id == user.id) {
       return (<DashboardListItem key={user.id} user={user} />)
-    } else{
+    } else {
       return (<></>);
     }
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
       <>
         <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
@@ -76,32 +76,17 @@ class Dashboard extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.reduxStore.getDashboard.map(item => <DashboardListItem key={item.id} item={item} />
-            <TableRow component="tr" scope="row" className="header">
-              <TableCell className={classes.tableCell}>PCN#</TableCell>
-              <TableCell className={classes.tableCell}>Type</TableCell>
-              <TableCell className={classes.tableCell}>Status</TableCell>
-              <TableCell className={classes.tableCell}>Date</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Filter: </TableCell>
-              <TableCell><button>PENDING</button></TableCell>
-              <TableCell><button>PUBLISHED</button></TableCell>
-              <TableCell><button>ALL</button></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.props.reduxStore.getDashboard.map((user, index) => this.changeColor(user, index)
+            {this.props.reduxStore.getDashboard.map(item => <DashboardListItem key={item.id} item={item} />          
             )}
           </TableBody>
         </Table> 
       </>
-    );
-  }
-}
-
+        );
+      }
+    }
+    
 const mapStateToProps = (reduxStore) => ({
-  reduxStore
-})
-
-export default withStyles(styles)(connect(mapStateToProps)(Dashboard));
+          reduxStore
+        })
+        
+        export default withStyles(styles)(connect(mapStateToProps)(Dashboard));
