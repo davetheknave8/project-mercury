@@ -14,6 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import Nav from '../Nav/Nav'
 
 const styles = {
     title:{
@@ -80,6 +81,7 @@ class Search extends Component {
 
         return(
             <>
+            <Nav history={this.props.history}/>
             <h1 className={classes.title}>Search</h1>
         <Paper className={classes.root} elevation={1}>
             <IconButton className={classes.iconButton} aria-label="Menu">

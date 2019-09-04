@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import Search from '../Search/Search';
 import PcnForm from '../PcnForm/PcnForm';
 import PcnView from '../PcnView/PcnView';
+import EolForm from '../EolForm/EolForm';
 
 import './App.css';
 
@@ -63,6 +64,11 @@ class App extends Component {
               exact
               path="/pcn-form/:id"
               component={PcnForm}
+            />
+            <ProtectedRoute
+              exact
+              path="/eol-form/:id"
+              component={EolForm}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
