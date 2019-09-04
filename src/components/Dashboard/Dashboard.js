@@ -14,19 +14,10 @@ import TableRow from '@material-ui/core/TableRow';
 const styles = theme => ({
   table: {
     width: '50%',
-    marginLeft: '25%',
+    margin: 'auto',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: '2px',
-  },
-  header: {
-    width: '50%',
-    marginLeft: '25%',
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: '2px',
-    borderBottomWidth: '1px',
-    background: '#E5E7EE'
   },
   tableCell: {
     color: 'white',
@@ -38,7 +29,11 @@ class Dashboard extends Component {
 
 
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id })
+    const data = {
+      userId: this.props.reduxStore.user.id,
+      status: ''
+    }
+    this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data })
   }
 
   // // Change table row background color
@@ -50,21 +45,41 @@ class Dashboard extends Component {
   //   }
   // }
 
+  handlePublished() {
+    console.log('handlePublished');
+    //this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
+  }
+
+  handlePending() {
+    console.log('handlePending');
+    //this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
+  }
+
+  handleInProgress() {
+    console.log('handleInProgress');
+    //this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
+  }
+
+  handleDenied() {
+    console.log('handleDenied', this.props.reduxStore.item);
+    const data = {
+      userId: this.props.reduxStore.user.id,
+      status: 'denied'
+    }
+    this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
+  }
+
+  handleAll() {
+    console.log('handleAll', this.props.reduxStore.user.id);
+    this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <>
         <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
-        <Table className={classes.header}>
-          <TableHead>
-            <TableRow className="filter">
-              <TableCell>Filter: </TableCell>
-              <TableCell><button>PENDING</button></TableCell>
-              <TableCell><button>PUBLISHED</button></TableCell>
-              <TableCell><button>ALL</button></TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
+        <p className="welcome">Filter: &nbsp;&nbsp;<button onClick={() => this.handlePublished()}>Published</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handlePending()}>Pending</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleInProgress()}>In Progress</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleDenied()}>Denied</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleAll()}>All</button></p>
         <Table className={classes.table}>
           <TableHead>
             <TableRow component="tr" scope="row" className="header">
@@ -72,7 +87,6 @@ class Dashboard extends Component {
               {/* <TableCell className={classes.tableCell}>Type</TableCell> */}
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>
-              <TableCell>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
