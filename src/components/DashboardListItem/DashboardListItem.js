@@ -33,10 +33,6 @@ class DashboardListItem extends Component {
                     <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
                     <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
                     <TableCell>&nbsp;</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.user.number}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.user.type}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.user.status}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.user.date}</TableCell>
                 </TableRow>
             </>
         );
