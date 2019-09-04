@@ -18,6 +18,11 @@ const styles = theme => ({
   
 
 class SearchListItem extends Component {
+
+    goToLink = (event) => {
+        this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`)
+        console.log('clicked link', event);
+    }
   
     render(){
 
@@ -30,8 +35,8 @@ class SearchListItem extends Component {
         const { classes } = this.props;
             return(
                 <>
-                <TableRow align="center">
-                    <TableCell className={classes.tableCell}><Link>{this.props.item.id}</Link></TableCell> 
+                <TableRow align="center" onClick={() => this.goToLink()}>
+                    <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell> 
                     <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell>
                     <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
                     <TableCell className={classes.tableCell}>{div.innerText}</TableCell>
