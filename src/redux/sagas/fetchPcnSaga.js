@@ -11,7 +11,7 @@ function* fetchSaga () {
         yield put({type: 'SET_LIST', payload: response.data})
         console.log('response.data', response.data);
     } catch (error) {
-        console.log('error in GETTing Dates', error)
+        console.log('error in Getting PCN documents', error)
     }
 }
 
