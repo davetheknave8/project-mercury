@@ -18,6 +18,7 @@ const styles = theme => ({
     borderColor: 'black', 
     borderStyle: 'solid',
     borderWidth: '2px',
+    marginLeft: '25%'
   },
   tableCell: {
     color: 'white',
@@ -40,6 +41,14 @@ class Dashboard extends Component {
   //     return (<></>);
   //   }
   // }
+  // Change table row background color
+  changeColor = (user, index) => {
+    if (this.props.reduxStore.user.id == user.id){
+      return (<DashboardListItem key={user.id} user={user} />)
+    } else{
+      return (<></>);
+    }
+  }
 
   render() {
     const {classes} = this.props;
@@ -68,6 +77,21 @@ class Dashboard extends Component {
           </TableHead>
           <TableBody>
             {this.props.reduxStore.getDashboard.map(item => <DashboardListItem key={item.id} item={item} />
+            <TableRow component="tr" scope="row" className="header">
+              <TableCell className={classes.tableCell}>PCN#</TableCell>
+              <TableCell className={classes.tableCell}>Type</TableCell>
+              <TableCell className={classes.tableCell}>Status</TableCell>
+              <TableCell className={classes.tableCell}>Date</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Filter: </TableCell>
+              <TableCell><button>PENDING</button></TableCell>
+              <TableCell><button>PUBLISHED</button></TableCell>
+              <TableCell><button>ALL</button></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.props.reduxStore.getDashboard.map((user, index) => this.changeColor(user, index)
             )}
           </TableBody>
         </Table> 
