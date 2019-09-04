@@ -61,7 +61,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/pcn-form"
+              path="/pcn-form/:id"
               component={PcnForm}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,

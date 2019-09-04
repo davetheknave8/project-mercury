@@ -53,6 +53,12 @@ class Nav extends Component{
     showCreate: null
   }
 
+  componentDidUpdate = (prevProps) => {
+    if(this.props.reduxStore.createPcnReducer !== prevProps.reduxStore.createPcnReducer){
+      this.props.push(`/pcn-form/${this.props.reduxStore.createPcnReducer.id}`)
+    }
+  }
+
   handleOpenSettings = event => {
     this.setState({open: event.currentTarget})
   }
@@ -93,7 +99,7 @@ class Nav extends Component{
 
   handlePcn = () => {
     console.log('create pcn');
-    
+    this.props.dispatch({type: 'CREATE_PCN', payload: {type: 'pcn'}})
   }
 
   handleEol = () => {

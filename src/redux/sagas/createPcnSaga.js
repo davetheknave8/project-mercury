@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* createPcn(action){
     try{
-        const response = yield axios.post('/api/pcn/create');
+        const response = yield axios.post(`/api/pcn/create`, action.payload);
         yield put({type: 'SET_CREATE_PCN', payload: response.data})
     } 
     catch(error) {

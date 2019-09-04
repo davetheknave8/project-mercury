@@ -176,5 +176,9 @@ router.get('/pcnparts', (req, res) => {
             })
 });
 
+//POST Routes
+
+router.post('/create')
+
 
 module.exports = router;
