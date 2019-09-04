@@ -26,6 +26,6 @@ export default function* rootSaga() {
     fetchDashboardSaga(),
     createPcnSaga(),
     editPcnSaga(),
-    // searchPcnSaga(),
+    searchPcnSaga(),
   ]);
 }

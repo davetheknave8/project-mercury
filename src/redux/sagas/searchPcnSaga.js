@@ -5,7 +5,7 @@ function* searchSaga (action) {
     console.log('search saga action.payload', action.payload)
     try{
         // const response = yield axios.get(`/api/pcn/info?id=${action.payload.id}&type=${action.payload.type}`);
-        const response = yield axios.get(`/api/pcn/search?=${action.payload.type}`);
+        const response = yield axios.get(`/api/pcn/search?search=${action.payload}`);
         console.log('in searchSaga', response);
         yield put({type: 'SEARCH_REDUCER', payload: response.data})
         console.log('response.data', response.data);
