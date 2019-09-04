@@ -12,7 +12,7 @@ function* createPcn(action){
 }
 
 function* createPcnSaga(){
-    takeEvery('CREATE_PCN', createPcn)
+    yield takeEvery('CREATE_PCN', createPcn)
 }
 
 export default createPcnSaga;
