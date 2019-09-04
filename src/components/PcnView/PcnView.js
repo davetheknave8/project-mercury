@@ -9,15 +9,34 @@ class PcnView extends Component {
             type: this.props.match.params.type
         };
         this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
+        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id});
     }
 
     render() {
         return (
 
             <>
-                <h1>PCN View</h1>
-                <h4>{this.props.match.params.id}</h4>
-                <h4>{this.props.match.params.type}</h4>
+            <div className="pcnhead">
+                <h2>Company Name Here</h2> 
+                <h2>Product Change Notification</h2>
+                <h2>{this.props.reduxStore.pcnInfo.id}</h2>
+            </div>
+            <div className="pcnaudience">
+                <h3>Audience</h3>
+                <p>{this.props.reduxStore.pcnInfo.audience}</p>
+            </div>
+            <div className="pcndate">
+                <p>{this.props.reduxStore.pcnInfo.date}</p>
+            </div>
+            <div className="pcnbody">
+                <h3>Description of Change</h3>
+                <div className = "richbody" dangerouslySetInnerHTML={{
+                    __html:
+                    this.props.reduxStore.pcnInfo.change_description
+                }}>
+
+                </div>
+            </div>
                 {/* <div>
                     <h2>React Quill - Rich Text</h2>
                     <br />

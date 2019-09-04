@@ -3,6 +3,7 @@ import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import fetchPcnInfoSaga from './fetchPcnInfoSaga';
+import fetchPcnPartSaga from './fetchPcnPartSaga';
 import fetchPcnSaga from './fetchPcnSaga';
 import fetchDashboardSaga from './fetchDashboardSaga';
 import createPcnSaga from './createPcnSaga';
@@ -21,6 +22,7 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     fetchPcnInfoSaga(),
+    fetchPcnPartSaga(),
     fetchPcnSaga(),
     fetchDashboardSaga(),
     createPcnSaga(),
