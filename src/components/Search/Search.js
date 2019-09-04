@@ -105,7 +105,7 @@ class Search extends Component {
             </TableHead>  
                 <TableBody>
                     {this.props.reduxStore.getPcn.map(item => 
-                    <SearchListItem  key={item.id} item={item}/>)}
+                    <SearchListItem  key={item.id} item={item} history={this.props.history}/>)}
                 </TableBody>
             </Table> 
       </Paper>
