@@ -3,14 +3,15 @@ import axios from 'axios';
 
 function* createParts(action){
     try{
-
+        yield axios.post('/api/parts/create', action.payload);
+        yield put({type: 'FETCH_CURRENT_PARTS'})
     }
     catch(error){
         console.log('error creating part', error);
     }
 }
 
-function* createPartsSaga{
+function* createPartsSaga(){
     yield takeEvery('CREATE_PART', createParts);
 }
 
