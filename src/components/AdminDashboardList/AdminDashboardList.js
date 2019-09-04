@@ -17,7 +17,7 @@ const styles = theme => ({
 })
 
 
-class DashboardListItem extends Component {
+class AdminDashboardList extends Component {
 
     render() {
         const { classes } = this.props;
@@ -38,4 +38,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default withStyles(styles)(connect(mapStateToProps)(DashboardListItem));
+export default withStyles(styles)(connect(mapStateToProps)(AdminDashboardList));
