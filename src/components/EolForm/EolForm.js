@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PartListItem from '../PartListItem/PartListItem';
-import Nav from '../Nav/Nav';
 
 //React Quill
 import ReactQuill from 'react-quill';
@@ -127,9 +126,9 @@ const styles = theme => ({
 
 let length = 0;
 
-class PcnForm extends Component {
+class EolForm extends Component {
     state = {
-        newEol: {
+        newPcn: {
             date: 'yyyy-MM-dd',
             description: '<p></p>'
         },
@@ -139,25 +138,25 @@ class PcnForm extends Component {
     handleChange = (event, propToChange) => {
         console.log(propToChange);
         if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event.target.value}})
+            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event.target.value}})
         } else {
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event}})
+            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event}})
             console.log(this.state);
         }
-        let html = this.state.newEol.description;
+        let html = this.state.newPcn.description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
         console.log(div.innerText);
         length = div.innerText.length;
         this.setState({descriptionLength: 2000})
-        this.setState({descriptionLength: this.state.descriptionLength - length})
+        this.setState({descriptionLength: this.state.descriptionLength -= length})
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.newEol);
-        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newEol});
+        console.log(this.state.newPcn);
+        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newPcn});
     }
 
     handleSubmitPart = (event) => {
@@ -168,7 +167,6 @@ class PcnForm extends Component {
         const {classes} = this.props;
         return(
             <>
-            <Nav history={this.props.history} />
             <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
                 <h1 className={classes.formHeader}>PCN Form</h1>
                 <div className={classes.topElements}>
@@ -176,7 +174,7 @@ class PcnForm extends Component {
                         shrink: true,
                     }}
                     />
-                    <TextField className={classes.number} value={this.props.match.params.id} label="PCN #:" disabled />
+                    <TextField className={classes.number} value='000-000' label="PCN #:" disabled />
                 </div>
                 <br />
                 <label className={classes.label}>Description of Change: ({this.state.descriptionLength} characters remaining.)</label>
@@ -222,7 +220,7 @@ class PcnForm extends Component {
                     <h3 className={classes.userHeader}>Contact Info</h3>
                     <TextField className={classes.userName} value={this.props.reduxStore.user.username} label="Name" disabled />
                     <br />
-                    <TextField className={classes.contactInfo} label="Email" value={this.props.reduxStore.user.email} disabled />
+                    <TextField className={classes.contactInfo} label="Email" value="placeholder email" disabled />
                 </div>
                 <br />
                 <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
@@ -236,4 +234,4 @@ const mapReduxStoreToProps = reduxStore => ({
     reduxStore
 })
 
-export default withStyles(styles)(connect(mapReduxStoreToProps)(PcnForm));
+export default withStyles(styles)(connect(mapReduxStoreToProps)(EolForm));
