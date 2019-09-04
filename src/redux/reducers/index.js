@@ -3,7 +3,7 @@ import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
 import pcnInfo from './pcnInfoReducer';
-import getPcn from './getPcnReducer';
+import getPcn from './pcnReducer';
 import getDashboard from './getDashboardReducer';
 import createPcnReducer from './createPcnReducer';
 import searchPcn from './searchReducer';

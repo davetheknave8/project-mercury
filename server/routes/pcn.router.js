@@ -30,7 +30,8 @@ router.get('/', (req, res) => {
 // search route for main search page.
 router.get(`/search`, (req, res) => {
     console.log('req.query', req.query);
-        sqlValues = [`%${req.query.search}%`]
+        value = req.query.search.toUpperCase();
+        sqlValues = [`%${value}%`]
             const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn
             WHERE "type" LIKE $1)
