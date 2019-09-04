@@ -79,7 +79,7 @@ const styles = theme => ({
     audience: {
         display: 'inline-block',
         marginRight: '10%',
-        color: 'white',
+        color: 'black',
         width: '35%',
         textAlign: 'left',
         marginLeft: '10%'
@@ -130,7 +130,10 @@ class EolForm extends Component {
     state = {
         newEol: {
             date: 'yyyy-MM-dd',
-            description: '<p></p>'
+            description: '<p></p>',
+            lastTimeBuyDate: 'yyyy-MM-dd', // TODO add database 
+            lastTimeShipDate: 'yyyy-MM-dd',
+            audience: '<p><p>'
         },
         descriptionLength: 2000
     }
@@ -138,9 +141,17 @@ class EolForm extends Component {
     handleChange = (event, propToChange) => {
         console.log(propToChange);
         if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event.target.value}})
+            this.setState({
+                newEol: {
+                    ...this.state.newEol, 
+                    [propToChange]: event.target.value}
+            })
         } else {
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event}})
+            this.setState({
+                newEol: {
+                    ...this.state.newEol, 
+                    [propToChange]: event}
+            })
             console.log(this.state);
         }
         let html = this.state.newEol.description;
@@ -212,10 +223,20 @@ class EolForm extends Component {
                     <div className={classes.audience}>
                         <label>Audience:</label>
                         <br />
-                        <ReactQuill className={classes.audienceIn} placeholder="Add Audience..." onChange={event => this.handleChange(event, 'audience') } />                        
+                        <ReactQuill className={classes.audienceIn} placeholder="Add Audience..." onChange={(event) => this.handleChange(event, 'audience') } />                        
                     </div>
                 </div>
                 <br />
+                <div className={classes.audience}>
+                    <h3>EOL Dates</h3>
+                    <TextField className={classes.date} type="date" label="Last Time Buy:" onChange={event => this.handleChange(event, 'lastTimeBuyDate')}  InputLabelProps={{
+                        shrink: true,
+                    }}/>
+                    <TextField className={classes.date} type="date" label="Last Time Ship:" onChange={event => this.handleChange(event, 'lastTimeShipDate')}  InputLabelProps={{
+                        shrink: true,
+                    }}/>
+
+                </div>
                 <div className={classes.userDiv}>
                     <h3 className={classes.userHeader}>Contact Info</h3>
                     <TextField className={classes.userName} value={this.props.reduxStore.user.username} label="Name" disabled />
