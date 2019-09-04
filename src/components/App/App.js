@@ -13,7 +13,7 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import PmDashboard from '../PmDashboard/PmDashboard';
+import Dashboard from '../Dashboard/Dashboard';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import Search from '../Search/Search';
@@ -53,7 +53,7 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/dashboard"
-              component={PmDashboard}
+              component={Dashboard}
             />
             <ProtectedRoute
               exact
