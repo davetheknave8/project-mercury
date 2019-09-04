@@ -4,7 +4,7 @@ import axios from 'axios';
 function* fetchDashboard(action) {
     console.log('in fetchDashboard, action.payload:', action.payload)
     try {
-        const response = yield axios.get(`/api/pcn/getdashboard`);
+        const response = yield axios.get(`/api/pcn/getdashboard/${action.payload}`);
         console.log('in fetchDashboard, response.data is:', response.data)
         yield put({ type: 'SET_DASHBOARD', payload: response.data}) 
     } catch (error) {
