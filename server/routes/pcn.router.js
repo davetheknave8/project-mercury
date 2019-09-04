@@ -3,9 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**
- * GET route template
- */
+
 router.get('/', (req, res) => {
     const queryText = `(SELECT pcn."type" as "type", pcn.number as number, pcn.status as status, pcn.date as date, pcn.change_description as description
     FROM pcn)
