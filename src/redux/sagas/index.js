@@ -5,6 +5,8 @@ import userSaga from './userSaga';
 import fetchPcnInfoSaga from './fetchPcnInfoSaga';
 import fetchPcnSaga from './fetchPcnSaga';
 import fetchDashboardSaga from './fetchDashboardSaga';
+import createPcnSaga from './createPcnSaga';
+import editPcnSaga from './editPcnSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +23,7 @@ export default function* rootSaga() {
     fetchPcnInfoSaga(),
     fetchPcnSaga(),
     fetchDashboardSaga(),
+    createPcnSaga(),
+    editPcnSaga()
   ]);
 }
