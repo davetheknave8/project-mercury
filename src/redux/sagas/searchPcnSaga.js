@@ -2,7 +2,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* searchSaga (action) {
-    console.log('search saga action.payload', action.payload)
+    
     try{
         // const response = yield axios.get(`/api/pcn/info?id=${action.payload.id}&type=${action.payload.type}`);
         const response = yield axios.get(`/api/pcn/search?search=${action.payload}`);
