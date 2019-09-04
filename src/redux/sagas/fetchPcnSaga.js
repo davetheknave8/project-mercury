@@ -1,6 +1,5 @@
-import { put  } from 'redux-saga/effects';
 import axios from 'axios';
-import {takeEvery} from 'redux-saga/effects';
+import {put, takeEvery} from 'redux-saga/effects';
 
 // GETs all the main dates for the calendar and sends them to the DOM.
 
