@@ -1,5 +1,5 @@
 // Reducer to grab all PCNs, EOLs, and NPIs.
-const getDashboard = (state = [], action) => {
+const pmDashboard = (state = [], action) => {
     switch (action.type) {
         case 'SET_DASHBOARD':
             return action.payload;
@@ -11,4 +11,4 @@ const getDashboard = (state = [], action) => {
 
 
 
-export default getDashboard;
+export default pmDashboard;
