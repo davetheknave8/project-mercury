@@ -6,6 +6,7 @@ import pcnInfo from './pcnInfoReducer';
 import getPcn from './getPcnReducer';
 import getDashboard from './getDashboardReducer';
 import createPcnReducer from './createPcnReducer';
+import searchPcn from './searchReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   pcnInfo,
   getPcn, // will hold the pcn reducer information.
   getDashboard,
-  createPcnReducer
+  createPcnReducer,
+  searchPcn,
 });
 
 export default rootReducer;
