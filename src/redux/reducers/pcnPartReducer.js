@@ -1,7 +1,7 @@
-const pcnInfo = (state = [], action) => {
+const pcnPart = (state = [], action) => {
     switch (action.type) {
-        case 'SET_PCN_INFO':
-            return action.payload[0];
+        case 'SET_PCN_PARTS':
+            return action.payload;
         default:
             return state;
     }
@@ -9,4 +9,4 @@ const pcnInfo = (state = [], action) => {
 
 // loginMode will be on the redux state at:
 // state.loginMode
-export default pcnInfo;
+export default pcnPart;

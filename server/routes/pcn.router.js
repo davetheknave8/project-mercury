@@ -136,9 +136,21 @@ router.get('/info', (req, res) => {
     else {
         sendStatus(500);
     }
-
 });
 
+router.get('/pcnparts', (req, res) => {
+    console.log('getting parts for specific pcn, req.query is:', req.query)
+    let sqlText = 'select name, number, description from part join pcn_part on part.id = pcn_part.part_id where pcn_part.pcn_id = $1;';
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving pcn parts', error);
+                res.sendStatus(500)
+            })
+});
 
 
 module.exports = router;
