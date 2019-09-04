@@ -150,7 +150,7 @@ class PcnForm extends Component {
         console.log(div.innerText);
         length = div.innerText.length;
         this.setState({descriptionLength: 2000})
-        this.setState({descriptionLength: this.state.descriptionLength -= length})
+        this.setState({descriptionLength: this.state.descriptionLength - length})
     }
 
     handleSubmit = (event) => {
