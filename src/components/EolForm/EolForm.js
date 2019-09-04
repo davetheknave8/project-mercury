@@ -245,14 +245,17 @@ class EolForm extends Component {
                 </div>
                 <br />
                 <div className={classes.audience}>
-                    <h3>EOL Dates</h3>
+                    <label className={classes.notesLabel}>EOL Dates</label>
+                    <br/>
                     <TextField className={classes.date} type="date" label="Last Time Buy:" onChange={(event) => this.handleChange(event, 'lastTimeBuyDate')}  InputLabelProps={{
                         shrink: true,
                     }}/>
                     <TextField className={classes.date} type="date" label="Last Time Ship:" onChange={(event) => this.handleChange(event, 'lastTimeShipDate')}  InputLabelProps={{
                         shrink: true,
                     }}/>
-
+                </div>
+                <div className={classes.audience}>
+                    
                 </div>
                 <div className={classes.userDiv}>
                     <h3 className={classes.userHeader}>Contact Info</h3>
