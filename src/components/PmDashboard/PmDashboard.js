@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+<<<<<<< HEAD:src/components/PmDashboard/PmDashboard.js
+import './PmDashboard.css';
+import PmDashboardList from '../PmDashboardList/PmDashboardList';
+=======
 import './Dashboard.css';
 import DashboardListItem from '../DashboardListItem/DashboardListItem';
 import Nav from '../Nav/Nav';
+>>>>>>> 95c5130b64f9ce1f4302c39adabd3a99388961ba:src/components/Dashboard/Dashboard.js
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -113,7 +118,7 @@ class Dashboard extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.reduxStore.getDashboard.map(item => <DashboardListItem key={item.id} item={item} />
+            {this.props.reduxStore.getDashboard.map(item => <PmDashboardList key={item.id} item={item} />
             )}
           </TableBody>
         </Table>
