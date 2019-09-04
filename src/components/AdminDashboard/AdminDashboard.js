@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Dashboard.css';
-import DashboardListItem from '../PmDashboardList/PmDashboardList';
+import './AdminDashboard.css';
+import AdminDashboardList from '../AdminDashboardList/AdminDashboardList';
+import Nav from '../Nav/Nav';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -25,7 +26,7 @@ const styles = theme => ({
 })
 
 
-class Dashboard extends Component {
+class AdminDashboard extends Component {
 
 
     componentDidMount() {
@@ -33,7 +34,7 @@ class Dashboard extends Component {
             userId: this.props.reduxStore.user.id,
             status: ''
         }
-        this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data })
+        this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data })
     }
 
     // // Change table row background color
@@ -45,41 +46,63 @@ class Dashboard extends Component {
     //   }
     // }
 
-    handlePublished() {
-        console.log('handlePublished');
-        //this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
-    }
-
     handlePending() {
-        console.log('handlePending');
-        //this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
+        const data = {
+            userId: this.props.reduxStore.user.id,
+            status: 'pending'
+        }
+        this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
 
-    handleInProgress() {
-        console.log('handleInProgress');
-        //this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
+    handlePublished() {
+        const data = {
+            userId: this.props.reduxStore.user.id,
+            status: 'published'
+        }
+        this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
+    }
+
+    handleIncomplete() {
+        const data = {
+            userId: this.props.reduxStore.user.id,
+            status: 'incomplete'
+        }
+        this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
 
     handleDenied() {
-        console.log('handleDenied', this.props.reduxStore.item);
         const data = {
             userId: this.props.reduxStore.user.id,
             status: 'denied'
         }
-        this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
+        this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
 
     handleAll() {
-        console.log('handleAll', this.props.reduxStore.user.id);
-        this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id });
+        const data = {
+            userId: this.props.reduxStore.user.id,
+            status: ''
+        }
+        this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
 
     render() {
         const { classes } = this.props;
         return (
             <>
+                <Nav history={this.props.history} />
                 <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
-                <p className="welcome">Filter: &nbsp;&nbsp;<button onClick={() => this.handlePublished()}>Published</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handlePending()}>Pending</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleInProgress()}>In Progress</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleDenied()}>Denied</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleAll()}>All</button></p>
+                <p className="welcome">Filter: &nbsp;&nbsp;
+          <button onClick={() => this.handlePending()}>Pending</button>
+                    &nbsp;&nbsp;&nbsp;
+          <button onClick={() => this.handlePublished()}>Published</button>
+                    &nbsp;&nbsp;&nbsp;
+          <button onClick={() => this.handleIncomplete()}>Incomplete</button>
+                    &nbsp;&nbsp;&nbsp;
+          <button onClick={() => this.handleDenied()}>Denied</button>
+                    &nbsp;&nbsp;&nbsp;
+          <button onClick={() => this.handleAll()}>All</button>
+                </p>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
@@ -90,7 +113,7 @@ class Dashboard extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.reduxStore.getDashboard.map(item => <DashboardListItem key={item.id} item={item} />
+                        {this.props.reduxStore.pmDashboard.map(item => <AdminDashboardList key={item.id} item={item} />
                         )}
                     </TableBody>
                 </Table>
@@ -103,4 +126,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default withStyles(styles)(connect(mapStateToProps)(Dashboard));
+export default withStyles(styles)(connect(mapStateToProps)(AdminDashboard));
