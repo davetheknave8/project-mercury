@@ -9,6 +9,7 @@ import pmDashboard from './pmDashboardReducer';
 import createPcnReducer from './createPcnReducer';
 import searchPcn from './searchReducer';
 import adminDashboard from './adminDashboardReducer';
+import currentPartsReducer from './currentPartsReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   createPcnReducer,
   searchPcn,
   adminDashboard,
+  currentPartsReducer
 });
 
 export default rootReducer;

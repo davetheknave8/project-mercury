@@ -131,14 +131,20 @@ class PcnForm extends Component {
     state = {
         newPcn: {
             date: 'yyyy-MM-dd',
-            description: '<p></p>'
+            description: '<p></p>',
+            number: this.props.match.params.id
         },
         newPart: {
             name: '',
             description: '',
-            number: ''
+            number: '',
+            pcnNumber: this.props.match.params.id
         },
         descriptionLength: 2000
+    }
+
+    componentDidMount = () => {
+        this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {pcnId: this.props.match.params.id}})
     }
 
     handleChange = (event, propToChange) => {
@@ -206,7 +212,7 @@ class PcnForm extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.reduxStore.currentPcnParts ? this.props.reduxStore.currentPcnParts.map(part => <PartListItem part={part} />) : <></>}
+                        {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
                         <TableRow>
                             <TableCell className={classes.cell}><TextField value={this.state.newPart.number} onChange={event => this.handleChangePart(event, 'number')} placeholder="Add Part #..." /></TableCell>
                             <TableCell className={classes.cell}><TextField value={this.state.newPart.name} onChange={event => this.handleChangePart(event, 'name')} placeholder="Add Name..." /></TableCell>

@@ -1,4 +1,4 @@
-const currentPartsReducer = (store = [], action) => {
+const currentPartsReducer = (state = [], action) => {
     if(action.type === 'SET_CURRENT_PARTS'){
         return action.payload;
     } else{
