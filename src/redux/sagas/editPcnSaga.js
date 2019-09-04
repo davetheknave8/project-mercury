@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* editPcn(action){
@@ -10,8 +10,8 @@ function* editPcn(action){
     }
 }
 
-function editPcnSaga(){
-    takeEvery('EDIT_PCN', editPcn);
+function* editPcnSaga(){
+    yield takeEvery('EDIT_PCN', editPcn);
 }
 
 export default editPcnSaga;
