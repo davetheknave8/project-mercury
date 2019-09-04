@@ -108,6 +108,59 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
     }
 });
 
+router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
+    console.log('get admin dashboard, req.query is', req.query);
+    if (req.query.status != '') {
+        const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
+                            pcn.status as status, pcn.date as date
+                            FROM pcn
+                            WHERE status = $2)
+                            union
+                            (SELECT eol."type" as "type", eol.id as id, 
+                            eol.status as status, eol.date as date
+                            FROM eol
+                            WHERE status = $2)
+                            union
+                            (SELECT npi."type" as "type", npi.id as id, 
+                            npi.status as status, npi.date as date
+                            FROM npi
+                            WHERE status = $2);`
+        const sqlValues = [req.query.id, req.query.status]
+        pool.query(sqlText, sqlValues)
+            .then(response => {
+                console.log(response.rows);
+                res.send(response.rows)
+            })
+            .catch(error => {
+                console.log('get admin dashboard error', error);
+                res.sendStatus(500)
+            })
+    }
+    else {
+        const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
+                            pcn.status as status, pcn.date as date
+                            FROM pcn)
+                            union
+                            (SELECT eol."type" as "type", eol.id as id, 
+                            eol.status as status, eol.date as date
+                            FROM eol)
+                            union
+                            (SELECT npi."type" as "type", npi.id as id, 
+                            npi.status as status, npi.date as date
+                            FROM npi);`
+        const sqlValues = [req.query.id]
+        pool.query(sqlText, sqlValues)
+            .then(response => {
+                console.log(response.rows);
+                res.send(response.rows)
+            })
+            .catch(error => {
+                console.log('get admin dashboard error', error);
+                res.sendStatus(500)
+            })
+    }
+});
+
 /**
  * POST route template
  */
