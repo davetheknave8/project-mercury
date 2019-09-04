@@ -59,6 +59,12 @@ class PcnView extends Component {
         this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id});
     }
 
+    renderButton = () => {
+        if( this.props.reduxStore.user.admin = 1 ){
+
+        }
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -102,7 +108,10 @@ class PcnView extends Component {
                             this.props.reduxStore.pcnInfo.notes
                     }}>
                     </div>
-
+            </div>
+            <div className="pcnbuttons">
+                <Button variant='contained' color='primary' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
+                {() => this.renderButton()}
             </div>
 
             </>
