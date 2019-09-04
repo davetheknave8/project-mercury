@@ -178,7 +178,21 @@ router.get('/pcnparts', (req, res) => {
 
 //POST Routes
 
-router.post('/create')
+router.post('/create', (req, res) => {
+    console.log(req.body.type);
+    if(req.body.type === 'pcn'){
+        const sqlText = `INSERT INTO pcn DEFAULT VALUES RETURNING id;`;
+        pool.query(sqlText)
+            .then(response => {
+                console.log(response.rows);
+                res.send(response.rows);
+            })
+            .catch(error => {
+                console.log('error creating new pcn');
+                res.sendStatus(500);
+            })
+    }
+})
 
 
 module.exports = router;

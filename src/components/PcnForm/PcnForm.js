@@ -176,7 +176,7 @@ class PcnForm extends Component {
                         shrink: true,
                     }}
                     />
-                    <TextField className={classes.number} value='000-000' label="PCN #:" disabled />
+                    <TextField className={classes.number} value={this.props.match.params.id} label="PCN #:" disabled />
                 </div>
                 <br />
                 <label className={classes.label}>Description of Change: ({this.state.descriptionLength} characters remaining.)</label>
