@@ -9,10 +9,7 @@
 tr:nth-child(even) {
     background-color: #E5E7EE;
 }
+
 .table {
     width: 50%
-}
-
-.header {
-    background-color: #666F99
 }
