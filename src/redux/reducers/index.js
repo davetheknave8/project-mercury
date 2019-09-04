@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
   pcnInfo,
   getPcn, // will hold the pcn reducer information.
   getDashboard,
+  getDashboard,
   createPcnReducer
 });
 
