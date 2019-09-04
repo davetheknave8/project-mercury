@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Dashboard.css';
 import DashboardListItem from '../DashboardListItem/DashboardListItem';
+import Nav from '../Nav/Nav';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -78,6 +79,7 @@ class Dashboard extends Component {
     const { classes } = this.props;
     return (
       <>
+        <Nav history={this.props.history} />
         <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
         <p className="welcome">Filter: &nbsp;&nbsp;<button onClick={() => this.handlePublished()}>Published</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handlePending()}>Pending</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleInProgress()}>In Progress</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleDenied()}>Denied</button>&nbsp;&nbsp;&nbsp;<button onClick={() => this.handleAll()}>All</button></p>
         <Table className={classes.table}>
