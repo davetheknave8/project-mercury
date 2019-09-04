@@ -54,29 +54,26 @@ router.get(`/search`, (req, res) => {
     })
     })
 
-router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
-    console.log('get dashboard', req.user);
-    const sqlText = `(SELECT "user".id as id, pcn."type" as "type", pcn.number as number, 
+router.get('/getdashboard/:id', rejectUnauthenticated, (req, res) => {
+    console.log('get dashboard', req.params.id);
+    const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
                         pcn.status as status, pcn.date as date
                         FROM pcn
-                        JOIN "user" on "user".id = pcn.creator_id
-                        WHERE "user".id = $1)
+                        WHERE creator_id = $1)
                         union
-                        (SELECT "user".id as id, eol."type" as "type", eol.number as number, 
+                        (SELECT eol."type" as "type", eol.id as id, 
                         eol.status as status, eol.date as date
                         FROM eol
-                        JOIN "user" on "user".id = eol.creator_id
-                        WHERE "user".id = $1)
+                        WHERE creator_id = $1)
                         union
-                        (SELECT "user".id as id, npi."type" as "type", npi.number as number, 
+                        (SELECT npi."type" as "type", npi.id as id, 
                         npi.status as status, npi.date as date
                         FROM npi
-                        JOIN "user" on "user".id = npi.creator_id
-                        WHERE "user".id = $1);`
-    const sqlValues = [req.user.id]
+                        WHERE creator_id = $1);`
+    const sqlValues = [req.params.id]
     pool.query(sqlText, sqlValues)
     .then(response => {
-        console.log(response.rows)
+        console.log(response.rows);
         res.send(response.rows)
     })
     .catch(error => {
