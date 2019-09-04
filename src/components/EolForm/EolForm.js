@@ -128,22 +128,43 @@ let length = 0;
 
 class EolForm extends Component {
     state = {
-        newPcn: {
+        newEol: {
             date: 'yyyy-MM-dd',
-            description: '<p></p>'
+            description: '<p></p>',
+            lastTimeBuyDate: 'yyyy-MM-dd', // TODO add database 
+            lastTimeShipDate: 'yyyy-MM-dd',
+            //audience: '<p><p>',
+        },
+        newPart: {
+            name: '',
+            description: '',
+            number: '',
+            pcnNumber: this.props.match.params.id,
+            replacementNumber: '',
         },
         descriptionLength: 2000
     }
-
+    
+    componentDidMount = () => {
+        this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {pcnId: this.props.match.params.id}})
+    }
     handleChange = (event, propToChange) => {
         console.log(propToChange);
         if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
-            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event.target.value}})
+            this.setState({
+                newEol: {
+                    ...this.state.newEol, 
+                    [propToChange]: event.target.value}
+            })
         } else {
-            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event}})
+            this.setState({
+                newEol: {
+                    ...this.state.newEol, 
+                    [propToChange]: event}
+            })
             console.log(this.state);
         }
-        let html = this.state.newPcn.description;
+        let html = this.state.newEol.description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
@@ -155,12 +176,18 @@ class EolForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.newPcn);
-        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newPcn});
+        console.log(this.state.newEol);
+        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newEol});
     }
-
+    // sends newpart with replacment number.
     handleSubmitPart = (event) => {
         console.log('submit part');
+        this.props.dispatch({type: 'CREATE_PART', payload: this.state.newPart})
+        this.setState({newPart: {name: '', number: '', description: '', replacementNumber: ''}})
+    }
+
+    handleChangePart = (event, propToChange) => {
+        this.setState({newPart: {...this.state.newPart, [propToChange]: event.target.value}})
     }
 
     render(){
@@ -168,7 +195,7 @@ class EolForm extends Component {
         return(
             <>
             <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
-                <h1 className={classes.formHeader}>PCN Form</h1>
+                <h1 className={classes.formHeader}>EOL Form</h1>
                 <div className={classes.topElements}>
                     <TextField className={classes.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
                         shrink: true,
@@ -189,15 +216,16 @@ class EolForm extends Component {
                             <TableCell>Part Affected</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell>Description</TableCell>
-                            <TableCell>&nbsp;</TableCell>
+                            <TableCell>Replacement Part</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {this.props.reduxStore.currentPcnParts ? this.props.reduxStore.currentPcnParts.map(part => <PartListItem part={part} />) : <></>}
                         <TableRow>
-                            <TableCell className={classes.cell}><TextField placeholder="Add Part #..." /></TableCell>
-                            <TableCell className={classes.cell}><TextField placeholder="Add Name..." /></TableCell>
-                            <TableCell className={classes.cell}><TextField placeholder="Add Description..." /></TableCell>
+                            <TableCell className={classes.cell}><TextField onChange={event => this.handleChangePart(event, 'number')} placeholder="Add Part #..." /></TableCell>
+                            <TableCell className={classes.cell}><TextField  onChange={event => this.handleChangePart(event, 'name')} placeholder="Add Name..." /></TableCell>
+                            <TableCell className={classes.cell}><TextField  onChange={event => this.handleChangePart(event, 'description')} placeholder="Add Description..." /></TableCell>
+                            <TableCell className={classes.cell}><TextField  onChange={event => this.handleChangePart(event, 'replacementNumber')} placeholder="Add Replacement Part Number..."/></TableCell>
                             <TableCell className={classes.cell}><AddIcon style={{cursor: 'pointer'}} onClick={event => this.handleSubmitPart(event)} /></TableCell>
                         </TableRow>
                     </TableBody>
@@ -212,10 +240,20 @@ class EolForm extends Component {
                     <div className={classes.audience}>
                         <label>Audience:</label>
                         <br />
-                        <ReactQuill className={classes.audienceIn} placeholder="Add Audience..." onChange={event => this.handleChange(event, 'audience') } />                        
+                        <ReactQuill className={classes.audienceIn} placeholder="Add Audience..." onChange={(event) => this.handleChange(event, 'audience') } />                        
                     </div>
                 </div>
                 <br />
+                <div className={classes.audience}>
+                    <h3>EOL Dates</h3>
+                    <TextField className={classes.date} type="date" label="Last Time Buy:" onChange={(event) => this.handleChange(event, 'lastTimeBuyDate')}  InputLabelProps={{
+                        shrink: true,
+                    }}/>
+                    <TextField className={classes.date} type="date" label="Last Time Ship:" onChange={(event) => this.handleChange(event, 'lastTimeShipDate')}  InputLabelProps={{
+                        shrink: true,
+                    }}/>
+
+                </div>
                 <div className={classes.userDiv}>
                     <h3 className={classes.userHeader}>Contact Info</h3>
                     <TextField className={classes.userName} value={this.props.reduxStore.user.username} label="Name" disabled />
