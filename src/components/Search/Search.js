@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import SearchList from '../SearchList/SearchList'
+import SearchListItem from '../SearchListItem/SearchListItem'
 
 //Material UI imports
 import { withStyles } from '@material-ui/core/styles';
@@ -32,9 +32,9 @@ const styles = {
     },
     table:{
         
-        minWidth: 'auto',
-        marginLeft:20,
-        marginRight:20,
+        width: '80%',
+        margin: 'auto',
+        
     },
     input: {
         marginLeft: 8,
@@ -63,12 +63,12 @@ class Search extends Component {
         this.props.dispatch({type:'FETCH_PCN_LIST'});
         // this.props.dispatch({type: 'GET_SEARCH'});
     }
-//takes the input information and holds it in the new setState.
-    handleChange = (event, propertyToChange) =>{
-        console.log('entered search', event.target.value);
-        this.setState({
-            [propertyToChange]:event.target.value,
-        })
+    //takes the input information and holds it in the new setState.
+    handleChange = (event) =>{
+        console.log('entered search', event.target.value.toUpperCase());
+        // this.setState({
+        //     [propertyToChange]:event.target.value,
+        // })
         this.props.dispatch({type:'GET_SEARCH', payload: event.target.value})
         // console.log(this.state.search);
     };
@@ -103,7 +103,7 @@ class Search extends Component {
             </TableHead>  
                 <TableBody>
                     {this.props.reduxStore.getPcn.map(item => 
-                    <SearchList  key={item.id} item={item}/>)}
+                    <SearchListItem  key={item.id} item={item}/>)}
                 </TableBody>
             </Table> 
       </Paper>

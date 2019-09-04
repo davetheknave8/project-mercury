@@ -31,7 +31,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -62,7 +61,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/pcn-form"
+              path="/pcn-form/:id"
               component={PcnForm}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,

@@ -8,6 +8,7 @@ import './Nav.css';
 import UserIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
+import CreateIcon from '@material-ui/icons/Build';
 
 //Material-UI
 import Button from '@material-ui/core/Button';
@@ -24,7 +25,7 @@ const styles = theme => ({
     color: 'white',
     paddingRight: '0%',
     paddingLeft: '0%',
-    paddingTop: '13%',
+    paddingTop: '9.5%',
     paddingBottom: '13%'
   },
   paper: {
@@ -34,13 +35,28 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     outline: 'none'
+  },
+  input: {
+    width: '100%',
+    margin: 'auto'
+  },
+  passBtn: {
+    marginTop: '5%',
+    marginLeft: '40%'
   }
 })
 
 class Nav extends Component{
   state = {
     open: null,
-    show: false
+    show: false,
+    showCreate: null
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if(this.props.reduxStore.createPcnReducer !== prevProps.reduxStore.createPcnReducer){
+      this.props.push(`/pcn-form/${this.props.reduxStore.createPcnReducer.id}`)
+    }
   }
 
   handleOpenSettings = event => {
@@ -64,13 +80,36 @@ class Nav extends Component{
   }
 
   handleSubmitNewPassword = event => {
+    event.preventDefault();
     this.setState({show: false})
-    console.log(this.state.newPassword);
+    console.log(this.props.user);
   }
 
   handleChange = (event, propToChange) => {
     this.setState({newPassword: {...this.state.newPassword, [propToChange]: event.target.value}})
   }
+
+  handleOpenCreate = (event) => {
+    this.setState({showCreate: event.currentTarget})
+  }
+
+  handleCloseCreate = (event) => {
+    this.setState({showCreate: null})
+  }
+
+  handlePcn = () => {
+    console.log('create pcn');
+    this.props.dispatch({type: 'CREATE_PCN', payload: {type: 'pcn'}})
+  }
+
+  handleEol = () => {
+    console.log('create eol');
+  }
+
+  handleNpi = () => {
+    console.log('create npi');
+  }
+
 
   render(){
     const {classes} = this.props;
@@ -101,13 +140,13 @@ class Nav extends Component{
                 <div className={classes.paper} style={{top: '20%', left: '35%'}}>
                   <Typography style={{textAlign: 'center'}}>Change Password</Typography>
                   <form onSubmit={event => this.handleSubmitNewPassword(event)}>
-                    <TextField type="password" onChange={event => this.handleChange(event, 'currentPassword')} label="Current Password" />
+                    <TextField className={classes.input} type="password" onChange={event => this.handleChange(event, 'currentPassword')} label="Current Password" />
                     <br />
-                    <TextField type="password" onChange={event => this.handleChange(event, 'newPassword')} label="New Password" />
+                    <TextField className={classes.input} type="password" onChange={event => this.handleChange(event, 'newPassword')} label="New Password" />
                     <br />
-                    <TextField type="password" onChange={event => this.handleChange(event, 'reenterPassword')} label="Re-enter New Password" />
+                    <TextField className={classes.input} type="password" onChange={event => this.handleChange(event, 'reenterPassword')} label="Re-enter New Password" />
                     <br />
-                    <Button type="submit">Submit</Button>
+                    <Button variant="contained" className={classes.passBtn} type="submit">Submit</Button>
                   </form>
                 </div>
               </Modal>
@@ -121,7 +160,19 @@ class Nav extends Component{
             <SearchIcon />
           </Link>
           {this.props.user.id && (
-            <LogOutButton className="nav-link" />
+            <>
+              <Button onClick={event => this.handleOpenCreate(event)} size="small" className={classes.settingsBtn}><CreateIcon /></Button>
+              <Menu
+                id="simple-menu"
+                anchorEl={this.state.showCreate}
+                open={Boolean(this.state.showCreate)}
+                onClose={this.handleCloseCreate}>
+                  <MenuItem onClick={this.handlePcn}>PCN</MenuItem>
+                  <MenuItem onClick={this.handleNpi}>NPI</MenuItem>
+                  <MenuItem onClick={this.handleEol}>EOL</MenuItem>
+              </Menu>
+              <LogOutButton className="nav-link" />
+            </>
           )}
         </div>
       </div>
@@ -135,8 +186,9 @@ class Nav extends Component{
 // if they are logged in, we show them a few more links 
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({ user }) => ({ user });
-const mapStateToProps = state => ({
-  user: state.user,
+const mapStateToProps = reduxStore => ({
+  user: reduxStore.user,
+  reduxStore
 });
 
 export default withStyles(styles)(connect(mapStateToProps)(Nav));

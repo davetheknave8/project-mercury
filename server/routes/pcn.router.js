@@ -3,10 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**
- * GET route template
- */
-//main route for getting all the documents.
 router.get('/', (req, res) => {
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn)
@@ -30,7 +26,8 @@ router.get('/', (req, res) => {
 // search route for main search page.
 router.get(`/search`, (req, res) => {
     console.log('req.query', req.query);
-        sqlValues = [`%${req.query.search}%`]
+        value = req.query.search.toUpperCase();
+        sqlValues = [`%${value}%`]
             const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn
             WHERE "type" LIKE $1)
@@ -55,32 +52,60 @@ router.get(`/search`, (req, res) => {
     })
 });
 
-router.get('/getdashboard/:id', rejectUnauthenticated, (req, res) => {
-    console.log('get dashboard', req.params.id);
-    const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
-                        pcn.status as status, pcn.date as date
-                        FROM pcn
-                        WHERE creator_id = $1)
-                        union
-                        (SELECT eol."type" as "type", eol.id as id, 
-                        eol.status as status, eol.date as date
-                        FROM eol
-                        WHERE creator_id = $1)
-                        union
-                        (SELECT npi."type" as "type", npi.id as id, 
-                        npi.status as status, npi.date as date
-                        FROM npi
-                        WHERE creator_id = $1);`
-    const sqlValues = [req.params.id]
-    pool.query(sqlText, sqlValues)
-    .then(response => {
-        console.log(response.rows);
-        res.send(response.rows)
-    })
-    .catch(error => {
-        console.log('get dashboard error', error);
-        res.sendStatus(500)
-    })
+router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
+    console.log('get dashboard, req.query is', req.query);
+    if( req.query.status != '' ){
+        const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
+                            pcn.status as status, pcn.date as date
+                            FROM pcn
+                            WHERE creator_id = $1 AND status = $2)
+                            union
+                            (SELECT eol."type" as "type", eol.id as id, 
+                            eol.status as status, eol.date as date
+                            FROM eol
+                            WHERE creator_id = $1 AND status = $2)
+                            union
+                            (SELECT npi."type" as "type", npi.id as id, 
+                            npi.status as status, npi.date as date
+                            FROM npi
+                            WHERE creator_id = $1 AND status = $2);`
+        const sqlValues = [req.query.id, req.query.status]
+        pool.query(sqlText, sqlValues)
+        .then(response => {
+            console.log(response.rows);
+            res.send(response.rows)
+        })
+        .catch(error => {
+            console.log('get dashboard error', error);
+            res.sendStatus(500)
+        })
+    }
+    else{
+        const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
+                            pcn.status as status, pcn.date as date
+                            FROM pcn
+                            WHERE creator_id = $1)
+                            union
+                            (SELECT eol."type" as "type", eol.id as id, 
+                            eol.status as status, eol.date as date
+                            FROM eol
+                            WHERE creator_id = $1)
+                            union
+                            (SELECT npi."type" as "type", npi.id as id, 
+                            npi.status as status, npi.date as date
+                            FROM npi
+                            WHERE creator_id = $1);`
+        const sqlValues = [req.query.id]
+        pool.query(sqlText, sqlValues)
+            .then(response => {
+                console.log(response.rows);
+                res.send(response.rows)
+            })
+            .catch(error => {
+                console.log('get dashboard error', error);
+                res.sendStatus(500)
+            })
+    }
 });
 
 /**
@@ -151,6 +176,10 @@ router.get('/pcnparts', (req, res) => {
                 res.sendStatus(500)
             })
 });
+
+//POST Routes
+
+router.post('/create')
 
 
 module.exports = router;
