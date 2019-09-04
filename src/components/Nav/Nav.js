@@ -55,7 +55,7 @@ class Nav extends Component{
 
   componentDidUpdate = (prevProps) => {
     if(this.props.reduxStore.createPcnReducer !== prevProps.reduxStore.createPcnReducer){
-      this.props.push(`/pcn-form/${this.props.reduxStore.createPcnReducer.id}`)
+      this.props.history.push(`/pcn-form/${this.props.reduxStore.createPcnReducer[0].id}`)
     }
   }
 
