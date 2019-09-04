@@ -113,7 +113,7 @@ class Dashboard extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.reduxStore.getDashboard.map(item => <PmDashboardList key={item.id} item={item} />
+            {this.props.reduxStore.pmDashboard.map(item => <PmDashboardList key={item.id} item={item} />
             )}
           </TableBody>
         </Table>
