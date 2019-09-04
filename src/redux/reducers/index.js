@@ -5,7 +5,7 @@ import user from './userReducer';
 import pcnInfo from './pcnInfoReducer';
 import pcnPart from './pcnPartReducer';
 import getPcn from './getPcnReducer';
-import getDashboard from './getDashboardReducer';
+import pmDashboard from './pmDashboardReducer';
 import createPcnReducer from './createPcnReducer';
 import searchPcn from './searchReducer';
 
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   pcnInfo, // stores details of a selected PCN for viewing
   pcnPart, // stores parts attached to a selected PCN
   getPcn, // will hold the pcn reducer information.
-  getDashboard,
+  pmDashboard,
   createPcnReducer,
   searchPcn,
 });
