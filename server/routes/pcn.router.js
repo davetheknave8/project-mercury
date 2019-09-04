@@ -114,19 +114,18 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
                             pcn.status as status, pcn.date as date
                             FROM pcn
-                            WHERE status = $2)
+                            WHERE status = $1)
                             union
                             (SELECT eol."type" as "type", eol.id as id, 
                             eol.status as status, eol.date as date
                             FROM eol
-                            WHERE status = $2)
+                            WHERE status = $1)
                             union
                             (SELECT npi."type" as "type", npi.id as id, 
                             npi.status as status, npi.date as date
                             FROM npi
-                            WHERE status = $2);`
-        const sqlValues = [req.query.id, req.query.status]
-        pool.query(sqlText, sqlValues)
+                            WHERE status = $1);`
+        pool.query(sqlText, [req.query.status])
             .then(response => {
                 console.log(response.rows);
                 res.send(response.rows)
@@ -148,8 +147,7 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
                             (SELECT npi."type" as "type", npi.id as id, 
                             npi.status as status, npi.date as date
                             FROM npi);`
-        const sqlValues = [req.query.id]
-        pool.query(sqlText, sqlValues)
+        pool.query(sqlText)
             .then(response => {
                 console.log(response.rows);
                 res.send(response.rows)

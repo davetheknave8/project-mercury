@@ -26,7 +26,7 @@ const styles = theme => ({
 })
 
 
-class Dashboard extends Component {
+class PmDashboard extends Component {
 
 
   componentDidMount() {
@@ -126,4 +126,4 @@ const mapStateToProps = (reduxStore) => ({
   reduxStore
 })
 
-export default withStyles(styles)(connect(mapStateToProps)(Dashboard));
+export default withStyles(styles)(connect(mapStateToProps)(PmDashboard));
