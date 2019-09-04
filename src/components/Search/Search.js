@@ -53,9 +53,9 @@ const styles = {
 class Search extends Component {
     
 
-    state = {
-        search: '',
-    }
+    // state = {
+    //     search: '',
+    // }
 
 
     componentDidMount(){
@@ -63,14 +63,16 @@ class Search extends Component {
     }
 //takes the input information and holds it in the new setState.
     handleChange = (event, propertyToChange) =>{
-        console.log('enetered search', event.target.value);
+        console.log('entered search', event.target.value);
         this.setState({
             [propertyToChange]:event.target.value,
         })
+        this.props.dispatch({type:'GET_SEARCH', payload: event.target.value})
+        // console.log(this.state.search);
     };
-// handle submit dispatches to the getPcnReducer.
+// handle submit dispatches to the Search Reducer.
     handleSubmit = () => {
-        this.props.dispatch({type:'', payload: this.state.search})
+        // this.props.dispatch({type:'GET_SEARCH', payload: this.state.search})
         console.log('clicked submit')
     }
 
@@ -84,9 +86,9 @@ class Search extends Component {
         <Paper className={classes.root} elevation={1}>
             <IconButton className={classes.iconButton} aria-label="Menu">
             </IconButton>
-            <InputBase className={classes.input} placeholder="Search" onChange={(event) => this.handleChange(event, 'search')} />
-            <IconButton className={classes.iconButton} aria-label="Search" onSubmit={(event) => this.handleSubmit()}>
-            <SearchIcon />
+            <InputBase className={classes.input} placeholder="Search" onChange={(event) => this.handleChange(event)} />
+            <IconButton className={classes.iconButton} aria-label="Search">
+            <SearchIcon onSubmit={() => this.handleSubmit()} />
             </IconButton>
         </Paper>
 

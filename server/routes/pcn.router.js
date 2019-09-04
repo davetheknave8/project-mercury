@@ -6,26 +6,53 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET route template
  */
+//main route for getting all the documents.
 router.get('/', (req, res) => {
-    const queryText = `(SELECT pcn."type" as "type", pcn.number as number, pcn.status as status, pcn.date as date, pcn.change_description as description
+    const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
     FROM pcn)
     union
-    (SELECT eol."type" as "type", eol.number as number, 
+    (SELECT eol."type" as "type", eol.id as id, 
     eol.status as status, eol.date as date, eol.change_description as descripiton
     FROM eol)
     union
-    (SELECT npi."type" as "type", npi.number as number, 
+    (SELECT npi."type" as "type", npi.id as id, 
     npi.status as status, npi.date as date, npi.description as descripiton
     FROM npi);`
     pool.query(queryText)
-    .then((result) =>{
-        res.send(result.rows);
+    .then((response) => {
+        res.send(response.rows);
     })
-    .catch((error)=>{
+    .catch((error)=> {
         console.log(`error in get route for main search window${error}`)
         res.sendStatus(500);
     })
 });
+// search route for main search page.
+router.get(`/search`, (req, res) => {
+    console.log('req.query', req.query);
+    sqlValues = [req.query.type]
+        const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
+        FROM pcn
+        WHERE "type" LIKE '$1%')
+        union
+        (SELECT eol."type" as "type", eol.id as id, 
+        eol.status as status, eol.date as date, eol.change_description as descripiton
+        FROM eol
+        WHERE "type" LIKE '$1%')
+        union
+        (SELECT npi."type" as "type", npi.id as id, 
+        npi.status as status, npi.date as date, npi.description as descripiton
+        FROM npi
+        WHERE "type" LIKE '$1%');`;
+    pool.query(queryText,sqlValues)
+    .then((response) => {
+        res.send(response.rows);
+    })
+    .catch((error)=> {
+        console.log(`error in get route for main search window${error}`)
+        res.sendStatus(500);
+    })
+    })
 
 router.get('/getdashboard/:id', rejectUnauthenticated, (req, res) => {
     console.log('get dashboard', req.params.id);
