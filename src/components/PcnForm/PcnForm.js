@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PartListItem from '../PartListItem/PartListItem';
+import Nav from '../Nav/Nav';
 
 //React Quill
 import ReactQuill from 'react-quill';
@@ -150,7 +151,7 @@ class PcnForm extends Component {
         console.log(div.innerText);
         length = div.innerText.length;
         this.setState({descriptionLength: 2000})
-        this.setState({descriptionLength: this.state.descriptionLength -= length})
+        this.setState({descriptionLength: this.state.descriptionLength - length})
     }
 
     handleSubmit = (event) => {
@@ -167,6 +168,7 @@ class PcnForm extends Component {
         const {classes} = this.props;
         return(
             <>
+            <Nav history={this.props.history} />
             <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
                 <h1 className={classes.formHeader}>PCN Form</h1>
                 <div className={classes.topElements}>
