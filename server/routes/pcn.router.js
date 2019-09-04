@@ -175,7 +175,7 @@ router.post('/', (req, res) => {
 
 router.get('/info', (req, res) => {
     console.log('getting specific pcn info, req.query is:', req.query)
-    if ( req.query.type === 'pcn' ){
+    if ( req.query.type === 'PCN' ){
         let sqlText = 'select * from pcn where id = $1';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
@@ -187,7 +187,7 @@ router.get('/info', (req, res) => {
                 res.sendStatus(500)
             })
     }
-    else if (req.query.type === 'eol') {
+    else if (req.query.type === 'EOL') {
         let sqlText = 'select * from eol where id = $1';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
@@ -199,7 +199,7 @@ router.get('/info', (req, res) => {
                 res.sendStatus(500)
             })
     }
-    else if (req.query.type === 'npi') {
+    else if (req.query.type === 'NPI') {
         let sqlText = 'select * from npi where id = $1';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
@@ -212,7 +212,7 @@ router.get('/info', (req, res) => {
             })
     }
     else {
-        sendStatus(500);
+        res.sendStatus(500);
     }
 });
 
