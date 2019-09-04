@@ -7,7 +7,7 @@ function* searchSaga (action) {
         // const response = yield axios.get(`/api/pcn/info?id=${action.payload.id}&type=${action.payload.type}`);
         const response = yield axios.get(`/api/pcn/search?search=${action.payload}`);
         console.log('in searchSaga', response);
-        yield put({type: 'SEARCH_REDUCER', payload: response.data})
+        yield put({type: 'SET_LIST', payload: response.data})
         console.log('response.data', response.data);
     } catch (error) {
         console.log('error in Getting PCN documents', error)
