@@ -19,10 +19,6 @@ const styles = theme => ({
 
 class DashboardListItem extends Component {
 
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: this.props.reduxStore.user.id })
-    }
-
     render() {
         const { classes } = this.props;
         return (
@@ -32,7 +28,6 @@ class DashboardListItem extends Component {
                     {/* <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell> */}
                     <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
                     <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
-                    <TableCell>&nbsp;</TableCell>
                 </TableRow>
             </>
         );
