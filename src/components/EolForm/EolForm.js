@@ -126,9 +126,9 @@ const styles = theme => ({
 
 let length = 0;
 
-class PcnForm extends Component {
+class EolForm extends Component {
     state = {
-        newEol: {
+        newPcn: {
             date: 'yyyy-MM-dd',
             description: '<p></p>'
         },
@@ -138,12 +138,12 @@ class PcnForm extends Component {
     handleChange = (event, propToChange) => {
         console.log(propToChange);
         if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event.target.value}})
+            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event.target.value}})
         } else {
-            this.setState({newEol: {...this.state.newEol, [propToChange]: event}})
+            this.setState({newPcn: {...this.state.newPcn, [propToChange]: event}})
             console.log(this.state);
         }
-        let html = this.state.newEol.description;
+        let html = this.state.newPcn.description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
@@ -155,8 +155,8 @@ class PcnForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.newEol);
-        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newEol});
+        console.log(this.state.newPcn);
+        this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newPcn});
     }
 
     handleSubmitPart = (event) => {
@@ -234,4 +234,4 @@ const mapReduxStoreToProps = reduxStore => ({
     reduxStore
 })
 
-export default withStyles(styles)(connect(mapReduxStoreToProps)(PcnForm));
+export default withStyles(styles)(connect(mapReduxStoreToProps)(EolForm));
