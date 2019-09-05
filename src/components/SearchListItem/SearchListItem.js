@@ -9,12 +9,23 @@ import TableRow from '@material-ui/core/TableRow';
 import './SearchListItem.css';
 
 const styles = theme => ({
-        tableCell: {
-            width: '20%',
-            padding: 'auto',
-            marginLeft: theme.spacing.unit,
-        },
-  });
+    tableCell1: {
+        textAlign: 'left',
+        width: '15%',
+    },
+    tableCell2: {
+        textAlign: 'left',
+        width: '15%',
+    },
+    tableCell3: {
+        textAlign: 'left',
+        width: '25%',
+    },
+    tableCell4: {
+        textAlign: 'left',
+        width: '45%',
+    },
+});
 
 
   
@@ -38,10 +49,10 @@ class SearchListItem extends Component {
             return(
                 <>
                 <TableRow className="tc" align="center" onClick={() => this.goToLink()}>
-                    <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell> 
-                    <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
-                    <TableCell className={classes.tableCell}>{div.innerText}</TableCell>
+                    <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell> 
+                    <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
+                    <TableCell className={classes.tableCell3}>{this.props.item.date}</TableCell>
+                    <TableCell className={classes.tableCell4}>{div.innerText}</TableCell>
                 </TableRow>
                 </>
             );
