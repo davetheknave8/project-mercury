@@ -159,16 +159,19 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
     }
 });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-
-});
-
-
-
-
+router.get('/current', (req, res) => {
+    const idToGet = req.query.id;
+    const sqlText = `SELECT * FROM pcn WHERE id=$1;`;
+    pool.query(sqlText, [idToGet])
+        .then(response => {
+            console.log(response.rows[0])
+            res.send(response.rows[0])
+        })
+        .catch(error => {
+            console.log('error getting current pcn', error);
+            res.sendStatus(500);
+        })
+})
 
 
 router.get('/info', (req, res) => {
@@ -232,9 +235,12 @@ router.get('/pcnparts', (req, res) => {
 
 router.post('/create', (req, res) => {
     console.log(req.body.type);
+    const userId = req.user.id
     if(req.body.type === 'pcn'){
-        const sqlText = `INSERT INTO pcn DEFAULT VALUES RETURNING id;`;
-        pool.query(sqlText)
+        const sqlText = `INSERT INTO pcn(creator_id, contact_id)
+                            VALUES($1, $2)
+                            RETURNING id;`;
+        pool.query(sqlText, [userId, userId])
             .then(response => {
                 console.log(response.rows);
                 res.send(response.rows);
