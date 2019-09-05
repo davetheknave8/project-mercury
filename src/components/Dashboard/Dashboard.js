@@ -10,7 +10,7 @@ class Dashboard extends Component {
             return <PmDashboard history={this.props.history} />;
         }
         else if( this.props.reduxStore.user.admin === 2 ){
-            return <AdminDashboard/>;
+            return <AdminDashboard history={this.props.history} />;
         }
         else{
             this.props.history.push('/home');
