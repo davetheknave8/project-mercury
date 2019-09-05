@@ -43,7 +43,7 @@ class PmDashboardList extends Component {
             return (<></>)
         }
         else {
-            return (<><Button onClick={() => this.props.history.push(`/pcn-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.icon} /></Button></>)
+            return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.icon} /></Button></>)
         }
     } 
 
