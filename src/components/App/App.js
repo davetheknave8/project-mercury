@@ -34,7 +34,7 @@ class App extends Component {
         <div>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/dashboard" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
             <Route
@@ -54,11 +54,6 @@ class App extends Component {
               exact
               path="/dashboard"
               component={Dashboard}
-            />
-            <ProtectedRoute
-              exact
-              path="/home"
-              component={UserPage}
             />
             <ProtectedRoute
               exact
