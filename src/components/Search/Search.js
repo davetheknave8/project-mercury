@@ -59,8 +59,25 @@ const styles = {
         height: 28,
         margin: 4,
     },
-    tableCell: {
+    tableCell1: {
         color: 'white',
+        textAlign: 'left',
+        width: '15%',
+    },
+    tableCell2: {
+        color: 'white',
+        textAlign: 'left',
+        width: '15%',
+    },
+    tableCell3: {
+        color: 'white',
+        textAlign: 'left',
+        width: '25%',
+    },
+    tableCell4: {
+        color: 'white',
+        textAlign: 'left',
+        width: '45%',
     },
 };
 
@@ -108,10 +125,10 @@ class Search extends Component {
                     <Table className={classes.header}>
                         <TableHead>
                             <TableRow component="tr" scope="row" className="header">
-                                <TableCell className={classes.tableCell}>PCN - #</TableCell>
-                                <TableCell className={classes.tableCell}>Type</TableCell>
-                                <TableCell className={classes.tableCell}>Date</TableCell>
-                                <TableCell className={classes.tableCell}>Description</TableCell>
+                                <TableCell className={classes.tableCell1}>PCN - #</TableCell>
+                                <TableCell className={classes.tableCell2}>Type</TableCell>
+                                <TableCell className={classes.tableCell3}>Date</TableCell>
+                                <TableCell className={classes.tableCell4}>Description</TableCell>
                             </TableRow>
                         </TableHead>
                     </Table>
