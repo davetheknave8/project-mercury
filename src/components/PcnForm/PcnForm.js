@@ -191,6 +191,7 @@ class PcnForm extends Component {
         event.preventDefault();
         console.log(this.state.newPcn);
         this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newPcn});
+        this.props.history.push('/dashboard');
     }
 
     handleSubmitPart = (event) => {
