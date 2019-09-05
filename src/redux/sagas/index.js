@@ -2,6 +2,18 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
+import fetchPcnInfoSaga from './fetchPcnInfoSaga';
+import fetchPcnPartSaga from './fetchPcnPartSaga';
+import fetchPcnSaga from './fetchPcnSaga';
+import fetchDashboardSaga from './fetchDashboardSaga';
+import createPcnSaga from './createPcnSaga';
+import editPcnSaga from './editPcnSaga';
+import searchPcnSaga from './searchPcnSaga'
+import fetchAdminDashboardSaga from './fetchAdminDashboardSaga';
+import createPartsSaga from './createPartsSaga';
+import fetchCurrentPartsSaga from './fetchCurrentParts';
+import searchPartsSaga from './searchPartsSaga';
+import addPartSaga from './addPartSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -15,5 +27,17 @@ export default function* rootSaga() {
     loginSaga(),
     registrationSaga(),
     userSaga(),
+    fetchPcnInfoSaga(),
+    fetchPcnPartSaga(),
+    fetchPcnSaga(),
+    fetchDashboardSaga(),
+    createPcnSaga(),
+    editPcnSaga(),
+    searchPcnSaga(),
+    fetchAdminDashboardSaga(),
+    createPartsSaga(),
+    fetchCurrentPartsSaga(),
+    searchPartsSaga(),
+    addPartSaga()
   ]);
 }

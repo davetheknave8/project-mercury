@@ -156,4 +156,3 @@ CREATE TABLE pcn_part
 --    user_id integer REFERENCES "user"(id),
 --    notification_id integer REFERENCES notifications(id)
 --);
-

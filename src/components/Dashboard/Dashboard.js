@@ -1,18 +1,33 @@
-import React, {Component} from 'react';
-
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import PmDashboard from '../PmDashboard/PmDashboard';
 
 class Dashboard extends Component {
-  render(){
-    return (
-      <>
-        <h1>Dashboard</h1>
-      </>
-    )
-  }
+
+    checkUser = () => {
+        if( this.props.reduxStore.user.admin === 1 ){
+            return <PmDashboard history={this.props.history} />;
+        }
+        else if( this.props.reduxStore.user.admin === 2 ){
+            return <AdminDashboard/>;
+        }
+        else{
+            this.props.history.push('/home');
+        }
+    }
+
+    render() {
+        return (
+            <>
+                {this.checkUser()}
+            </>
+        );
+    }
 }
 
-export default Dashboard;
+const mapStateToProps = (reduxStore) => ({
+    reduxStore
+})
+
+export default connect(mapStateToProps)(Dashboard);
