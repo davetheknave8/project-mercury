@@ -60,8 +60,22 @@ class PcnView extends Component {
     }
 
     renderButton = () => {
-        if( this.props.reduxStore.user.admin = 1 ){
-
+        const { classes } = this.props;
+        let pcnInfo = this.props.reduxStore.pcnInfo;
+        if( this.props.reduxStore.user.admin === 1 ){
+            if( pcnInfo.status === 'INCOMPLETE' || pcnInfo.status === 'PENDING' || pcnInfo.status === 'DENIED'){
+                return <Button variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
+            }
+        }
+        else if( this.props.reduxStore.user.admin = 2 ){
+            if( pcnInfo.status === 'PENDING' ){
+                return (
+                    <>
+                    <Button variant='contained' className={classes.button} color='primary' onClick={() => this.handleApprove()}>Approve</Button>
+                    <Button variant='contained' className={classes.button} color='secondary' onClick={() => this.handleDeny()}>Deny</Button>
+                    </>
+                )
+            }
         }
     }
 
@@ -110,8 +124,8 @@ class PcnView extends Component {
                     </div>
             </div>
             <div className="pcnbuttons">
-                <Button variant='contained' color='primary' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
-                {() => this.renderButton()}
+                <Button variant='contained' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
+                {this.renderButton()}
             </div>
 
             </>
