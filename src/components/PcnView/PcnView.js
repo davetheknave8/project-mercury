@@ -106,6 +106,7 @@ class PcnView extends Component {
         }
         this.props.dispatch({ type: 'REVIEW_PCN', payload: data });
         this.handleClose();
+        this.props.history.push('/dashboard');
     }
 
     renderButton = () => {
