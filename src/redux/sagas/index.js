@@ -14,6 +14,7 @@ import createPartsSaga from './createPartsSaga';
 import fetchCurrentPartsSaga from './fetchCurrentParts';
 import searchPartsSaga from './searchPartsSaga';
 import addPartSaga from './addPartSaga';
+import fetchCurrentPcnSaga from './fetchCurrentPcn';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -38,6 +39,7 @@ export default function* rootSaga() {
     createPartsSaga(),
     fetchCurrentPartsSaga(),
     searchPartsSaga(),
-    addPartSaga()
+    addPartSaga(),
+    fetchCurrentPartsSaga()
   ]);
 }
