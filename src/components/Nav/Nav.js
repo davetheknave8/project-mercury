@@ -60,7 +60,7 @@ class Nav extends Component{
     username: '',
     password: '',
     email:'',
-    access: '',
+    access: 1,
     open: null,
     show: false,
     window: false,
@@ -77,6 +77,8 @@ class Nav extends Component{
         payload: {
           username: this.state.username,
           password: this.state.password,
+          email: this.state.email,
+          access: this.state.access,
         },
       });
     } else {
@@ -91,6 +93,7 @@ class Nav extends Component{
     this.setState({
       [propertyName]: event.target.value,
     });
+    console.log('event.target.value', event.target.value)
   }
 
   componentDidUpdate = (prevProps) => {

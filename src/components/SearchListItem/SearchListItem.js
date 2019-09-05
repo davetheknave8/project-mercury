@@ -15,7 +15,7 @@ const styles = theme => ({
     },
     tableCell2: {
         textAlign: 'left',
-        width: '15%',
+        width: '10%',
     },
     tableCell3: {
         textAlign: 'left',
@@ -23,7 +23,7 @@ const styles = theme => ({
     },
     tableCell4: {
         textAlign: 'left',
-        width: '45%',
+        width: '50%',
     },
 });
 
