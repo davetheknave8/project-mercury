@@ -38,8 +38,6 @@ const styles = {
         borderStyle: 'solid',
         borderWidth: '2px',
         borderBottomWidth: '0px',
-       
-  
     },
     table: {
         overflow:'auto',
@@ -84,23 +82,13 @@ const styles = {
 class Search extends Component {
 
 
-    // state = {
-    //     search: '',
-    // }
-
-
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PCN_LIST' });
-        // this.props.dispatch({type: 'GET_SEARCH'});
     }
-    //takes the input information and holds it in the new setState.
+
     handleChange = (event) => {
-        console.log('entered search', event.target.value.toUpperCase());
-        // this.setState({
-        //     [propertyToChange]:event.target.value,
-        // })
+        // console.log('entered search', event.target.value.toUpperCase());
         this.props.dispatch({ type: 'GET_SEARCH', payload: event.target.value })
-        // console.log(this.state.search);
     };
 
 
