@@ -237,10 +237,10 @@ router.post('/create', (req, res) => {
     console.log(req.body.type);
     const userId = req.user.id
     if(req.body.type === 'pcn'){
-        const sqlText = `INSERT INTO pcn(creator_id, contact_id)
-                            VALUES($1, $2)
+        const sqlText = `INSERT INTO pcn(creator_id, contact_id, type)
+                            VALUES($1, $2, $3)
                             RETURNING id;`;
-        pool.query(sqlText, [userId, userId])
+        pool.query(sqlText, [userId, userId, 'PCN'])
             .then(response => {
                 console.log(response.rows);
                 res.send(response.rows);
@@ -256,7 +256,7 @@ router.post('/create', (req, res) => {
 
 router.put('/edit', (req, res) => {
     const objectToEdit = req.body;
-    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='pending' WHERE id=$6;`;
+    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='PENDING' WHERE id=$6;`;
     const values=[objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
     pool.query(sqlText, values)
         .then(response => {
