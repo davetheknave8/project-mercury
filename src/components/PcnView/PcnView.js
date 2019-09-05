@@ -6,6 +6,7 @@ import PcnViewPart from '../PcnViewPart/PcnViewPart';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -46,9 +47,32 @@ const styles = theme => ({
             backgroundColor: theme.palette.background.default,
         },
     },
+    paper: {
+        position: 'absolute',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+        outline: 'none',
+    },
 });
 
+function getModalStyle() {
+    const top = 50;
+    const left = 50;
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+    };
+}
+
 class PcnView extends Component {
+
+    state = {
+        open: false,
+        message: '',
+    };
 
     componentDidMount() {
         let data = {
@@ -57,6 +81,31 @@ class PcnView extends Component {
         };
         this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
         this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id});
+    }
+
+    handleOpen = () => {
+        console.log('handleOpen')
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    handleChangeFor = (event, propToChange) => {
+        this.setState({
+            [propToChange]: event.target.value
+        })
+    }
+
+    reviewPCN = (action) => {
+        const data = {
+            id: this.props.reduxStore.pcnInfo.id,
+            status: action,
+            message: this.state.message,
+        }
+        this.props.dispatch({ type: 'REVIEW_PCN', payload: data });
+        this.handleClose();
     }
 
     renderButton = () => {
@@ -71,8 +120,8 @@ class PcnView extends Component {
             if( pcnInfo.status === 'PENDING' ){
                 return (
                     <>
-                    <Button variant='contained' className={classes.button} color='primary' onClick={() => this.handleApprove()}>Approve</Button>
-                    <Button variant='contained' className={classes.button} color='secondary' onClick={() => this.handleDeny()}>Deny</Button>
+                    <Button variant='contained' className={classes.button} color='primary' onClick={() => this.reviewPCN('PUBLISHED')}>Approve</Button>
+                    <Button variant='contained' className={classes.button} color='secondary' onClick={this.handleOpen}>Deny</Button>
                     </>
                 )
             }
@@ -126,6 +175,20 @@ class PcnView extends Component {
             <div className="pcnbuttons">
                 <Button variant='contained' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
                 {this.renderButton()}
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    >
+                    <div style={getModalStyle()} className={classes.paper}>
+                        <Typography variant="h6" id="modal-title">Notes</Typography>
+                        <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
+                        <br/>
+                        <Button color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
+                        <Button onClick={() => this.handleClose()}>Return</Button>
+                    </div>
+                </Modal>
             </div>
 
             </>
