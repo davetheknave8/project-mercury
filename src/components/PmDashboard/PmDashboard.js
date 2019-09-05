@@ -49,7 +49,7 @@ class PmDashboard extends Component {
   handlePending() {
     const data = {
       userId: this.props.reduxStore.user.id,
-      status: 'pending'
+      status: 'PENDING'
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
@@ -57,7 +57,7 @@ class PmDashboard extends Component {
   handlePublished() {
     const data = {
       userId: this.props.reduxStore.user.id,
-      status: 'published'
+      status: 'PUBLISHED'
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
@@ -65,7 +65,7 @@ class PmDashboard extends Component {
   handleIncomplete() {
     const data = {
       userId: this.props.reduxStore.user.id,
-      status: 'incomplete'
+      status: 'INCOMPLETE'
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
@@ -73,7 +73,7 @@ class PmDashboard extends Component {
   handleDenied() {
     const data = {
       userId: this.props.reduxStore.user.id,
-      status: 'denied'
+      status: 'DENIED'
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
@@ -106,7 +106,7 @@ class PmDashboard extends Component {
         <Table className={classes.table}>
           <TableHead>
             <TableRow component="tr" scope="row" className="header">
-              <TableCell className={classes.tableCell}>PCN#</TableCell>
+              <TableCell className={classes.tableCell}>PCN - #</TableCell>
               {/* <TableCell className={classes.tableCell}>Type</TableCell> */}
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>

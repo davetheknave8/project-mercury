@@ -19,10 +19,8 @@ import './Search.css';
 
 const styles = {
     title: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        display: 'center',
-        width: 400,
+        margin: 'auto',
+        textAlign: 'center',
     },
     root: {
         padding: '2px 4px',
@@ -30,11 +28,23 @@ const styles = {
         alignItems: 'center',
         marginLeft: 'auto',
         marginRight: 'auto',
-        width: 400,
+        width: '35%',
+    },
+    header: {
+        width: '80%',
+        margin: 'auto',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderBottomWidth:'0px',
     },
     table: {
         width: '80%',
         margin: 'auto',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderTopWidth: '0px',
     },
     input: {
         marginLeft: 8,
@@ -84,19 +94,18 @@ class Search extends Component {
         return (
             <>
                 <Nav history={this.props.history} />
-                <h1 className={classes.title}>Search</h1>
+                <h1 className={classes.title}>&nbsp;</h1>
+                <h1 className={classes.title}>&nbsp;</h1>
                 <Paper className={classes.root} elevation={1}>
                     <IconButton className={classes.iconButton} aria-label="Menu">
                     </IconButton>
-                    <InputBase className={classes.input} placeholder="Search" onChange={(event) => this.handleChange(event)} />
+                    <InputBase className={classes.input} placeholder="Search for PCN by #" onChange={(event) => this.handleChange(event)} />
                     <IconButton className={classes.iconButton} aria-label="Search">
                         <SearchIcon />
                     </IconButton>
                 </Paper>
-
-                <Paper className={classes.table} elevation={1}>
-                    <h2 className={classes.title}>Results</h2>
-                    <Table className={classes.table}>
+                    <h1 className={classes.title}>&nbsp;</h1>
+                    <Table className={classes.header}>
                         <TableHead>
                             <TableRow component="tr" scope="row" className="header">
                                 <TableCell className={classes.tableCell}>PCN - #</TableCell>
@@ -112,7 +121,6 @@ class Search extends Component {
                                 <SearchListItem key={item.id} item={item} history={this.props.history} />)}
                         </TableBody>
                     </Table>
-                </Paper>
             </>
         )
     }

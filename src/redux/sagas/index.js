@@ -40,6 +40,7 @@ export default function* rootSaga() {
     fetchCurrentPartsSaga(),
     searchPartsSaga(),
     addPartSaga(),
-    fetchCurrentPartsSaga()
+    fetchCurrentPartsSaga(),
+    fetchCurrentPcnSaga()
   ]);
 }
