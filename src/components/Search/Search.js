@@ -23,6 +23,7 @@ const styles = {
         textAlign: 'center',
     },
     root: {
+        
         padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
@@ -37,15 +38,14 @@ const styles = {
         borderStyle: 'solid',
         borderWidth: '2px',
         borderBottomWidth: '0px',
+       
+  
     },
     table: {
-        width: '80%',
-        margin: 'auto',
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: '2px',
-        borderTopWidth: '0px',
+        overflow:'auto',
+        height: '500px',
     },
+    
     input: {
         marginLeft: 8,
         display: 'center',
@@ -122,6 +122,7 @@ class Search extends Component {
                     </IconButton>
                 </Paper>
                 <h1 className={classes.title}>&nbsp;</h1>
+                <div className={classes.table}>
                 <Table className={classes.header}>
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
@@ -131,13 +132,12 @@ class Search extends Component {
                             <TableCell className={classes.tableCell4}>Description</TableCell>
                         </TableRow>
                     </TableHead>
-                </Table>
-                <Table className={classes.table}>
-                    <TableBody>
+                    <TableBody className={classes.tBody}>
                         {this.props.reduxStore.getPcn.map(item =>
                             <SearchListItem key={item.id} item={item} history={this.props.history} />)}
                     </TableBody>
                 </Table>
+                </div>
             </>
         )
     }
