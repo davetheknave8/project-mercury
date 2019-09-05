@@ -67,7 +67,7 @@ const styles = {
     tableCell2: {
         color: 'white',
         textAlign: 'left',
-        width: '15%',
+        width: '10%',
     },
     tableCell3: {
         color: 'white',
@@ -77,7 +77,7 @@ const styles = {
     tableCell4: {
         color: 'white',
         textAlign: 'left',
-        width: '45%',
+        width: '50%',
     },
 };
 
