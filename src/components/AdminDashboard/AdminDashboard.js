@@ -49,7 +49,7 @@ class AdminDashboard extends Component {
     handlePending() {
         const data = {
             userId: this.props.reduxStore.user.id,
-            status: 'pending'
+            status: 'PENDING'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
@@ -57,7 +57,7 @@ class AdminDashboard extends Component {
     handlePublished() {
         const data = {
             userId: this.props.reduxStore.user.id,
-            status: 'published'
+            status: 'PUBLISHED'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
@@ -65,7 +65,7 @@ class AdminDashboard extends Component {
     handleIncomplete() {
         const data = {
             userId: this.props.reduxStore.user.id,
-            status: 'incomplete'
+            status: 'INCOMPLETE'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
@@ -73,7 +73,7 @@ class AdminDashboard extends Component {
     handleDenied() {
         const data = {
             userId: this.props.reduxStore.user.id,
-            status: 'denied'
+            status: 'DENIED'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
