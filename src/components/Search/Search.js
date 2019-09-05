@@ -36,6 +36,7 @@ const styles = {
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: '2px',
+        borderBottomWidth:'0px',
     },
     table: {
         width: '80%',
