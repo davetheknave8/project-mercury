@@ -106,7 +106,7 @@ class AdminDashboard extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
-                            <TableCell className={classes.tableCell}>PCN#</TableCell>
+                            <TableCell className={classes.tableCell}>PCN - #</TableCell>
                             {/* <TableCell className={classes.tableCell}>Type</TableCell> */}
                             <TableCell className={classes.tableCell}>Status</TableCell>
                             <TableCell className={classes.tableCell}>Date</TableCell>
