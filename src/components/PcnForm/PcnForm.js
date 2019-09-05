@@ -134,7 +134,8 @@ class PcnForm extends Component {
         newPcn: {
             date: 'yyyy-MM-dd',
             description: '<p></p>',
-            number: this.props.match.params.id
+            number: this.props.match.params.id,
+            audience: this.props.reduxStore.currentPcnReducer
         },
         newPart: {
             name: '',
