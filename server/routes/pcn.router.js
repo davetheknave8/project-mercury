@@ -5,15 +5,18 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 router.get('/', (req, res) => {
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
-            FROM pcn)
+            FROM pcn
+            WHERE pcn.status = 'PUBLISHED')
             union
             (SELECT eol."type" as "type", eol.id as id, 
             eol.status as status, eol.date as date, eol.change_description as descripiton
-            FROM eol)
+            FROM eol
+            WHERE eol.status = 'PUBLISHED')
             union
             (SELECT npi."type" as "type", npi.id as id, 
             npi.status as status, npi.date as date, npi.description as descripiton
-            FROM npi);`
+            FROM npi
+            WHERE npi.status = 'PUBLISHED');`
     pool.query(queryText)
     .then((response) => {
         res.send(response.rows);
