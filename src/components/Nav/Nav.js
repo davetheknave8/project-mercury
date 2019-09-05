@@ -52,11 +52,11 @@ class Nav extends Component{
     username: '',
     password: '',
     email:'',
+    access: '',
     open: null,
     show: false,
     window: false,
     showCreate: null,
-    admin: 1,
   }
 
 
@@ -176,7 +176,7 @@ class Nav extends Component{
                 open={Boolean(this.state.open)}
                 onClose={this.handleClose}>
                   <MenuItem onClick={this.handleOpenChangePassword}>Change Password</MenuItem>
-                 {this.props.user.admin &&( <MenuItem onClick={this.handleOpenCreateUser}>Create User</MenuItem>)}
+                 {this.props.user.admin === 2 &&( <MenuItem onClick={this.handleOpenCreateUser}>Create User</MenuItem>)}
               </Menu>
               <Modal
               open={this.state.show}
@@ -240,6 +240,15 @@ class Nav extends Component{
                               value={this.state.email}
                               onChange={this.handleInputChangeFor('email')}
                             />
+                          </label>
+                          </div>
+                          <div>
+                          <label htmlFor="access">
+                            Admin Level:
+                            <select  onChange={this.handleInputChangeFor('access')}>
+                              <option value="1">Level 1</option>
+                              <option value="2">Level 2</option>
+                            </select>
                           </label>
                           </div>
                         </div>
