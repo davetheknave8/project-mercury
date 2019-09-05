@@ -28,7 +28,7 @@ class AdminDashboardList extends Component {
         const { classes } = this.props;
         return (
             <>
-                <TableRow align="center" onClick={() => this.handleClick()}>
+                <TableRow className="tc" align="center" onClick={() => this.handleClick()}>
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell>
                     {/* <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell> */}
                     <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
