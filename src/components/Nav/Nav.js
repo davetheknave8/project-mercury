@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
+import RegisterPage from '../RegisterPage/RegisterPage';
 
 //Material-UI Icons
 import UserIcon from '@material-ui/icons/Person';
@@ -48,9 +49,40 @@ const styles = theme => ({
 
 class Nav extends Component{
   state = {
+    username: '',
+    password: '',
+    email:'',
     open: null,
     show: false,
-    showCreate: null
+    window: false,
+    showCreate: null,
+    admin: 1,
+  }
+
+
+  registerUser = (event) => {
+    event.preventDefault();
+
+    if (this.state.username && this.state.password) {
+      this.props.dispatch({
+        type: 'REGISTER',
+        payload: {
+          username: this.state.username,
+          password: this.state.password,
+        },
+      });
+    } else {
+      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+    }
+    this.setState({
+      window: false
+    })
+  } // end registerUser
+
+  handleInputChangeFor = propertyName => (event) => {
+    this.setState({
+      [propertyName]: event.target.value,
+    });
   }
 
   componentDidUpdate = (prevProps) => {
@@ -65,6 +97,17 @@ class Nav extends Component{
 
   handleClose = () => {
     this.setState({open: null})
+  }
+
+  handleOpenCreateUser = (event) =>{
+    this.setState({
+      window: true
+    })
+  }
+  handleCloseCreateUser = () =>{
+    this.setState({
+      window: false
+    })
   }
 
   handleOpenChangePassword = () => {
@@ -115,12 +158,12 @@ class Nav extends Component{
     const {classes} = this.props;
     return(
       <div className="nav">
-        <Link to="/home">
+        <Link to="/dashboard">
           <h2 className="nav-title">Project Mercury</h2>
         </Link>
         <div className="nav-right">
           {!this.props.user.id ?
-          <Link className="nav-link" to="/home">Login/Register</Link> : <></>}
+          <Link className="nav-link" to="/dashboard">Login/Register</Link> : <></>}
           {/* Show the link to the info page and the logout button if the user is logged in */}
           {this.props.user.id && (
             <>
@@ -133,6 +176,7 @@ class Nav extends Component{
                 open={Boolean(this.state.open)}
                 onClose={this.handleClose}>
                   <MenuItem onClick={this.handleOpenChangePassword}>Change Password</MenuItem>
+                 {this.props.user.admin &&( <MenuItem onClick={this.handleOpenCreateUser}>Create User</MenuItem>)}
               </Menu>
               <Modal
               open={this.state.show}
@@ -149,6 +193,78 @@ class Nav extends Component{
                     <Button variant="contained" className={classes.passBtn} type="submit">Submit</Button>
                   </form>
                 </div>
+              </Modal>
+              <Modal open={this.state.window}
+              onClose={this.handleCloseCreateUser}>
+                <div className={classes.paper} style={{top: '20%', left: '35%'}}>
+                  <Typography style={{textAlign: 'center'}}>Register User</Typography>
+                  <div>
+                      {this.props.errors.registrationMessage && (
+                        <h2
+                          className="alert"
+                          role="alert"
+                        >
+                          {this.props.errors.registrationMessage}
+                        </h2>
+                      )}
+                      <form onSubmit={this.registerUser} >
+                        
+                        <div>
+                          <label htmlFor="username">
+                            Username:
+                            <input
+                              type="text"
+                              name="username"
+                              value={this.state.username}
+                              onChange={this.handleInputChangeFor('username')}
+                            />
+                          </label>
+                        </div>
+                        <div>
+                          <label htmlFor="password">
+                            Password:
+                            <input
+                              type="password"
+                              name="password"
+                              value={this.state.password}
+                              onChange={this.handleInputChangeFor('password')}
+                            />
+                          </label>
+                          <div/>
+                          <div>
+                          <label htmlFor="email">
+                            Email:
+                            <input
+                              type="email"
+                              name="Email"
+                              value={this.state.email}
+                              onChange={this.handleInputChangeFor('email')}
+                            />
+                          </label>
+                          </div>
+                        </div>
+                        <div>
+                          <Button
+                            className="register"
+                            type="submit"
+                          //  onClick={this.handleCloseCreateUser}
+                          >
+                            Register
+                          </Button>
+                        </div>
+                      </form>
+                      <center>
+                        {/* <button
+                          type="button"
+                          className="link-button"
+                          onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
+                        >
+                          Login
+                        </button> */}
+                      </center>
+                    </div>
+                </div>
+             
               </Modal>
               <Link className="nav-link" to="/dashboard">
                 <UserIcon />
@@ -188,6 +304,7 @@ class Nav extends Component{
 // const mapStateToProps = ({ user }) => ({ user });
 const mapStateToProps = reduxStore => ({
   user: reduxStore.user,
+  errors: reduxStore.errors,
   reduxStore
 });
 
