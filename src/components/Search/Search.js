@@ -36,7 +36,7 @@ const styles = {
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: '2px',
-        borderBottomWidth:'0px',
+        borderBottomWidth: '0px',
     },
     table: {
         width: '80%',
@@ -121,23 +121,23 @@ class Search extends Component {
                         <SearchIcon />
                     </IconButton>
                 </Paper>
-                    <h1 className={classes.title}>&nbsp;</h1>
-                    <Table className={classes.header}>
-                        <TableHead>
-                            <TableRow component="tr" scope="row" className="header">
-                                <TableCell className={classes.tableCell1}>PCN - #</TableCell>
-                                <TableCell className={classes.tableCell2}>Type</TableCell>
-                                <TableCell className={classes.tableCell3}>Date</TableCell>
-                                <TableCell className={classes.tableCell4}>Description</TableCell>
-                            </TableRow>
-                        </TableHead>
-                    </Table>
-                    <Table className={classes.table}>
-                        <TableBody>
-                            {this.props.reduxStore.getPcn.map(item =>
-                                <SearchListItem key={item.id} item={item} history={this.props.history} />)}
-                        </TableBody>
-                    </Table>
+                <h1 className={classes.title}>&nbsp;</h1>
+                <Table className={classes.header}>
+                    <TableHead>
+                        <TableRow component="tr" scope="row" className="header">
+                            <TableCell className={classes.tableCell1}>PCN - #</TableCell>
+                            <TableCell className={classes.tableCell2}>Type</TableCell>
+                            <TableCell className={classes.tableCell3}>Date</TableCell>
+                            <TableCell className={classes.tableCell4}>Description</TableCell>
+                        </TableRow>
+                    </TableHead>
+                </Table>
+                <Table className={classes.table}>
+                    <TableBody>
+                        {this.props.reduxStore.getPcn.map(item =>
+                            <SearchListItem key={item.id} item={item} history={this.props.history} />)}
+                    </TableBody>
+                </Table>
             </>
         )
     }
