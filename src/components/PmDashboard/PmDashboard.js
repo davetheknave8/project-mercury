@@ -110,6 +110,7 @@ class PmDashboard extends Component {
               {/* <TableCell className={classes.tableCell}>Type</TableCell> */}
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>
+              <TableCell className={classes.tableCell}>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
