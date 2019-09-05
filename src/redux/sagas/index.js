@@ -16,6 +16,9 @@ import searchPartsSaga from './searchPartsSaga';
 import addPartSaga from './addPartSaga';
 import fetchCurrentPcnSaga from './fetchCurrentPcn';
 import reviewPcnSaga from './reviewPcnSaga';
+import createEolSaga from './createEolSaga';
+import fetchCurrentEolSaga from './fetchCurrentEol';
+import editEolSaga from './editEolSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -44,5 +47,8 @@ export default function* rootSaga() {
     fetchCurrentPartsSaga(),
     fetchCurrentPcnSaga(),
     reviewPcnSaga(),
+    createEolSaga(),
+    fetchCurrentEolSaga(),
+    editEolSaga()
   ]);
 }

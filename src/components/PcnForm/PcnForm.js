@@ -151,7 +151,7 @@ class PcnForm extends Component {
     }
 
     componentDidMount = () => {
-        this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {pcnId: this.props.match.params.id}})
+        this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {id: this.props.match.params.id, type: 'pcn'}})
         this.props.dispatch({type: 'FETCH_CURRENT_PCN', payload: this.props.match.params.id})
     }
 
@@ -252,7 +252,7 @@ class PcnForm extends Component {
                             <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
                         </TableRow>
                         <List>
-                            {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem pcnNumber={this.props.match.params.id} part={part} />) : <></> }
+                            {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='PCN' pcnNumber={this.props.match.params.id} part={part} />) : <></> }
                         </List>
                         {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
                         <TableRow>

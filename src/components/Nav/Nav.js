@@ -108,6 +108,8 @@ class Nav extends Component{
   componentDidUpdate = (prevProps) => {
     if(this.props.reduxStore.createPcnReducer !== prevProps.reduxStore.createPcnReducer){
       this.props.history.push(`/pcn-form/${this.props.reduxStore.createPcnReducer[0].id}`)
+    } else if (this.props.reduxStore.createEolReducer !== prevProps.reduxStore.createEolReducer){
+      this.props.history.push(`/eol-form/${this.props.reduxStore.createEolReducer[0].id}`)
     }
   }
 
@@ -167,6 +169,7 @@ class Nav extends Component{
 
   handleEol = () => {
     console.log('create eol');
+    this.props.dispatch({type: 'CREATE_EOL', payload: {type: 'eol'}})
   }
 
   handleNpi = () => {

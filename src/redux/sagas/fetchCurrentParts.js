@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fetchCurrentParts(action){
     try{
-        const response = yield axios.get(`/api/parts/current?pcn_id=${action.payload.pcnId}`);
+        const response = yield axios.get(`/api/parts/current?id=${action.payload.id}&type=${action.payload.type}`);
         yield put({type: 'SET_CURRENT_PARTS', payload: response.data})
     }
     catch(error){

@@ -3,9 +3,9 @@ import axios from 'axios';
 
 function* addPart(action){
     try{
-        console.log('hello');
+        console.log(action.payload);
         yield axios.post('/api/parts/add', action.payload);
-        yield put({type: 'FETCH_CURRENT_PARTS', payload: {pcnId: action.payload.pcnId}});
+        yield put({type: 'FETCH_CURRENT_PARTS', payload: {id: action.payload.id, type: action.payload.type}});
     }
     catch(error){
         console.log('error adding part', error);

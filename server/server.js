@@ -12,6 +12,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const pcnRouter = require('./routes/pcn.router');
 const partsRouter = require('./routes/parts.router');
+const eolRouter = require('./routes/eol.router');
 
 
 // Body parser middleware
@@ -28,7 +29,8 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/pcn', pcnRouter);
-app.use('/api/parts', partsRouter)
+app.use('/api/parts', partsRouter);
+app.use('/api/eol', eolRouter);
 
 // Serve static files
 app.use(express.static('build'));

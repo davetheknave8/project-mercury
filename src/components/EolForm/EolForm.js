@@ -129,21 +129,21 @@ const styles = theme => ({
 
 let length = 0;
 
-class PcnForm extends Component {
+class EolForm extends Component {
     state = {
-        newPcn: {
+        newEol: {
             date: '',
             change_description: '',
             number: '',
             audience: '',
-            type: 'pcn',
+            type: 'EOL',
             notes: ''
         },
         newPart: {
             name: '',
             description: '',
             number: '',
-            pcnNumber: this.props.match.params.id
+            eolNumber: this.props.match.params.id
         },
         searching: false,
         descriptionLength: 2000,
@@ -151,20 +151,20 @@ class PcnForm extends Component {
     }
 
     componentDidMount = () => {
-        this.props.dispatch({ type: 'FETCH_CURRENT_PARTS', payload: { pcnId: this.props.match.params.id } })
-        this.props.dispatch({ type: 'FETCH_CURRENT_PCN', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'FETCH_CURRENT_PARTS', payload: { id: this.props.match.params.id, type: 'eol' } })
+        this.props.dispatch({ type: 'FETCH_CURRENT_EOL', payload: this.props.match.params.id })
     }
 
     componentDidUpdate = (prevProps) => {
-        if (prevProps.reduxStore.currentPcnReducer !== this.props.reduxStore.currentPcnReducer) {
+        if (prevProps.reduxStore.currentEolReducer !== this.props.reduxStore.currentEolReducer) {
             this.setState({
-                newPcn: {
-                    date: this.props.reduxStore.currentPcnReducer.date,
-                    change_description: this.props.reduxStore.currentPcnReducer.change_description,
-                    number: this.props.reduxStore.currentPcnReducer.id,
-                    audience: this.props.reduxStore.currentPcnReducer.audience,
-                    type: 'PCN',
-                    notes: this.props.reduxStore.currentPcnReducer.notes
+                newEol: {
+                    date: this.props.reduxStore.currentEolReducer.date,
+                    change_description: this.props.reduxStore.currentEolReducer.change_description,
+                    number: this.props.reduxStore.currentEolReducer.id,
+                    audience: this.props.reduxStore.currentEolReducer.audience,
+                    type: 'EOL',
+                    notes: this.props.reduxStore.currentEolReducer.notes
                 }
             })
         }
@@ -173,12 +173,12 @@ class PcnForm extends Component {
     handleChange = (event, propToChange) => {
         console.log(propToChange);
         if (propToChange !== 'change_description' && propToChange !== 'notes' && propToChange !== 'audience') {
-            this.setState({ newPcn: { ...this.state.newPcn, [propToChange]: event.target.value } })
+            this.setState({ newEol: { ...this.state.newEol, [propToChange]: event.target.value } })
         } else {
-            this.setState({ newPcn: { ...this.state.newPcn, [propToChange]: event } })
+            this.setState({ newEol: { ...this.state.newEol, [propToChange]: event } })
             console.log(this.state);
         }
-        let html = this.state.newPcn.change_description;
+        let html = this.state.newEol.change_description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
@@ -190,8 +190,8 @@ class PcnForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.newPcn);
-        this.props.dispatch({ type: 'EDIT_PCN', payload: this.state.newPcn });
+        console.log(this.state.newEol);
+        this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
         this.props.history.push('/dashboard');
     }
 
@@ -218,25 +218,25 @@ class PcnForm extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props.reduxStore.currentPcnReducer.change_description)
+        console.log(this.props.reduxStore.currentEolReducer.change_description)
         return (
             <>
                 <Nav history={this.props.history} />
                 <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
-                    <h1 className={classes.formHeader}>PCN Form</h1>
+                    <h1 className={classes.formHeader}>Eol Form</h1>
                     <div className={classes.topElements}>
-                        <TextField className={classes.date} value={this.state.newPcn.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
+                        <TextField className={classes.date} value={this.state.newEol.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
                             shrink: true,
                         }}
                         />
-                        <TextField className={classes.number} value={this.props.match.params.id} label="PCN #:" disabled />
+                        <TextField className={classes.number} value={this.props.match.params.id} label="EOL #:" disabled />
                     </div>
                     <br />
                     <label className={classes.label}>Description of Change: ({this.state.descriptionLength} characters remaining.)</label>
                     <br />
                     <ReactQuill className={classes.description}
                         onChange={event => this.handleChange(event, 'change_description')}
-                        value={this.state.newPcn.change_description}
+                        value={this.state.newEol.change_description}
                     />
                     <br />
                     <Table className={classes.table}>
@@ -253,7 +253,7 @@ class PcnForm extends Component {
                                 <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
                             </TableRow>
                             <List>
-                                {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem pcnNumber={this.props.match.params.id} part={part} />) : <></>}
+                                {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='EOL' eolNumber={this.props.match.params.id} part={part} />) : <></>}
                             </List>
                             {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
                             <TableRow>
@@ -270,12 +270,12 @@ class PcnForm extends Component {
                             <label className={classes.notesLabel}>Notes: </label>
                             <ReactQuill className={classes.notes}
                                 onChange={event => this.handleChange(event, 'notes')}
-                                value={this.state.newPcn.notes} />
+                                value={this.state.newEol.notes} />
                         </div>
                         <div className={classes.audience}>
                             <label>Audience:</label>
                             <br />
-                            <ReactQuill value={this.state.newPcn.audience} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience')} />
+                            <ReactQuill value={this.state.newEol.audience} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience')} />
                         </div>
                     </div>
                     <br />
@@ -297,4 +297,4 @@ const mapReduxStoreToProps = reduxStore => ({
     reduxStore
 })
 
-export default withStyles(styles)(connect(mapReduxStoreToProps)(PcnForm));
+export default withStyles(styles)(connect(mapReduxStoreToProps)(EolForm));

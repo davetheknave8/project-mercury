@@ -6,7 +6,11 @@ import ListItem from '@material-ui/core/ListItem';
 
 class SearchPartListItem extends Component {
     handleAddPart = () => {
-        this.props.dispatch({type: 'ADD_PART', payload: {id: this.props.part.id, pcnId: this.props.pcnNumber}});
+        if(this.props.type === 'PCN'){
+            this.props.dispatch({type: 'ADD_PART', payload: {partId: this.props.part.id, id: this.props.pcnNumber, type: 'pcn'}});
+        } else if(this.props.type === 'EOL'){
+            this.props.dispatch({ type: 'ADD_PART', payload: { partId: this.props.part.id, id: this.props.eolNumber, type: 'eol' } });
+        }
     }
 
     render(){
