@@ -19,7 +19,7 @@ import reviewPcnSaga from './reviewPcnSaga';
 import createEolSaga from './createEolSaga';
 import fetchCurrentEolSaga from './fetchCurrentEol';
 import editEolSaga from './editEolSaga';
-import deletePcn from './deletePcnSaga';
+import deletePcnSaga from './deletePcnSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
