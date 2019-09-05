@@ -1,0 +1,12 @@
+.tc:nth-child(even) {
+    background-color: #E5E7EE;
+}
+
+.tc:nth-child(odd) {
+    background-color: #F8F9F9;
+}
+
+.tc:hover {
+    background-color: #C3CCF4;
+    cursor: pointer;
+}

@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
+import './SearchListItem.css';
+
 const styles = theme => ({
         tableCell: {
             width: '20%',
@@ -35,7 +37,7 @@ class SearchListItem extends Component {
         const { classes } = this.props;
             return(
                 <>
-                <TableRow align="center" onClick={() => this.goToLink()}>
+                <TableRow className="tc" align="center" onClick={() => this.goToLink()}>
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell> 
                     <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell>
                     <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
