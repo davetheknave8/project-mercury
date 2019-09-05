@@ -46,7 +46,8 @@ const styles = theme => ({
         marginLeft: '10%'
     },
     notesLabel: {
-        color: 'white'
+        color: 'white',
+        marginBotton: 30,
     },
     date: {
         marginLeft: '2%',
@@ -244,8 +245,8 @@ class EolForm extends Component {
                     </div>
                 </div>
                 <br />
-                <div className={classes.audience}>
-                    <label className={classes.notesLabel}>EOL Dates</label>
+                <div className={classes.userDiv}>
+                    <label className={classes.notesLabel}>EOL Dates:</label>
                     <br/>
                     <TextField className={classes.date} type="date" label="Last Time Buy:" onChange={(event) => this.handleChange(event, 'lastTimeBuyDate')}  InputLabelProps={{
                         shrink: true,
@@ -253,6 +254,10 @@ class EolForm extends Component {
                     <TextField className={classes.date} type="date" label="Last Time Ship:" onChange={(event) => this.handleChange(event, 'lastTimeShipDate')}  InputLabelProps={{
                         shrink: true,
                     }}/>
+                </div>
+                <div className={classes.userDiv}>
+                <TextField type="file" name="pic" accept="image"/>
+                <img src="documentation/images/placeholder.gif" alt=""></img>
                 </div>
                 <div className={classes.audience}>
                     
@@ -263,6 +268,7 @@ class EolForm extends Component {
                     <br />
                     <TextField className={classes.contactInfo} label="Email" value="placeholder email" disabled />
                 </div>
+            
                 <br />
                 <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
             </form>
