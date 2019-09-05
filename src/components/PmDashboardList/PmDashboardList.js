@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './PmDashboardList.css';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -19,11 +20,16 @@ const styles = theme => ({
 
 class PmDashboardList extends Component {
 
+    handleClick = (event) => {
+        this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`);
+        console.log('clicked handleClick', event);
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <>
-                <TableRow align="center">
+                <TableRow align="center" onClick={() => this.handleClick()}>
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell>
                     {/* <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell> */}
                     <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>

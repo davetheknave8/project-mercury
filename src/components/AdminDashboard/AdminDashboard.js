@@ -113,7 +113,7 @@ class AdminDashboard extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.reduxStore.adminDashboard.map(item => <AdminDashboardList key={item.id} item={item} />
+                        {this.props.reduxStore.adminDashboard.map(item => <AdminDashboardList key={item.id} item={item} history={this.props.history}/>
                         )}
                     </TableBody>
                 </Table>
