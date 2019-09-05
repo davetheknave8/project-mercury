@@ -46,6 +46,14 @@ const styles = theme => ({
     marginTop: '5%',
     marginLeft: '40%'
   },
+  settingsBtnAdmin: {
+    float: 'left',
+    color: 'white',
+    paddingRight: '0%',
+    paddingLeft: '0%',
+    paddingTop: '13%',
+    paddingBottom: '13%'
+  },
   textField: {
     textAlign: 'center',
     marginLeft: 'auto',
@@ -179,7 +187,7 @@ class Nav extends Component{
           {/* Show the link to the info page and the logout button if the user is logged in */}
           {this.props.user.id && (
             <>
-              <Button onClick={event => this.handleOpenSettings(event)}size="small" className={classes.settingsBtn}>
+              <Button onClick={event => this.handleOpenSettings(event)}size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
                 <SettingsIcon />
               </Button>
               <Menu
@@ -279,7 +287,8 @@ class Nav extends Component{
             <SearchIcon />
           </Link>
           {this.props.user.id && (
-            <>
+            <>{this.props.user.admin === 1 ?
+              <>
               <Button onClick={event => this.handleOpenCreate(event)} size="small" className={classes.settingsBtn}><CreateIcon /></Button>
               <Menu
                 id="simple-menu"
@@ -289,7 +298,11 @@ class Nav extends Component{
                   <MenuItem onClick={this.handlePcn}>PCN</MenuItem>
                   <MenuItem onClick={this.handleNpi}>NPI</MenuItem>
                   <MenuItem onClick={this.handleEol}>EOL</MenuItem>
-              </Menu>
+              </Menu> 
+              </>
+              :
+              <></>
+            }
               <LogOutButton className="nav-link" />
             </>
           )}
