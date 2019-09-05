@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import RegisterPage from '../RegisterPage/RegisterPage';
+
 
 //Material-UI Icons
 import UserIcon from '@material-ui/icons/Person';
@@ -19,6 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
   settingsBtn: {
@@ -52,7 +53,15 @@ const styles = theme => ({
     paddingLeft: '0%',
     paddingTop: '13%',
     paddingBottom: '13%'
-  }
+  },
+  textField: {
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 200,
+    overFlow: "auto",
+
+  },
 })
 
 class Nav extends Component{
@@ -60,7 +69,7 @@ class Nav extends Component{
     username: '',
     password: '',
     email:'',
-    access: 1,
+    access: 0,
     open: null,
     show: false,
     window: false,
@@ -208,7 +217,7 @@ class Nav extends Component{
               <Modal open={this.state.window}
               onClose={this.handleCloseCreateUser}>
                 <div className={classes.paper} style={{top: '20%', left: '35%'}}>
-                  <Typography style={{textAlign: 'center'}}>Register User</Typography>
+                  <Typography style={{textAlign: 'center'}}>Register New User</Typography>
                   <div>
                       {this.props.errors.registrationMessage && (
                         <h2
@@ -219,69 +228,51 @@ class Nav extends Component{
                         </h2>
                       )}
                       <form onSubmit={this.registerUser} >
-                        
                         <div>
-                          <label htmlFor="username">
-                            Username:
-                            <input
+                            <TextField className={classes.input} 
                               type="text"
                               name="username"
                               value={this.state.username}
                               onChange={this.handleInputChangeFor('username')}
+                              label="User Name"
                             />
-                          </label>
                         </div>
-                        <div>
-                          <label htmlFor="password">
-                            Password:
-                            <input
+                        <div> 
+                            <TextField className={classes.input} 
                               type="password"
                               name="password"
                               value={this.state.password}
                               onChange={this.handleInputChangeFor('password')}
+                              label="Password"
                             />
-                          </label>
                           <div/>
                           <div>
-                          <label htmlFor="email">
-                            Email:
-                            <input
+                            <TextField className={classes.input} 
                               type="email"
                               name="Email"
                               value={this.state.email}
                               onChange={this.handleInputChangeFor('email')}
+                              label="Email"
                             />
-                          </label>
                           </div>
                           <div>
-                          <label htmlFor="access">
-                            Admin Level:
-                            <select  onChange={this.handleInputChangeFor('access')}>
-                              <option value="1">Level 1</option>
-                              <option value="2">Level 2</option>
-                            </select>
-                          </label>
+                            <Select  className={classes.textField} value={this.state.access}  onChange={this.handleInputChangeFor('access')}  
+                                  inputProps={{name: 'none',}}>
+                                  <MenuItem value={"0"}>Select Access Level</MenuItem>
+                                  <MenuItem value={"1"}>Level 1</MenuItem>
+                                  <MenuItem value={"2"}>Level 2 - Admin</MenuItem>
+                            </Select>
                           </div>
                         </div>
                         <div>
                           <Button
                             className="register"
                             type="submit"
-                          //  onClick={this.handleCloseCreateUser}
                           >
                             Register
                           </Button>
                         </div>
                       </form>
-                      <center>
-                        {/* <button
-                          type="button"
-                          className="link-button"
-                          onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
-                        >
-                          Login
-                        </button> */}
-                      </center>
                     </div>
                 </div>
              
