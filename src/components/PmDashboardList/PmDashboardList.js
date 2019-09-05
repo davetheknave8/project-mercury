@@ -36,6 +36,11 @@ class PmDashboardList extends Component {
         this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`);
     }
 
+    // Wrong type
+    deletePcn = () => {
+        this.props.dispatch({type: 'DELETE_PCN', payload: this.props.item.id})
+    }
+
     checkStatus = (item) => {
         const { classes } = this.props;
         let pcnInfo = this.props.reduxStore.pcnInfo;
