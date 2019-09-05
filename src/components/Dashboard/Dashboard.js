@@ -6,13 +6,13 @@ import PmDashboard from '../PmDashboard/PmDashboard';
 class Dashboard extends Component {
 
     checkUser = () => {
-        if( this.props.reduxStore.user.admin === 1 ){
+        if (this.props.reduxStore.user.admin === 1) {
             return <PmDashboard history={this.props.history} />;
         }
-        else if( this.props.reduxStore.user.admin === 2 ){
+        else if (this.props.reduxStore.user.admin === 2) {
             return <AdminDashboard history={this.props.history} />;
         }
-        else{
+        else {
             this.props.history.push('/home');
         }
     }
