@@ -163,7 +163,7 @@ class PcnForm extends Component {
                     change_description: this.props.reduxStore.currentPcnReducer.change_description,
                     number: this.props.reduxStore.currentPcnReducer.id,
                     audience: this.props.reduxStore.currentPcnReducer.audience,
-                    type: 'pcn',
+                    type: 'PCN',
                     notes: this.props.reduxStore.currentPcnReducer.notes} 
                 })
         }
