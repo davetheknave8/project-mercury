@@ -159,16 +159,19 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
     }
 });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-
-});
-
-
-
-
+router.get('/current', (req, res) => {
+    const idToGet = req.query.id;
+    const sqlText = `SELECT * FROM pcn WHERE id=$1;`;
+    pool.query(sqlText, [idToGet])
+        .then(response => {
+            console.log(response.rows[0])
+            res.send(response.rows[0])
+        })
+        .catch(error => {
+            console.log('error getting current pcn', error);
+            res.sendStatus(500);
+        })
+})
 
 
 router.get('/info', (req, res) => {
@@ -232,9 +235,12 @@ router.get('/pcnparts', (req, res) => {
 
 router.post('/create', (req, res) => {
     console.log(req.body.type);
+    const userId = req.user.id
     if(req.body.type === 'pcn'){
-        const sqlText = `INSERT INTO pcn DEFAULT VALUES RETURNING id;`;
-        pool.query(sqlText)
+        const sqlText = `INSERT INTO pcn(creator_id, contact_id, type)
+                            VALUES($1, $2, $3)
+                            RETURNING id;`;
+        pool.query(sqlText, [userId, userId, 'PCN'])
             .then(response => {
                 console.log(response.rows);
                 res.send(response.rows);
@@ -244,6 +250,22 @@ router.post('/create', (req, res) => {
                 res.sendStatus(500);
             })
     }
+})
+
+// PUT Routes
+
+router.put('/edit', (req, res) => {
+    const objectToEdit = req.body;
+    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='PENDING' WHERE id=$6;`;
+    const values=[objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error editing pcn', error);
+            res.sendStatus(500);
+        })
 })
 
 
