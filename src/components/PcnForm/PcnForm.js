@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PartListItem from '../PartListItem/PartListItem';
 import Nav from '../Nav/Nav';
+import SearchPartListItem from '../SearchPartListItem/SearchPartListItem';
 
 //React Quill
 import ReactQuill from 'react-quill';
@@ -17,6 +18,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import AddIcon from '@material-ui/icons/AddCircle';
+import List from '@material-ui/core/List';
 
 const styles = theme => ({
     form: {
@@ -181,6 +183,10 @@ class PcnForm extends Component {
         this.setState({newPart: {...this.state.newPart, [propToChange]: event.target.value}})
     }
 
+    handleSearchPartChange = (event) => {
+        this.props.dispatch({type: 'SEARCH_PARTS', payload: {query: event.target.value}})
+    }
+
     render(){
         const {classes} = this.props;
         return(
@@ -212,6 +218,12 @@ class PcnForm extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        <TableRow>
+                            <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
+                        </TableRow>
+                        <List>
+                            {this.props.reduxStore.searchPartReducer ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem part={part} />) : <></> }
+                        </List>
                         {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
                         <TableRow>
                             <TableCell className={classes.cell}><TextField value={this.state.newPart.number} onChange={event => this.handleChangePart(event, 'number')} placeholder="Add Part #..." /></TableCell>
