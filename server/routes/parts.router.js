@@ -63,4 +63,20 @@ router.post('/create', (req, res) => {
         })
 });
 
+router.post('/add', (req, res) => {
+    console.log('hello');
+    const partToAdd = req.body;
+    const sqlText = `INSERT INTO pcn_part(pcn_id, part_id)
+                        VALUES($1, $2);`;
+    const values = [partToAdd.pcnId, partToAdd.id];
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error adding part', error);
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;

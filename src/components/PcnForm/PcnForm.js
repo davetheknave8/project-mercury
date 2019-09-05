@@ -142,6 +142,7 @@ class PcnForm extends Component {
             number: '',
             pcnNumber: this.props.match.params.id
         },
+        searching: false,
         descriptionLength: 2000
     }
 
@@ -184,6 +185,13 @@ class PcnForm extends Component {
     }
 
     handleSearchPartChange = (event) => {
+        console.log(event.target.value.length)
+        if(event.target.value.length < 2){
+            this.setState({searching: false})
+        } else{
+            this.setState({searching: true})
+        }
+        console.log(this.state.searching);
         this.props.dispatch({type: 'SEARCH_PARTS', payload: {query: event.target.value}})
     }
 
@@ -222,7 +230,7 @@ class PcnForm extends Component {
                             <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
                         </TableRow>
                         <List>
-                            {this.props.reduxStore.searchPartReducer ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem part={part} />) : <></> }
+                            {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem pcnNumber={this.props.match.params.id} part={part} />) : <></> }
                         </List>
                         {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
                         <TableRow>
