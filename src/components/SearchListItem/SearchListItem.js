@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,15 +9,23 @@ import TableRow from '@material-ui/core/TableRow';
 import './SearchListItem.css';
 
 const styles = theme => ({
-        tableCell: {
-            width: '20%',
-            padding: 'auto',
-            marginLeft: theme.spacing.unit,
-        },
-  });
-
-
-  
+    tableCell1: {
+        textAlign: 'left',
+        width: '15%',
+    },
+    tableCell2: {
+        textAlign: 'left',
+        width: '10%',
+    },
+    tableCell3: {
+        textAlign: 'left',
+        width: '25%',
+    },
+    tableCell4: {
+        textAlign: 'left',
+        width: '50%',
+    },
+});
 
 class SearchListItem extends Component {
 
@@ -25,32 +33,32 @@ class SearchListItem extends Component {
         this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`)
         console.log('clicked link', event);
     }
-  
-    render(){
+
+    render() {
 
         let html = this.props.item.description;
-            console.log(html);
+        console.log(html);
         let div = document.createElement("div");
-            div.innerHTML = html;
-            console.log(div.innerText);
+        div.innerHTML = html;
+        console.log(div.innerText);
 
         const { classes } = this.props;
-            return(
-                <>
+        return (
+            <>
                 <TableRow className="tc" align="center" onClick={() => this.goToLink()}>
-                    <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell> 
-                    <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
-                    <TableCell className={classes.tableCell}>{div.innerText}</TableCell>
+                    <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell>
+                    <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
+                    <TableCell className={classes.tableCell3}>{this.props.item.date}</TableCell>
+                    <TableCell className={classes.tableCell4}>{div.innerText}</TableCell>
                 </TableRow>
-                </>
-            );
+            </>
+        );
     }
 }
 
-const mapStateToProps = reduxStore =>({
-    reduxStore 
+const mapStateToProps = reduxStore => ({
+    reduxStore
 
 });
 
-export default  withStyles(styles)(connect(mapStateToProps)(SearchListItem)); 
+export default withStyles(styles)(connect(mapStateToProps)(SearchListItem)); 

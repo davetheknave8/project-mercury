@@ -268,5 +268,17 @@ router.put('/edit', (req, res) => {
         })
 })
 
+router.put('/reviewpcn/:id', (req, res) => {
+    const sqlText = `UPDATE pcn SET status=$1, notification_message=$2 WHERE id=$3;`;
+    const values = [req.body.status, req.body.message, req.params.id]
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error editing pcn', error);
+            res.sendStatus(500);
+        })
+})
 
 module.exports = router;

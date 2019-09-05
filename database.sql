@@ -102,6 +102,13 @@ CREATE TABLE image
     figure character varying(200)
 );
 
+CREATE TABLE pcn_image
+(
+    id SERIAL PRIMARY KEY,
+    pcn_id VARCHAR REFERENCES pcn(id),
+    image_id integer REFERENCES image(id)
+);
+
 CREATE TABLE eol_image
 (
     id SERIAL PRIMARY KEY,

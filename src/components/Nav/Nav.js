@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 
+
 //Material-UI Icons
 import UserIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
@@ -18,6 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
   settingsBtn: {
@@ -43,14 +45,56 @@ const styles = theme => ({
   passBtn: {
     marginTop: '5%',
     marginLeft: '40%'
-  }
+  },
+  textField: {
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 200,
+    overFlow: "auto",
+
+  },
 })
 
 class Nav extends Component{
   state = {
+    username: '',
+    password: '',
+    email:'',
+    access: 0,
     open: null,
     show: false,
-    showCreate: null
+    window: false,
+    showCreate: null,
+  }
+
+
+  registerUser = (event) => {
+    event.preventDefault();
+
+    if (this.state.username && this.state.password) {
+      this.props.dispatch({
+        type: 'REGISTER',
+        payload: {
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email,
+          access: this.state.access,
+        },
+      });
+    } else {
+      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+    }
+    this.setState({
+      window: false
+    })
+  } // end registerUser
+
+  handleInputChangeFor = propertyName => (event) => {
+    this.setState({
+      [propertyName]: event.target.value,
+    });
+    console.log('event.target.value', event.target.value)
   }
 
   componentDidUpdate = (prevProps) => {
@@ -65,6 +109,17 @@ class Nav extends Component{
 
   handleClose = () => {
     this.setState({open: null})
+  }
+
+  handleOpenCreateUser = (event) =>{
+    this.setState({
+      window: true
+    })
+  }
+  handleCloseCreateUser = () =>{
+    this.setState({
+      window: false
+    })
   }
 
   handleOpenChangePassword = () => {
@@ -115,12 +170,12 @@ class Nav extends Component{
     const {classes} = this.props;
     return(
       <div className="nav">
-        <Link to="/home">
+        <Link to="/dashboard">
           <h2 className="nav-title">Project Mercury</h2>
         </Link>
         <div className="nav-right">
           {!this.props.user.id ?
-          <Link className="nav-link" to="/home">Login/Register</Link> : <></>}
+          <Link className="nav-link" to="/dashboard">Login/Register</Link> : <></>}
           {/* Show the link to the info page and the logout button if the user is logged in */}
           {this.props.user.id && (
             <>
@@ -133,6 +188,7 @@ class Nav extends Component{
                 open={Boolean(this.state.open)}
                 onClose={this.handleClose}>
                   <MenuItem onClick={this.handleOpenChangePassword}>Change Password</MenuItem>
+                 {this.props.user.admin === 2 &&( <MenuItem onClick={this.handleOpenCreateUser}>Create User</MenuItem>)}
               </Menu>
               <Modal
               open={this.state.show}
@@ -149,6 +205,69 @@ class Nav extends Component{
                     <Button variant="contained" className={classes.passBtn} type="submit">Submit</Button>
                   </form>
                 </div>
+              </Modal>
+              <Modal open={this.state.window}
+              onClose={this.handleCloseCreateUser}>
+                <div className={classes.paper} style={{top: '20%', left: '35%'}}>
+                  <Typography style={{textAlign: 'center'}}>Register New User</Typography>
+                  <div>
+                      {this.props.errors.registrationMessage && (
+                        <h2
+                          className="alert"
+                          role="alert"
+                        >
+                          {this.props.errors.registrationMessage}
+                        </h2>
+                      )}
+                      <form onSubmit={this.registerUser} >
+                        <div>
+                            <TextField className={classes.input} 
+                              type="text"
+                              name="username"
+                              value={this.state.username}
+                              onChange={this.handleInputChangeFor('username')}
+                              label="User Name"
+                            />
+                        </div>
+                        <div> 
+                            <TextField className={classes.input} 
+                              type="password"
+                              name="password"
+                              value={this.state.password}
+                              onChange={this.handleInputChangeFor('password')}
+                              label="Password"
+                            />
+                          <div/>
+                          <div>
+                            <TextField className={classes.input} 
+                              type="email"
+                              name="Email"
+                              value={this.state.email}
+                              onChange={this.handleInputChangeFor('email')}
+                              label="Email"
+                            />
+                          </div>
+                          <div>
+                            <Select  className={classes.textField} value={this.state.access}  onChange={this.handleInputChangeFor('access')}  
+                                  inputProps={{name: 'none',}}>
+                                  <MenuItem value={"0"}>Select Access Level</MenuItem>
+                                  <MenuItem value={"1"}>Level 1</MenuItem>
+                                  <MenuItem value={"2"}>Level 2 - Admin</MenuItem>
+                            </Select>
+                          </div>
+                        </div>
+                        <div>
+                          <Button
+                            className="register"
+                            type="submit"
+                          >
+                            Register
+                          </Button>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+             
               </Modal>
               <Link className="nav-link" to="/dashboard">
                 <UserIcon />
@@ -188,6 +307,7 @@ class Nav extends Component{
 // const mapStateToProps = ({ user }) => ({ user });
 const mapStateToProps = reduxStore => ({
   user: reduxStore.user,
+  errors: reduxStore.errors,
   reduxStore
 });
 
