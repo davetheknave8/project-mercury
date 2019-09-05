@@ -284,4 +284,46 @@ router.put('/reviewpcn/:id', (req, res) => {
         })
 })
 
+router.delete('/deletepcn', (req, res) => {
+    if (req.query.type === 'PCN') {
+        const sqlText = `DELETE FROM pcn WHERE id = $1;`;
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving pcn info', error);
+                res.sendStatus(500)
+            })
+    }
+    else if (req.query.type === 'EOL') {
+        const sqlText = `DELETE FROM eol WHERE id = $1;`;
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving eol info', error);
+                res.sendStatus(500)
+            })
+    }
+    else if (req.query.type === 'NPI') {
+        const sqlText = `DELETE FROM npi WHERE id = $1;`;
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving npi info', error);
+                res.sendStatus(500)
+            })
+    }
+    else {
+        res.sendStatus(500);
+    }
+})
+
 module.exports = router;
