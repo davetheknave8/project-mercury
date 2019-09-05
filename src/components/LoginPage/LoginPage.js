@@ -2,6 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../Nav/Nav';
 
+//Material-ui
+import Button from '@material-ui/core/Button';
+import {withStyles} from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const styles = theme => ({
+  label:{
+    color:'white',
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 200,
+    overFlow: "auto",
+  },
+  button:{
+    backgroundColor: 'white',
+    textAlign: 'center',
+    width: '30%',
+  },
+  header:{
+    color:'white',
+    textAlign: 'center',
+  }
+})
+
+
 class LoginPage extends Component {
   state = {
     username: '',
@@ -32,6 +58,7 @@ class LoginPage extends Component {
   }
 
   render() {
+    const {classes} = this.props;
     return (
       <>
         <Nav />
@@ -45,37 +72,38 @@ class LoginPage extends Component {
             </h2>
           )}
           <form className="login-form" onSubmit={this.login}>
-            <h1>Login</h1>
-            <div>
-              <label htmlFor="username">
-                Username:
-                <input
+            <h1 className={classes.header}>Login</h1>
+            <div className={classes.label}>
+              
+                <TextField
+                  label="User Name"
                   type="text"
                   name="username"
                   value={this.state.username}
                   onChange={this.handleInputChangeFor('username')}
                 />
-              </label>
+              
             </div>
-            <div>
-              <label htmlFor="password">
-                Password:
-                <input
+            <div className={classes.label}>
+              
+                <TextField
+                  label="Password"
                   type="password"
                   name="password"
                   value={this.state.password}
                   onChange={this.handleInputChangeFor('password')}
                 />
-              </label>
+              
             </div>
-            <div>
-              <input
+            <div className={classes.button}>
+              <Button 
+                color="primary"
                 className="log-in"
                 type="submit"
                 name="submit"
                 value="Log In"
-              />
-            </div>
+              >"Log In"</Button>
+           </div>
           </form>
           <center>
             {/* <button
@@ -99,4 +127,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(LoginPage);
+export default withStyles(styles)(connect(mapStateToProps)(LoginPage));
