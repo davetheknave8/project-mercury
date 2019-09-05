@@ -21,6 +21,20 @@ router.get('/current', (req, res) => {
         })
 });
 
+router.get('/search', (req, res) => {
+    const search = `%${req.query.search}%`;
+    const sqlText = `SELECT * FROM part WHERE number LIKE $1;`;
+    pool.query(sqlText, [search])
+        .then(response => {
+            console.log(response.rows);
+            res.send(response.rows);
+        })
+        .catch(error => {
+            console.log('error searching parts', error);
+            res.sendStatus(500);
+        })
+})
+
 /**
  * POST route template
  */

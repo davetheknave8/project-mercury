@@ -7,7 +7,7 @@ class Dashboard extends Component {
 
     checkUser = () => {
         if( this.props.reduxStore.user.admin === 1 ){
-            return <PmDashboard/>;
+            return <PmDashboard history={this.props.history} />;
         }
         else if( this.props.reduxStore.user.admin === 2 ){
             return <AdminDashboard/>;
