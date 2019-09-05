@@ -132,10 +132,12 @@ let length = 0;
 class PcnForm extends Component {
     state = {
         newPcn: {
-            date: 'yyyy-MM-dd',
-            description: '<p></p>',
-            number: this.props.match.params.id,
-            audience: this.props.reduxStore.currentPcnReducer
+            date: '',
+            change_description: '',
+            number: '',
+            audience: '',
+            type: 'pcn',
+            notes: ''
         },
         newPart: {
             name: '',
@@ -144,22 +146,38 @@ class PcnForm extends Component {
             pcnNumber: this.props.match.params.id
         },
         searching: false,
-        descriptionLength: 2000
+        descriptionLength: 2000,
+        description: ''
     }
 
     componentDidMount = () => {
         this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {pcnId: this.props.match.params.id}})
+        this.props.dispatch({type: 'FETCH_CURRENT_PCN', payload: this.props.match.params.id})
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if(prevProps.reduxStore.currentPcnReducer !== this.props.reduxStore.currentPcnReducer){
+            this.setState({
+                newPcn: {
+                    date: this.props.reduxStore.currentPcnReducer.date,
+                    change_description: this.props.reduxStore.currentPcnReducer.change_description,
+                    number: this.props.reduxStore.currentPcnReducer.id,
+                    audience: this.props.reduxStore.currentPcnReducer.audience,
+                    type: 'PCN',
+                    notes: this.props.reduxStore.currentPcnReducer.notes} 
+                })
+        }
     }
 
     handleChange = (event, propToChange) => {
         console.log(propToChange);
-        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
+        if(propToChange !== 'change_description' && propToChange !== 'notes' && propToChange !== 'audience'){
             this.setState({newPcn: {...this.state.newPcn, [propToChange]: event.target.value}})
         } else {
             this.setState({newPcn: {...this.state.newPcn, [propToChange]: event}})
             console.log(this.state);
         }
-        let html = this.state.newPcn.description;
+        let html = this.state.newPcn.change_description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
@@ -173,6 +191,7 @@ class PcnForm extends Component {
         event.preventDefault();
         console.log(this.state.newPcn);
         this.props.dispatch({type: 'EDIT_PCN', payload: this.state.newPcn});
+        this.props.history.push('/dashboard');
     }
 
     handleSubmitPart = (event) => {
@@ -198,13 +217,14 @@ class PcnForm extends Component {
 
     render(){
         const {classes} = this.props;
+        console.log(this.props.reduxStore.currentPcnReducer.change_description)
         return(
             <>
             <Nav history={this.props.history} />
             <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
                 <h1 className={classes.formHeader}>PCN Form</h1>
                 <div className={classes.topElements}>
-                    <TextField className={classes.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
+                    <TextField className={classes.date} value={this.state.newPcn.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
                         shrink: true,
                     }}
                     />
@@ -214,7 +234,8 @@ class PcnForm extends Component {
                 <label className={classes.label}>Description of Change: ({this.state.descriptionLength} characters remaining.)</label>
                 <br />
                 <ReactQuill className={classes.description}
-                onChange={event => this.handleChange(event, 'description')}
+                onChange={event => this.handleChange(event, 'change_description')}
+                value={this.state.newPcn.change_description}
                  />
                 <br />
                 <Table className={classes.table}>
@@ -247,12 +268,13 @@ class PcnForm extends Component {
                     <div className={classes.notesDiv}>
                         <label className={classes.notesLabel}>Notes: </label>
                         <ReactQuill className={classes.notes}
-                        onChange={event => this.handleChange(event, 'notes')} />
+                        onChange={event => this.handleChange(event, 'notes')}
+                        value={this.state.newPcn.notes} />
                     </div>
                     <div className={classes.audience}>
                         <label>Audience:</label>
                         <br />
-                        <ReactQuill className={classes.audienceIn} placeholder="Add Audience..." onChange={event => this.handleChange(event, 'audience') } />                        
+                        <ReactQuill value={this.state.newPcn.audience} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience') } />                        
                     </div>
                 </div>
                 <br />

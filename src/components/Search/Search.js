@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import SearchListItem from '../SearchListItem/SearchListItem'
 
 //Material UI imports
@@ -15,13 +15,12 @@ import TableHead from '@material-ui/core/TableHead';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Nav from '../Nav/Nav'
+import './Search.css';
 
 const styles = {
-    title:{
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        display: 'center',
-        width: 400,
+    title: {
+        margin: 'auto',
+        textAlign: 'center',
     },
     root: {
         padding: '2px 4px',
@@ -29,13 +28,22 @@ const styles = {
         alignItems: 'center',
         marginLeft: 'auto',
         marginRight: 'auto',
-        width: 400,
+        width: '35%',
     },
-    table:{
-        
+    header: {
         width: '80%',
         margin: 'auto',
-        
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+    },
+    table: {
+        width: '80%',
+        margin: 'auto',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderTopWidth: '0px',
     },
     input: {
         marginLeft: 8,
@@ -50,73 +58,76 @@ const styles = {
         height: 28,
         margin: 4,
     },
-  };
+    tableCell: {
+        color: 'white',
+    },
+};
 
 class Search extends Component {
-    
+
 
     // state = {
     //     search: '',
     // }
 
 
-    componentDidMount(){
-        this.props.dispatch({type:'FETCH_PCN_LIST'});
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_PCN_LIST' });
         // this.props.dispatch({type: 'GET_SEARCH'});
     }
     //takes the input information and holds it in the new setState.
-    handleChange = (event) =>{
+    handleChange = (event) => {
         console.log('entered search', event.target.value.toUpperCase());
         // this.setState({
         //     [propertyToChange]:event.target.value,
         // })
-        this.props.dispatch({type:'GET_SEARCH', payload: event.target.value})
+        this.props.dispatch({ type: 'GET_SEARCH', payload: event.target.value })
         // console.log(this.state.search);
     };
 
-  
+
     render() {
 
         const { classes } = this.props;
 
-        return(
+        return (
             <>
-            <Nav history={this.props.history}/>
-            <h1 className={classes.title}>Search</h1>
-        <Paper className={classes.root} elevation={1}>
-            <IconButton className={classes.iconButton} aria-label="Menu">
-            </IconButton>
-            <InputBase className={classes.input} placeholder="Search" onChange={(event) => this.handleChange(event)} />
-            <IconButton className={classes.iconButton} aria-label="Search">
-            <SearchIcon />
-            </IconButton>
-        </Paper>
-
-        <Paper className={classes.table} elevation={1}>
-        <h2 className={classes.title}>Results</h2> 
-            <Table className={classes.table}>
-            <TableHead>
-                <TableRow component="tr" scope="row">
-                    <TableCell className={classes.tableCell}>PCN - #</TableCell>
-                    <TableCell className={classes.tableCell}>type</TableCell>
-                    <TableCell className={classes.tableCell}>Date</TableCell>
-                    <TableCell className={classes.tableCell}>Description</TableCell>
-                </TableRow>
-            </TableHead>  
-                <TableBody>
-                    {this.props.reduxStore.getPcn.map(item => 
-                    <SearchListItem  key={item.id} item={item} history={this.props.history}/>)}
-                </TableBody>
-            </Table> 
-      </Paper>
+                <Nav history={this.props.history} />
+                <h1 className={classes.title}>&nbsp;</h1>
+                <h1 className={classes.title}>&nbsp;</h1>
+                <Paper className={classes.root} elevation={1}>
+                    <IconButton className={classes.iconButton} aria-label="Menu">
+                    </IconButton>
+                    <InputBase className={classes.input} placeholder="Search for PCN by #" onChange={(event) => this.handleChange(event)} />
+                    <IconButton className={classes.iconButton} aria-label="Search">
+                        <SearchIcon />
+                    </IconButton>
+                </Paper>
+                    <h1 className={classes.title}>&nbsp;</h1>
+                    <Table className={classes.header}>
+                        <TableHead>
+                            <TableRow component="tr" scope="row" className="header">
+                                <TableCell className={classes.tableCell}>PCN - #</TableCell>
+                                <TableCell className={classes.tableCell}>Type</TableCell>
+                                <TableCell className={classes.tableCell}>Date</TableCell>
+                                <TableCell className={classes.tableCell}>Description</TableCell>
+                            </TableRow>
+                        </TableHead>
+                    </Table>
+                    <Table className={classes.table}>
+                        <TableBody>
+                            {this.props.reduxStore.getPcn.map(item =>
+                                <SearchListItem key={item.id} item={item} history={this.props.history} />)}
+                        </TableBody>
+                    </Table>
             </>
         )
     }
 }
 
 
-const mapStateToProps = reduxStore =>({
-    reduxStore 
+const mapStateToProps = reduxStore => ({
+    reduxStore
 
 });
 
