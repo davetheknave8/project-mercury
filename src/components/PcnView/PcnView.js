@@ -19,8 +19,8 @@ import { red } from '@material-ui/core/colors';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
+        backgroundColor: '#c9cbd1',
+        color: 'black',
     },
     body: {
         fontSize: 14,
@@ -35,10 +35,11 @@ const styles = theme => ({
         display: 'none',
     },
     root: {
-        width: '60%',
+        width: '100%',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: "auto",
+        border: '1px solid black',
     },
     table: {
         margin: 'auto',
@@ -77,7 +78,13 @@ const styles = theme => ({
     pcnform: {
         width: '70%',
         margin: 'auto',
-    }
+    },
+    pcndescription: {
+        backgroundColor: 'white',
+        margin: 'auto',
+        padding: '5px',
+        border: '1px solid black',
+    },
 });
 
 function getModalStyle() {
@@ -171,9 +178,9 @@ class PcnView extends Component {
                         <h4>Audience</h4>
                         <p>{this.props.reduxStore.pcnInfo.audience}</p>
                     </div>
-                    <div className="pcnbody">
-                        <h3>Description of Change</h3>
-                        <div className = "richbody" dangerouslySetInnerHTML={{
+                    <h4>Description of Change</h4>
+                    <div>
+                        <div className={classes.pcndescription}dangerouslySetInnerHTML={{
                             __html:
                             this.props.reduxStore.pcnInfo.change_description
                         }}>
@@ -192,7 +199,7 @@ class PcnView extends Component {
                                 </Table>
                             </Paper>
                         </div>
-                            <h3>Notes</h3>
+                            <h4>Notes</h4>
                             <div className="richbody" dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.notes
