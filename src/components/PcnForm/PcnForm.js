@@ -81,11 +81,13 @@ const styles = theme => ({
     audience: {
         display: 'inline-block',
         marginRight: '10%',
-        color: 'white',
         width: '35%',
         textAlign: 'left',
         marginLeft: '10%',
         marginTop: '3%',
+    },
+    audienceLabel: {
+        color: 'white'
     },
     notesDiv: {
         width: '35%',
@@ -272,7 +274,7 @@ class PcnForm extends Component {
                         value={this.state.newPcn.notes} />
                     </div>
                     <div className={classes.audience}>
-                        <label>Audience:</label>
+                        <label className={classes.audienceLabel}>Audience:</label>
                         <br />
                         <ReactQuill value={this.state.newPcn.audience} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience') } />                        
                     </div>
