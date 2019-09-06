@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PcnViewPart from '../PcnViewPart/PcnViewPart';
+import PcnViewImage from '../PcnViewImage/PcnViewImage';
 import Nav from '../Nav/Nav';
 
 // Material UI
@@ -15,7 +16,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { red } from '@material-ui/core/colors';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -67,7 +67,7 @@ const styles = theme => ({
         width: '40%',
         margin: 'auto',
         textAlign: 'center',
-        padding: '1px',
+        padding: '10px',
     },
     pcndate: {
         
@@ -82,9 +82,29 @@ const styles = theme => ({
     pcndescription: {
         backgroundColor: 'white',
         margin: 'auto',
-        padding: '5px',
         border: '1px solid black',
+        padding: '10px',
     },
+    richbody: {
+    },
+    images: {
+        paddingTop: '20px',
+        paddingBottom: '20px',
+        width: '100%',
+        margin: 'auto',
+    },
+    image: {
+        border: '1px solid black',
+        marginRight: '15px',
+        height: '200px',
+        cursor: 'pointer',
+        objectFit: 'cover',
+    },
+    pcnbuttons: {
+        width: '100%',
+        margin: 'auto',
+        textAlign: 'right',
+    }
 });
 
 function getModalStyle() {
@@ -94,7 +114,23 @@ function getModalStyle() {
         top: `${top}%`,
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
+        textAlign: 'center',
     };
+
+}
+
+function getImageModalStyle() {
+    const top = 50;
+    const left = 50;
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        textAlign: 'center',
+        width: 'auto',
+        height: 'auto',
+    };
+
 }
 
 class PcnView extends Component {
@@ -102,6 +138,9 @@ class PcnView extends Component {
     state = {
         open: false,
         message: '',
+        openImage: false,
+        image: '',
+        alt: '',
     };
 
     componentDidMount() {
@@ -110,16 +149,26 @@ class PcnView extends Component {
             type: this.props.match.params.type
         };
         this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
-        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id});
+        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id });
+        this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data.id });
     }
 
     handleOpen = () => {
-        console.log('handleOpen')
         this.setState({ open: true });
+    };
+
+    handleOpenImage = (imageURL, imageAlt) => {
+        this.setState({ image: imageURL });
+        this.setState({ alt: imageAlt });
+        this.setState({ openImage: true });
     };
 
     handleClose = () => {
         this.setState({ open: false });
+    };
+
+    handleCloseImage = () => {
+        this.setState({ openImage: false });
     };
 
     handleChangeFor = (event, propToChange) => {
@@ -144,15 +193,15 @@ class PcnView extends Component {
         let pcnInfo = this.props.reduxStore.pcnInfo;
         if( this.props.reduxStore.user.admin === 1 ){
             if( pcnInfo.status === 'INCOMPLETE' || pcnInfo.status === 'PENDING' || pcnInfo.status === 'DENIED'){
-                return <Button variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
+                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
             }
         }
         else if( this.props.reduxStore.user.admin === 2 ){
             if( pcnInfo.status === 'PENDING' ){
                 return (
                     <>
-                    <Button variant='contained' className={classes.button} color='primary' onClick={() => this.reviewPCN('PUBLISHED')}>Approve</Button>
-                    <Button variant='contained' className={classes.button} color='secondary' onClick={this.handleOpen}>Deny</Button>
+                    <Button size='small' variant='contained' className={classes.button} color='primary' onClick={() => this.reviewPCN('PUBLISHED')}>Approve</Button>
+                    <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={this.handleOpen}>Deny</Button>
                     </>
                 )
             }
@@ -176,10 +225,14 @@ class PcnView extends Component {
                     </div>
                         <div className={classes.pcnaudience}>
                         <h4>Audience</h4>
-                        <p>{this.props.reduxStore.pcnInfo.audience}</p>
+                            <div className={classes.richbody} dangerouslySetInnerHTML={{
+                                __html:
+                                    this.props.reduxStore.pcnInfo.audience
+                            }}>
+                        </div>
                     </div>
                     <h4>Description of Change</h4>
-                    <div>
+                    <div className={classes.richbody}>
                         <div className={classes.pcndescription}dangerouslySetInnerHTML={{
                             __html:
                             this.props.reduxStore.pcnInfo.change_description
@@ -200,18 +253,24 @@ class PcnView extends Component {
                             </Paper>
                         </div>
                             <h4>Notes</h4>
-                            <div className="richbody" dangerouslySetInnerHTML={{
+                            <div className={classes.richbody} dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.notes
                             }}>
                             </div>
                     </div>
-                    <div className="pcnbuttons">
-                        <Button variant='contained' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
+                    <div className={classes.images}>
+                            {this.props.reduxStore.pcnImage.map((image, i) => {
+                                return (<img className={classes.image} src={image.image_url} alt={image.figure} onClick={() => this.handleOpenImage(image.image_url, image.figure)}></img>);
+                            })}
+                    </div>
+                    <div className={classes.pcnbuttons}>
+                        <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
                         {this.renderButton()}
+
                         <Modal
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
+                            aria-labelledby="Deny PCN"
+                            aria-describedby="Modal to input a reason for denying PCN"
                             open={this.state.open}
                             onClose={this.handleClose}
                             >
@@ -219,8 +278,20 @@ class PcnView extends Component {
                                 <Typography variant="h6" id="modal-title">Notes</Typography>
                                 <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
                                 <br/>
-                                <Button color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
-                                <Button onClick={() => this.handleClose()}>Return</Button>
+                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
+                                <Button size='small' onClick={() => this.handleClose()}>Return</Button>
+                            </div>
+                        </Modal>
+
+                        <Modal
+                            aria-labelledby="View image"
+                            aria-describedby="Modal to view image in full size"
+                            open={this.state.openImage}
+                            onClose={this.handleCloseImage}
+                            >
+                            <div style={getImageModalStyle()} className={classes.paper}>
+                                <img src={this.state.image} alt={this.state.alt}></img>
+                                <p>{this.state.alt}</p>
                             </div>
                         </Modal>
                     </div>

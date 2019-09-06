@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
@@ -28,6 +29,7 @@ const styles = theme => ({
 });
 
 class SearchListItem extends Component {
+   
 
     goToLink = (event) => {
         this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`)
@@ -48,7 +50,7 @@ class SearchListItem extends Component {
                 <TableRow className="tc" align="center" onClick={() => this.goToLink()}>
                     <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell>
                     <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
-                    <TableCell className={classes.tableCell3}>{this.props.item.date}</TableCell>
+                    <TableCell className={classes.tableCell3}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                     <TableCell className={classes.tableCell4}>{div.innerText}</TableCell>
                 </TableRow>
             </>

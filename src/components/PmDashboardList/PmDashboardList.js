@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './PmDashboardList.css';
+import moment from 'moment';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -66,7 +67,7 @@ class PmDashboardList extends Component {
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.id}</TableCell>
                     {/* <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell> */}
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>
-                    <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.date}</TableCell>
+                    <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                     <TableCell className="column" className={classes.tableCell}>{this.checkStatus(this.props.item)}&nbsp;</TableCell>
                 </TableRow>
             </>

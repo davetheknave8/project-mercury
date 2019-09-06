@@ -7,16 +7,17 @@ router.get('/', (req, res) => {
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn
             WHERE pcn.status = 'PUBLISHED')
-            union
+            UNION
             (SELECT eol."type" as "type", eol.id as id, 
             eol.status as status, eol.date as date, eol.change_description as descripiton
             FROM eol
             WHERE eol.status = 'PUBLISHED')
-            union
+            UNION
             (SELECT npi."type" as "type", npi.id as id, 
             npi.status as status, npi.date as date, npi.description as descripiton
             FROM npi
-            WHERE npi.status = 'PUBLISHED');`
+            WHERE npi.status = 'PUBLISHED')
+            ORDER BY id ASC;`
     pool.query(queryText)
     .then((response) => {
         res.send(response.rows);
@@ -33,17 +34,18 @@ router.get(`/search`, (req, res) => {
         sqlValues = [`%${value}%`]
             const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn
-            WHERE "id" LIKE $1)
-            union
+            WHERE "id" LIKE $1 AND pcn.status = 'PUBLISHED')
+            UNION
             (SELECT eol."type" as "type", eol.id as id, 
             eol.status as status, eol.date as date, eol.change_description as descripiton
             FROM eol
-            WHERE "id" LIKE $1)
-            union
+            WHERE "id" LIKE $1 AND eol.status = 'PUBLISHED')
+            UNION
             (SELECT npi."type" as "type", npi.id as id, 
             npi.status as status, npi.date as date, npi.description as descripiton
             FROM npi
-            WHERE "id" LIKE $1);`;
+            WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
+            ORDER BY id ASC LIMIT 30;`;
     pool.query(queryText,sqlValues)
     .then((response) => {
         console.log('response.rows',response.rows);
@@ -232,6 +234,20 @@ router.get('/pcnparts', (req, res) => {
                 console.log('error retrieving pcn parts', error);
                 res.sendStatus(500)
             })
+});
+
+router.get('/pcnimages', (req, res) => {
+    console.log('getting images for specific pcn, req.query is:', req.query)
+    let sqlText = 'select image.id, image_url, figure from image join pcn_image on image.id = pcn_image.image_id where pcn_image.pcn_id = $1;';
+    pool.query(sqlText, [req.query.id])
+        .then((response) => {
+            console.log('sending response', response.rows);
+            res.send(response.rows)
+        })
+        .catch((error) => {
+            console.log('error retrieving pcn images', error);
+            res.sendStatus(500)
+        })
 });
 
 //POST Routes
