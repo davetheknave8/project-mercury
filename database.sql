@@ -3,6 +3,7 @@ CREATE TABLE "user"
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR(200),
     "password" VARCHAR(200),
+    "email" VARCHAR(200),
     "admin" INT
 );
 
@@ -33,14 +34,14 @@ CREATE TABLE eol
     id VARCHAR(100),
     creator_id integer REFERENCES "user"(id),
     contact_id integer REFERENCES "user"(id),
-    "type" character varying(200),
-    "date" date,
+    "type" character varying(200) DEFAULT 'EOL',
+    "date" date DEFAULT now(),
     change_description character varying(2000),
     last_time_buy character varying(50),
     last_time_ship character varying(50),
     notes character varying(200),
     audience character varying(1000),
-    status VARCHAR(20),
+    status VARCHAR(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
     CONSTRAINT eol_pkey PRIMARY KEY (id)
 );
@@ -57,11 +58,11 @@ CREATE TABLE npi
     id VARCHAR(200),
     creator_id integer REFERENCES "user"(id),
     contact_id integer REFERENCES "user"(id),
-    "type" character varying(200),
-    "date" date,
+    "type" character varying(200) DEFAULT 'NPI',
+    "date" date DEFAULT now(),
     "description" character varying(2000),
     notes character varying(2000),
-    status varchar(20),
+    status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
     CONSTRAINT npi_pkey PRIMARY KEY (id)
 );
@@ -78,12 +79,12 @@ CREATE TABLE pcn
     id VARCHAR(200),
     creator_id integer REFERENCES "user"(id),
     contact_id integer REFERENCES "user"(id),
-    "type" character varying(200),
-    "date" date,
+    "type" character varying(200) DEFAULT 'PCN',
+    "date" date DEFAULT now(),
     audience VARCHAR(500),
     change_description character varying(2000),
     notes character varying(2000),
-    status varchar(20),
+    status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
     CONSTRAINT pcn_pkey PRIMARY KEY (id)
 );

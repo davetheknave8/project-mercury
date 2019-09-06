@@ -79,21 +79,21 @@ const styles = theme => ({
         marginTop: '3%',
     },
     audience: {
-        display: 'inline-block',
-        marginRight: '10%',
-        width: '35%',
+        display: 'block',
+        width: '60%',
         textAlign: 'left',
-        marginLeft: '10%',
+        marginLeft: '20%',
         marginTop: '3%',
     },
     audienceLabel: {
         color: 'white'
     },
     notesDiv: {
-        width: '35%',
-        marginLeft: '10%',
-        display: 'inline-block',
+        width: '60%',
+        marginLeft: '20%',
+        display: 'block',
         marginTop: '3%',
+        
     },
     userDiv: {
         marginTop: '5%',
@@ -269,12 +269,14 @@ class PcnForm extends Component {
                 <div>
                     <div className={classes.notesDiv}>
                         <label className={classes.notesLabel}>Notes: </label>
+                        <br />
                         <ReactQuill className={classes.notes}
                         onChange={event => this.handleChange(event, 'notes')}
                         value={this.state.newPcn.notes} />
                     </div>
                     <div className={classes.audience}>
                         <label className={classes.audienceLabel}>Audience:</label>
+                        <br />
                         <br />
                         <ReactQuill value={this.state.newPcn.audience} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience') } />                        
                     </div>
