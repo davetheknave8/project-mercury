@@ -88,7 +88,6 @@ const styles = theme => ({
         marginLeft: '10%'
     },
     notesDiv: {
-        float: 'left',
         width: '35%',
         marginLeft: '10%',
         display: 'inline-block'
@@ -143,7 +142,8 @@ class EolForm extends Component {
             name: '',
             description: '',
             number: '',
-            eolNumber: this.props.match.params.id
+            eolNumber: this.props.match.params.id,
+            type: 'eol'
         },
         searching: false,
         descriptionLength: 2000,

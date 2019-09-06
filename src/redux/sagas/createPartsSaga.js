@@ -6,7 +6,7 @@ function* createParts(action){
         console.log(action.payload.pcnNumber);
         const pcnNumber = action.payload.pcnNumber
         yield axios.post('/api/parts/create', action.payload);
-        yield put({type: 'FETCH_CURRENT_PARTS', payload: {pcnId: pcnNumber}})
+        yield put({type: 'FETCH_CURRENT_PARTS', payload: {id: pcnNumber, type: 'pcn'}})
     }
     catch(error){
         console.log('error creating part', error);
