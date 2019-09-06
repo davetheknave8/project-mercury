@@ -6,9 +6,9 @@ import axios from 'axios';
 function* deletePcn(action) {
     console.log('in deletePcn, action.payload is', action.payload.type)
     try {
-        const response = yield axios.delete(`/api/pcn/deletepcn?id=${action.payload.id}&type=${action.payload.type}`);
-        console.log('in deletePcn, response is:', response.data);
-        yield put({ type: 'SET_DASHBOARD', payload: response.data });
+        yield axios.delete(`/api/pcn/deletepcn?id=${action.payload.id}&type=${action.payload.type}`);
+        console.log('in deletePcn saga', action.payload);
+        yield put({ type: 'FETCH_DASHBOARD', payload: {status: action.payload.status, userId: action.payload.userId} });
     } catch (error) {
         console.log('Error deleting PCN in saga:', error);
     }
