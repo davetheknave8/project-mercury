@@ -22,6 +22,17 @@ const styles = theme => ({
   },
   tableCell: {
     color: 'white',
+  },
+  welcome: {
+    backgroundColor: '#666F99',
+    marginTop: 0
+  },
+  welcomeText: {
+    marginTop: 0,
+    color: 'white',
+    textAlign: 'right',
+    fontWeight: 'lighter',
+    marginRight: '1%'
   }
 })
 
@@ -91,7 +102,9 @@ class PmDashboard extends Component {
     return (
       <>
         <Nav history={this.props.history} />
-        <h1 className="welcome">Welcome, {this.props.reduxStore.user.username}!</h1>
+        <div className={classes.welcome}>
+          <h4 className={classes.welcomeText}>Product Manager Dashboard</h4>
+        </div>
         <p className="welcome">Filter: &nbsp;&nbsp;
           <button onClick={() => this.handlePending()}>Pending</button>
           &nbsp;&nbsp;&nbsp;
