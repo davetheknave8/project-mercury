@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -32,7 +33,7 @@ class AdminDashboardList extends Component {
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell>
                     {/* <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell> */}
                     <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.item.date}</TableCell>
+                    <TableCell className={classes.tableCell}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                 </TableRow>
             </>
         );
