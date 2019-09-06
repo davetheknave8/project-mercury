@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PcnViewPart from '../PcnViewPart/PcnViewPart';
+import PcnViewImage from '../PcnViewImage/PcnViewImage';
 import Nav from '../Nav/Nav';
 
 // Material UI
@@ -86,6 +87,21 @@ const styles = theme => ({
         padding: '10px',
     },
     richbody: {
+    },
+    images: {
+        paddingTop: '20px',
+        paddingBottom: '20px',
+        width: '100%',
+        margin: 'auto',
+    },
+    image: {
+        border: '1px solid black',
+        marginRight: '15px',
+    },
+    pcnbuttons: {
+        width: '100%',
+        margin: 'auto',
+        textAlign: 'right',
     }
 });
 
@@ -213,7 +229,12 @@ class PcnView extends Component {
                             }}>
                             </div>
                     </div>
-                    <div className="pcnbuttons">
+                    <div className={classes.images}>
+                            {this.props.reduxStore.pcnImage.map((image, i) => {
+                                return (<img className={classes.image} src={image.image_url} alt={image.figure}></img>);
+                            })}
+                    </div>
+                    <div className={classes.pcnbuttons}>
                         <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
                         {this.renderButton()}
                         <Modal
