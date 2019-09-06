@@ -22,7 +22,7 @@ const styles = theme => ({
     color: 'white',
     float: 'center',
     margin: '5%',
-    backgroundColor: '#E65B54',
+    backgroundColor: '#3D3D5C',
     textAlign: 'center',
     width: '30%',
     borderRadius: 3,
@@ -82,7 +82,7 @@ class LoginPage extends Component {
               {this.props.errors.loginMessage}
             </h2>
           )}
-          <form className="login-form" onSubmit={this.login}>
+          <form className={"login-form"} onSubmit={this.login}>
             <h1 className={classes.header}>Login</h1>
             <div className={classes.label}>
               
@@ -111,7 +111,7 @@ class LoginPage extends Component {
                   type="submit"
                   name="submit"
                   value="Log In"
-                >"Log In"</Button>
+                >Log In</Button>
            </div>
           </form>
         </div>
