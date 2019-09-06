@@ -1,9 +1,9 @@
-CREATE TABLE "user"
-(
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR(200),
-    "password" VARCHAR(200),
-    "admin" INT
+CREATE TABLE "user" (
+  "id" SERIAL PRIMARY KEY,
+  "username" VARCHAR(200),
+  "password" VARCHAR(200),
+  "admin" INT,
+  "email" VARCHAR(100)
 );
 
 CREATE SEQUENCE sequence_for_eol
