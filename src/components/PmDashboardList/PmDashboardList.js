@@ -41,7 +41,7 @@ class PmDashboardList extends Component {
         const data = {
             id: this.props.item.id,
             type: this.props.item.type,
-            status: this.props.item.status,
+            status: '',
             userId: this.props.reduxStore.user.id
         }
         this.props.dispatch({type: 'DELETE_PCN', payload: data})
