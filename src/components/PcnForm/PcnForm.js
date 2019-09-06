@@ -42,7 +42,6 @@ const styles = theme => ({
         backgroundColor: 'white',
         width: '80%',
         margin: 'auto',
-        marginBottom: '1%'
     },
     label: {
         color: 'white',
@@ -77,7 +76,7 @@ const styles = theme => ({
     },
     notes: {
         backgroundColor: 'white',
-        marginTop: '3%'
+        marginTop: '3%',
     },
     audience: {
         display: 'inline-block',
@@ -85,13 +84,14 @@ const styles = theme => ({
         color: 'white',
         width: '35%',
         textAlign: 'left',
-        marginLeft: '10%'
+        marginLeft: '10%',
+        marginTop: '3%',
     },
     notesDiv: {
-        float: 'left',
         width: '35%',
         marginLeft: '10%',
-        display: 'inline-block'
+        display: 'inline-block',
+        marginTop: '3%',
     },
     userDiv: {
         marginTop: '5%',
@@ -123,7 +123,6 @@ const styles = theme => ({
     audienceIn: {
         backgroundColor: 'white',
         width: '100%',
-        marginTop: '2.5%',
     }
 })
 
@@ -143,7 +142,8 @@ class PcnForm extends Component {
             name: '',
             description: '',
             number: '',
-            pcnNumber: this.props.match.params.id
+            pcnNumber: this.props.match.params.id,
+            type: 'pcn'
         },
         searching: false,
         descriptionLength: 2000,
