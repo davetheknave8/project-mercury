@@ -66,6 +66,8 @@ const styles = theme => ({
 
 class Nav extends Component{
   state = {
+    firstName: '',
+    lastName: '',
     username: '',
     password: '',
     email:'',
@@ -88,6 +90,8 @@ class Nav extends Component{
           password: this.state.password,
           email: this.state.email,
           access: this.state.access,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
         },
       });
     } else {
@@ -231,6 +235,26 @@ class Nav extends Component{
                         </h2>
                       )}
                       <form onSubmit={this.registerUser} >
+                      <div> 
+                            <TextField className={classes.input} 
+                              type="firstName"
+                              name="firstName"
+                              value={this.state.firstName}
+                              onChange={this.handleInputChangeFor('firstName')}
+                              label="First Name"
+                            />
+                        </div>
+                        <br/>
+                      <div> 
+                            <TextField className={classes.input} 
+                              type="lastName"
+                              name="lastName"
+                              value={this.state.lastName}
+                              onChange={this.handleInputChangeFor('lastName')}
+                              label="Last Name"
+                            />
+                          </div>
+                          <br/>
                         <div>
                             <TextField className={classes.input} 
                               type="text"
@@ -240,6 +264,7 @@ class Nav extends Component{
                               label="User Name"
                             />
                         </div>
+                        <br/>
                         <div> 
                             <TextField className={classes.input} 
                               type="password"
@@ -249,6 +274,7 @@ class Nav extends Component{
                               label="Password"
                             />
                           <div/>
+                          
                           <div>
                             <TextField className={classes.input} 
                               type="email"
@@ -258,6 +284,7 @@ class Nav extends Component{
                               label="Email"
                             />
                           </div>
+                          <br/>
                           <div>
                             <Select  className={classes.textField} value={this.state.access}  onChange={this.handleInputChangeFor('access')}  
                                   inputProps={{name: 'none',}}>
