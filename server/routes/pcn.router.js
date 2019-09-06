@@ -5,15 +5,18 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 router.get('/', (req, res) => {
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
-            FROM pcn)
+            FROM pcn
+            WHERE pcn.status = 'PUBLISHED')
             union
             (SELECT eol."type" as "type", eol.id as id, 
             eol.status as status, eol.date as date, eol.change_description as descripiton
-            FROM eol)
+            FROM eol
+            WHERE eol.status = 'PUBLISHED')
             union
             (SELECT npi."type" as "type", npi.id as id, 
             npi.status as status, npi.date as date, npi.description as descripiton
-            FROM npi);`
+            FROM npi
+            WHERE npi.status = 'PUBLISHED');`
     pool.query(queryText)
     .then((response) => {
         res.send(response.rows);
@@ -279,6 +282,48 @@ router.put('/reviewpcn/:id', (req, res) => {
             console.log('error editing pcn', error);
             res.sendStatus(500);
         })
+})
+
+router.delete('/deletepcn', (req, res) => {
+    if (req.query.type === 'PCN') {
+        const sqlText = `DELETE FROM pcn WHERE id = $1;`;
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving pcn info', error);
+                res.sendStatus(500)
+            })
+    }
+    else if (req.query.type === 'EOL') {
+        const sqlText = `DELETE FROM eol WHERE id = $1;`;
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving eol info', error);
+                res.sendStatus(500)
+            })
+    }
+    else if (req.query.type === 'NPI') {
+        const sqlText = `DELETE FROM npi WHERE id = $1;`;
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving npi info', error);
+                res.sendStatus(500)
+            })
+    }
+    else {
+        res.sendStatus(500);
+    }
 })
 
 module.exports = router;

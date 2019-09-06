@@ -36,6 +36,11 @@ class PmDashboardList extends Component {
         this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`);
     }
 
+    // Wrong type
+    deletePcn = () => {
+        this.props.dispatch({type: 'DELETE_PCN', payload: this.props.item.id})
+    }
+
     checkStatus = (item) => {
         const { classes } = this.props;
         let pcnInfo = this.props.reduxStore.pcnInfo;
@@ -43,7 +48,7 @@ class PmDashboardList extends Component {
             return (<></>)
         }
         else {
-            return (<><Button onClick={() => this.props.history.push(`/pcn-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.icon} /></Button></>)
+            return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.icon} /></Button></>)
         }
     } 
 
