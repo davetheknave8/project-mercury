@@ -82,7 +82,6 @@ const styles = theme => ({
     audience: {
         display: 'inline-block',
         marginRight: '10%',
-        color: 'white',
         width: '35%',
         textAlign: 'left',
         marginLeft: '10%'
@@ -123,6 +122,9 @@ const styles = theme => ({
         backgroundColor: 'white',
         width: '100%',
         marginTop: '2.5%',
+    },
+    audienceLabel: {
+        color: 'white'
     }
 })
 
@@ -273,7 +275,7 @@ class EolForm extends Component {
                                 value={this.state.newEol.notes} />
                         </div>
                         <div className={classes.audience}>
-                            <label>Audience:</label>
+                            <label className={classes.audienceLabel}>Audience:</label>
                             <br />
                             <ReactQuill value={this.state.newEol.audience} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience')} />
                         </div>
