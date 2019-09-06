@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PcnViewPart from '../PcnViewPart/PcnViewPart';
 import PcnViewImage from '../PcnViewImage/PcnViewImage';
 import Nav from '../Nav/Nav';
+import Moment from 'moment';
 
 // Material UI
 import PropTypes from 'prop-types';
@@ -220,7 +221,7 @@ class PcnView extends Component {
                         <h2>Product Change Notification</h2> */}
                         <h2>{this.props.reduxStore.pcnInfo.id}</h2>
                     <div className={classes.pcndate}>
-                        <p>{this.props.reduxStore.pcnInfo.date}</p>
+                        <p>{Moment(this.props.reduxStore.pcnInfo.date).format('MM/DD/YYYY')}</p>
                     </div>
                     </div>
                         <div className={classes.pcnaudience}>
