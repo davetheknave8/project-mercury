@@ -234,6 +234,20 @@ router.get('/pcnparts', (req, res) => {
             })
 });
 
+router.get('/pcnimages', (req, res) => {
+    console.log('getting images for specific pcn, req.query is:', req.query)
+    let sqlText = 'select image.id, image_url, figure from image join pcn_image on image.id = pcn_image.image_id where pcn_image.pcn_id = $1;';
+    pool.query(sqlText, [req.query.id])
+        .then((response) => {
+            console.log('sending response', response.rows);
+            res.send(response.rows)
+        })
+        .catch((error) => {
+            console.log('error retrieving pcn images', error);
+            res.sendStatus(500)
+        })
+});
+
 //POST Routes
 
 router.post('/create', (req, res) => {

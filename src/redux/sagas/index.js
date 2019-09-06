@@ -20,6 +20,7 @@ import createEolSaga from './createEolSaga';
 import fetchCurrentEolSaga from './fetchCurrentEol';
 import editEolSaga from './editEolSaga';
 import deletePcnSaga from './deletePcnSaga';
+import fetchPcnImageSaga from './fetchPcnImageSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -52,5 +53,6 @@ export default function* rootSaga() {
     fetchCurrentEolSaga(),
     editEolSaga(),
     deletePcnSaga(),
+    fetchPcnImageSaga(),
   ]);
 }
