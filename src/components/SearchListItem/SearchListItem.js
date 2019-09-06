@@ -50,7 +50,7 @@ class SearchListItem extends Component {
                 <TableRow className="tc" align="center" onClick={() => this.goToLink()}>
                     <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell>
                     <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
-                    <TableCell className={classes.tableCell3}>{moment(this.props.item.date).format('YYYY/MM/DD')}</TableCell>
+                    <TableCell className={classes.tableCell3}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                     <TableCell className={classes.tableCell4}>{div.innerText}</TableCell>
                 </TableRow>
             </>
