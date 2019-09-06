@@ -1,0 +1,20 @@
+import { put, takeEvery } from 'redux-saga/effects';
+import axios from 'axios';
+
+// worker Saga: will be fired on "REGISTER" actions
+function* fetchPcnImage(action) {
+    console.log('in fetchPcnImage, action.payload is', action.payload)
+    try {
+        const response = yield axios.get(`/api/pcn/pcnimages?id=${action.payload}`);
+        console.log('in fetchPcnImage, response is:', response.data)
+        yield put({ type: 'SET_PCN_IMAGES', payload: response.data })
+    } catch (error) {
+        console.log('Error retrieving collection:', error);
+    }
+}
+
+function* fetchPcnImageSaga() {
+    yield takeEvery('FETCH_PCN_IMAGES', fetchPcnImage);
+}
+
+export default fetchPcnImageSaga;

@@ -67,7 +67,7 @@ const styles = theme => ({
         width: '40%',
         margin: 'auto',
         textAlign: 'center',
-        padding: '1px',
+        padding: '10px',
     },
     pcndate: {
         
@@ -82,9 +82,11 @@ const styles = theme => ({
     pcndescription: {
         backgroundColor: 'white',
         margin: 'auto',
-        padding: '5px',
         border: '1px solid black',
+        padding: '10px',
     },
+    richbody: {
+    }
 });
 
 function getModalStyle() {
@@ -110,7 +112,8 @@ class PcnView extends Component {
             type: this.props.match.params.type
         };
         this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
-        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id});
+        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id });
+        this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data.id });
     }
 
     handleOpen = () => {
@@ -144,15 +147,15 @@ class PcnView extends Component {
         let pcnInfo = this.props.reduxStore.pcnInfo;
         if( this.props.reduxStore.user.admin === 1 ){
             if( pcnInfo.status === 'INCOMPLETE' || pcnInfo.status === 'PENDING' || pcnInfo.status === 'DENIED'){
-                return <Button variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
+                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
             }
         }
         else if( this.props.reduxStore.user.admin === 2 ){
             if( pcnInfo.status === 'PENDING' ){
                 return (
                     <>
-                    <Button variant='contained' className={classes.button} color='primary' onClick={() => this.reviewPCN('PUBLISHED')}>Approve</Button>
-                    <Button variant='contained' className={classes.button} color='secondary' onClick={this.handleOpen}>Deny</Button>
+                    <Button size='small' variant='contained' className={classes.button} color='primary' onClick={() => this.reviewPCN('PUBLISHED')}>Approve</Button>
+                    <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={this.handleOpen}>Deny</Button>
                     </>
                 )
             }
@@ -176,10 +179,14 @@ class PcnView extends Component {
                     </div>
                         <div className={classes.pcnaudience}>
                         <h4>Audience</h4>
-                        <p>{this.props.reduxStore.pcnInfo.audience}</p>
+                            <div className={classes.richbody} dangerouslySetInnerHTML={{
+                                __html:
+                                    this.props.reduxStore.pcnInfo.audience
+                            }}>
+                        </div>
                     </div>
                     <h4>Description of Change</h4>
-                    <div>
+                    <div className={classes.richbody}>
                         <div className={classes.pcndescription}dangerouslySetInnerHTML={{
                             __html:
                             this.props.reduxStore.pcnInfo.change_description
@@ -200,14 +207,14 @@ class PcnView extends Component {
                             </Paper>
                         </div>
                             <h4>Notes</h4>
-                            <div className="richbody" dangerouslySetInnerHTML={{
+                            <div className={classes.richbody} dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.notes
                             }}>
                             </div>
                     </div>
                     <div className="pcnbuttons">
-                        <Button variant='contained' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
+                        <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
                         {this.renderButton()}
                         <Modal
                             aria-labelledby="simple-modal-title"
@@ -219,8 +226,8 @@ class PcnView extends Component {
                                 <Typography variant="h6" id="modal-title">Notes</Typography>
                                 <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
                                 <br/>
-                                <Button color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
-                                <Button onClick={() => this.handleClose()}>Return</Button>
+                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
+                                <Button size='small' onClick={() => this.handleClose()}>Return</Button>
                             </div>
                         </Modal>
                     </div>

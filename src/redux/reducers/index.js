@@ -14,6 +14,7 @@ import searchPartReducer from './searchPartReducer';
 import currentPcnReducer from './currentPcnReducer';
 import createEolReducer from './createEolReducer';
 import currentEolReducer from './currentEolReducer';
+import pcnImage from './pcnImageReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -36,7 +37,8 @@ const rootReducer = combineReducers({
   searchPartReducer,
   currentPcnReducer,
   createEolReducer,
-  currentEolReducer
+  currentEolReducer,
+  pcnImage,
 });
 
 export default rootReducer;
