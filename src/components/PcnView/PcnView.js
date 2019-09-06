@@ -16,7 +16,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { red } from '@material-ui/core/colors';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -97,6 +96,9 @@ const styles = theme => ({
     image: {
         border: '1px solid black',
         marginRight: '15px',
+        height: '200px',
+        cursor: 'pointer',
+        objectFit: 'cover',
     },
     pcnbuttons: {
         width: '100%',
@@ -112,7 +114,23 @@ function getModalStyle() {
         top: `${top}%`,
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
+        textAlign: 'center',
     };
+
+}
+
+function getImageModalStyle() {
+    const top = 50;
+    const left = 50;
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        textAlign: 'center',
+        width: 'auto',
+        height: 'auto',
+    };
+
 }
 
 class PcnView extends Component {
@@ -120,6 +138,9 @@ class PcnView extends Component {
     state = {
         open: false,
         message: '',
+        openImage: false,
+        image: '',
+        alt: '',
     };
 
     componentDidMount() {
@@ -133,12 +154,21 @@ class PcnView extends Component {
     }
 
     handleOpen = () => {
-        console.log('handleOpen')
         this.setState({ open: true });
+    };
+
+    handleOpenImage = (imageURL, imageAlt) => {
+        this.setState({ image: imageURL });
+        this.setState({ alt: imageAlt });
+        this.setState({ openImage: true });
     };
 
     handleClose = () => {
         this.setState({ open: false });
+    };
+
+    handleCloseImage = () => {
+        this.setState({ openImage: false });
     };
 
     handleChangeFor = (event, propToChange) => {
@@ -231,15 +261,16 @@ class PcnView extends Component {
                     </div>
                     <div className={classes.images}>
                             {this.props.reduxStore.pcnImage.map((image, i) => {
-                                return (<img className={classes.image} src={image.image_url} alt={image.figure}></img>);
+                                return (<img className={classes.image} src={image.image_url} alt={image.figure} onClick={() => this.handleOpenImage(image.image_url, image.figure)}></img>);
                             })}
                     </div>
                     <div className={classes.pcnbuttons}>
                         <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
                         {this.renderButton()}
+
                         <Modal
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
+                            aria-labelledby="Deny PCN"
+                            aria-describedby="Modal to input a reason for denying PCN"
                             open={this.state.open}
                             onClose={this.handleClose}
                             >
@@ -249,6 +280,18 @@ class PcnView extends Component {
                                 <br/>
                                 <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
                                 <Button size='small' onClick={() => this.handleClose()}>Return</Button>
+                            </div>
+                        </Modal>
+
+                        <Modal
+                            aria-labelledby="View image"
+                            aria-describedby="Modal to view image in full size"
+                            open={this.state.openImage}
+                            onClose={this.handleCloseImage}
+                            >
+                            <div style={getImageModalStyle()} className={classes.paper}>
+                                <img src={this.state.image} alt={this.state.alt}></img>
+                                <p>{this.state.alt}</p>
                             </div>
                         </Modal>
                     </div>
