@@ -37,11 +37,11 @@ const styles = {
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: '2px',
-        borderBottomWidth: '0px',
     },
     table: {
         overflow:'auto',
         height: '500px',
+        borderWidth: '50px'
     },
     
     input: {
