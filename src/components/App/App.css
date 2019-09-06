@@ -14,16 +14,17 @@ body {
     height: 250px;
     margin: 20px auto;
     padding: 25px;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 input {
     margin: 5px;
     margin-bottom: 10px;
+    border-radius: 2px
 }
 
 .log-in, .log-out, .register {
-  background-color: #00acb0;
+  background-color: #666F99;
   border-radius: 4px;
   color: #f8f8f8;
   min-height: 50px;

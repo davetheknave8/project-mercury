@@ -7,23 +7,34 @@ import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
+
+
+
 const styles = theme => ({
   label:{
     color:'white',
     textAlign: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: 200,
-    overFlow: "auto",
   },
   button:{
-    backgroundColor: 'white',
+    textAlign: 'center',
+    color: 'white',
+    float: 'center',
+    margin: '5%',
+    backgroundColor: '#3D3D5C',
     textAlign: 'center',
     width: '30%',
+    borderRadius: 3,
   },
   header:{
     color:'white',
     textAlign: 'center',
+  },
+  btn:{
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   }
 })
 
@@ -71,7 +82,7 @@ class LoginPage extends Component {
               {this.props.errors.loginMessage}
             </h2>
           )}
-          <form className="login-form" onSubmit={this.login}>
+          <form className={"login-form"} onSubmit={this.login}>
             <h1 className={classes.header}>Login</h1>
             <div className={classes.label}>
               
@@ -83,7 +94,7 @@ class LoginPage extends Component {
                   onChange={this.handleInputChangeFor('username')}
                 />
               
-            </div>
+            </div><br/>
             <div className={classes.label}>
               
                 <TextField
@@ -95,25 +106,14 @@ class LoginPage extends Component {
                 />
               
             </div>
-            <div className={classes.button}>
-              <Button 
-                color="primary"
-                className="log-in"
-                type="submit"
-                name="submit"
-                value="Log In"
-              >"Log In"</Button>
+            <div className={classes.btn}>
+                <Button  className={classes.button}
+                  type="submit"
+                  name="submit"
+                  value="Log In"
+                >Log In</Button>
            </div>
           </form>
-          <center>
-            {/* <button
-              type="button"
-              className="link-button"
-              onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
-            >
-              Register
-            </button> */}
-          </center>
         </div>
       </>
     );
