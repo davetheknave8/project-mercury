@@ -24,7 +24,7 @@ const CustomTableCell = withStyles(theme => ({
         color: 'black',
     },
     body: {
-        fontSize: 14,
+        fontSize: 12,
     },
 }))(TableCell);
 
@@ -77,22 +77,29 @@ const styles = theme => ({
         backgroundColor: '#f5f5f5',
     },
     pcnform: {
-        width: '70%',
+        width: '50%',
         margin: 'auto',
+        fontSize: '.765em',
     },
     pcndescription: {
         backgroundColor: 'white',
         margin: 'auto',
         border: '1px solid black',
         padding: '10px',
+        textAlign: 'justify',
     },
     richbody: {
+        textAlign: 'justify',
+    },
+    audiencerichbody: {
+        textAlign: 'center',
     },
     images: {
         paddingTop: '20px',
         paddingBottom: '20px',
         width: '100%',
         margin: 'auto',
+        textAlign: 'center',
     },
     image: {
         border: '1px solid black',
@@ -226,7 +233,7 @@ class PcnView extends Component {
                     </div>
                         <div className={classes.pcnaudience}>
                         <h4>Audience</h4>
-                            <div className={classes.richbody} dangerouslySetInnerHTML={{
+                            <div className={classes.audiencerichbody} dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.audience
                             }}>

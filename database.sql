@@ -4,7 +4,10 @@ CREATE TABLE "user"
     "username" VARCHAR(200),
     "password" VARCHAR(200),
     "email" VARCHAR(200),
-    "admin" INT
+    "admin" INT,
+    "first_name" VARCHAR (50),
+    "last_name" VARCHAR (50),
+
 );
 
 CREATE SEQUENCE sequence_for_eol

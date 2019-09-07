@@ -30,14 +30,14 @@ const styles = theme => ({
 
 class SearchListItem extends Component {
    
-
+    // function creates a clickable event for the pcn document to be opened.
     goToLink = (event) => {
         this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`)
         console.log('clicked link', event);
     }
 
     render() {
-
+        // removes html tags to show the description.
         let html = this.props.item.description;
         console.log(html);
         let div = document.createElement("div");

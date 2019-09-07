@@ -36,30 +36,19 @@ const styles = theme => ({
     }
 })
 
-
 class AdminDashboard extends Component {
-
 
     componentDidMount() {
         const data = {
-            userId: this.props.reduxStore.user.id,
+            // userId: this.props.reduxStore.user.id,
             status: ''
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data })
     }
 
-    // // Change table row background color
-    // changeColor = (user, index) => {
-    //   if (this.props.reduxStore.user.id == user.id){
-    //     return (<DashboardListItem key={user.id} user={user} />)
-    //   } else{
-    //     return (<></>);
-    //   }
-    // }
-
     handlePending() {
         const data = {
-            userId: this.props.reduxStore.user.id,
+            // userId: this.props.reduxStore.user.id,
             status: 'PENDING'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
@@ -67,7 +56,7 @@ class AdminDashboard extends Component {
 
     handlePublished() {
         const data = {
-            userId: this.props.reduxStore.user.id,
+            // userId: this.props.reduxStore.user.id,
             status: 'PUBLISHED'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
@@ -75,7 +64,7 @@ class AdminDashboard extends Component {
 
     handleIncomplete() {
         const data = {
-            userId: this.props.reduxStore.user.id,
+            // userId: this.props.reduxStore.user.id,
             status: 'INCOMPLETE'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
@@ -83,7 +72,7 @@ class AdminDashboard extends Component {
 
     handleDenied() {
         const data = {
-            userId: this.props.reduxStore.user.id,
+            // userId: this.props.reduxStore.user.id,
             status: 'DENIED'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
@@ -91,7 +80,7 @@ class AdminDashboard extends Component {
 
     handleAll() {
         const data = {
-            userId: this.props.reduxStore.user.id,
+            // userId: this.props.reduxStore.user.id,
             status: ''
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
@@ -106,21 +95,20 @@ class AdminDashboard extends Component {
                     <h4 className={classes.welcomeText}>Admin Dashboard</h4>
                 </div>
                 <p className="welcome">Filter: &nbsp;&nbsp;
-          <button onClick={() => this.handlePending()}>Pending</button>
+                    <button onClick={() => this.handlePending()}>Pending</button>
                     &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handlePublished()}>Published</button>
+                    <button onClick={() => this.handlePublished()}>Published</button>
                     &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handleIncomplete()}>Incomplete</button>
+                    <button onClick={() => this.handleIncomplete()}>Incomplete</button>
                     &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handleDenied()}>Denied</button>
+                    <button onClick={() => this.handleDenied()}>Denied</button>
                     &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handleAll()}>All</button>
+                    <button onClick={() => this.handleAll()}>All</button>
                 </p>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
                             <TableCell className={classes.tableCell}>PCN - #</TableCell>
-                            {/* <TableCell className={classes.tableCell}>Type</TableCell> */}
                             <TableCell className={classes.tableCell}>Status</TableCell>
                             <TableCell className={classes.tableCell}>Date</TableCell>
                         </TableRow>
