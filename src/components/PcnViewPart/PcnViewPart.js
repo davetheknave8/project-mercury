@@ -2,21 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Material UI
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -48,6 +36,20 @@ const styles = theme => ({
             backgroundColor: theme.palette.background.default,
         },
     },
+    cell: {
+        border: '1px solid black',
+    },
+    rightbottom: {
+        borderBottom: '1px solid black',
+        borderRight: '1px solid black',
+    },
+    leftbottom: {
+        borderBottom: '1px solid black',
+        borderLeft: '1px solid black',
+    },
+    bottom: {
+        borderBottom: '1px solid black',
+    },
 });
 
 class PcnViewPart extends Component {
@@ -57,9 +59,9 @@ class PcnViewPart extends Component {
         return (
             <>
                 <TableRow>
-                    <CustomTableCell>{this.props.part.number}</CustomTableCell>
-                    <CustomTableCell>{this.props.part.name}</CustomTableCell>
-                    <CustomTableCell>{this.props.part.description}</CustomTableCell>
+                    <CustomTableCell className={classes.rightbottom}>{this.props.part.number}</CustomTableCell>
+                    <CustomTableCell className={classes.bottom}>{this.props.part.name}</CustomTableCell>
+                    <CustomTableCell className={classes.leftbottom}>{this.props.part.description}</CustomTableCell>
                 </TableRow>
             </>
         );

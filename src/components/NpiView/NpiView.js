@@ -38,10 +38,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: "auto",
-        borderRight: '1px solid black',
-        borderLeft: '1px solid black',
-        borderTop: '1px solid black',
-
+        border: '1px solid black',
     },
     table: {
         margin: 'auto',
@@ -150,7 +147,7 @@ function getImageModalStyle() {
 
 }
 
-class PcnView extends Component {
+class NpiView extends Component {
 
     state = {
         open: false,
@@ -259,7 +256,7 @@ class PcnView extends Component {
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead>
-                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell ><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell className={classes.cell}>Description</CustomTableCell></TableRow>
+                                        <TableRow><CustomTableCell>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell>Description</CustomTableCell></TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {this.props.reduxStore.pcnPart.map((part, i) => {
@@ -323,4 +320,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(PcnView));
+export default connect(mapStateToProps)(withStyles(styles)(NpiView));

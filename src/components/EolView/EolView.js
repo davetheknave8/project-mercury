@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import EolViewPart from '../EolViewPart/EolViewPart';
+import PcnViewPart from '../PcnViewPart/PcnViewPart';
 import Nav from '../Nav/Nav';
 import Moment from 'moment';
 
@@ -110,7 +110,15 @@ const styles = theme => ({
         width: '100%',
         margin: 'auto',
         textAlign: 'right',
-    }
+    },
+    cell: {
+        borderBottom: '1px solid black',
+    },
+    leftrightbottom: {
+        borderLeft: '1px solid black',
+        borderRight: '1px solid black',
+        borderBottom: '1px solid black',
+    },
 });
 
 function getModalStyle() {
@@ -248,11 +256,11 @@ class EolView extends Component {
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead>
-                                        <TableRow><CustomTableCell>Part Number</CustomTableCell><CustomTableCell>Part Name</CustomTableCell><CustomTableCell>Description</CustomTableCell></TableRow>
+                                            <TableRow><CustomTableCell>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell>Description</CustomTableCell></TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {this.props.reduxStore.pcnPart.map((part, i) => {
-                                            return (<EolViewPart key={i} part={part}/>);
+                                            return (<PcnViewPart key={i} part={part}/>);
                                         })}
                                     </TableBody>
                                 </Table>
