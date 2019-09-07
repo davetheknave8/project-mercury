@@ -42,10 +42,11 @@ CREATE TABLE eol
     change_description character varying(2000),
     last_time_buy character varying(50),
     last_time_ship character varying(50),
-    notes character varying(200),
+    notes character varying(2000),
     audience character varying(1000),
     status VARCHAR(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
+    product VARCHAR(100),
     CONSTRAINT eol_pkey PRIMARY KEY (id)
 );
 
@@ -67,6 +68,7 @@ CREATE TABLE npi
     notes character varying(2000),
     status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
+    product VARCHAR(100),
     CONSTRAINT npi_pkey PRIMARY KEY (id)
 );
 
@@ -89,6 +91,7 @@ CREATE TABLE pcn
     notes character varying(2000),
     status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
+    product VARCHAR(100),
     CONSTRAINT pcn_pkey PRIMARY KEY (id)
 );
 

@@ -119,6 +119,9 @@ const styles = theme => ({
         borderRight: '1px solid black',
         borderBottom: '1px solid black',
     },
+    lasttime: {
+        textAlign: 'center',
+    },
 });
 
 function getModalStyle() {
@@ -207,7 +210,7 @@ class EolView extends Component {
         let pcnInfo = this.props.reduxStore.pcnInfo;
         if( this.props.reduxStore.user.admin === 1 ){
             if( pcnInfo.status === 'INCOMPLETE' || pcnInfo.status === 'PENDING' || pcnInfo.status === 'DENIED'){
-                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
+                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/eol-form/${pcnInfo.id}`)}>Edit</Button>
             }
         }
         else if( this.props.reduxStore.user.admin === 2 ){
@@ -245,7 +248,11 @@ class EolView extends Component {
                             }}>
                         </div>
                     </div>
-                    <h4>Description of Change</h4>
+                    <div className={classes.lasttime}>
+                        <h4>Last time Buy:</h4>
+                        <h4>Last time Ship:</h4>
+                    </div>
+                    <h4>Product End of Life</h4>
                     <div className={classes.richbody}>
                         <div className={classes.pcndescription}dangerouslySetInnerHTML={{
                             __html:

@@ -241,13 +241,14 @@ class PcnView extends Component {
                     </div>
                     </div>
                         <div className={classes.pcnaudience}>
-                        <h4>Audience</h4>
+                        <h2>{this.props.reduxStore.pcnInfo.product}</h2>
+                        <p>Product Change Notification</p>
+                    </div>
                             <div className={classes.audiencerichbody} dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.audience
                             }}>
                         </div>
-                    </div>
                     <h4>Description of Change</h4>
                     <div className={classes.richbody}>
                         <div className={classes.pcndescription}dangerouslySetInnerHTML={{
