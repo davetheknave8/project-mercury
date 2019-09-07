@@ -1,4 +1,4 @@
-const createNpiReducer = (state = {}, action) => {
+const currentNpiReducer = (state = {}, action) => {
     if (action.type === 'SET_CURRENT_NPI') {
         return action.payload;
     } else {
@@ -6,4 +6,4 @@ const createNpiReducer = (state = {}, action) => {
     }
 }
 
-export default createNpiReducer;
+export default currentNpiReducer;
