@@ -7,7 +7,6 @@ CREATE TABLE "user"
     "admin" INT,
     "first_name" VARCHAR (50),
     "last_name" VARCHAR (50),
-
 );
 
 CREATE SEQUENCE sequence_for_eol

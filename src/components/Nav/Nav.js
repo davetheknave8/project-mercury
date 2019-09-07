@@ -114,6 +114,8 @@ class Nav extends Component{
       this.props.history.push(`/pcn-form/${this.props.reduxStore.createPcnReducer[0].id}`)
     } else if (this.props.reduxStore.createEolReducer !== prevProps.reduxStore.createEolReducer){
       this.props.history.push(`/eol-form/${this.props.reduxStore.createEolReducer[0].id}`)
+    } else if (this.props.reduxStore.createNpiReducer !== prevProps.reduxStore.createNpiReducer){
+      this.props.history.push(`/npi-form/${this.props.reduxStore.createNpiReducer[0].id}`)
     }
   }
 
@@ -178,6 +180,7 @@ class Nav extends Component{
 
   handleNpi = () => {
     console.log('create npi');
+    this.props.dispatch({type: 'CREATE_NPI', payload: {type: 'npi'}})
   }
 
 

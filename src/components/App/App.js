@@ -22,6 +22,7 @@ import PcnView from '../PcnView/PcnView';
 import EolView from '../EolView/EolView';
 import NpiView from '../NpiView/NpiView';
 import EolForm from '../EolForm/EolForm';
+import NpiForm from '../NpiForm/NpiForm';
 
 import './App.css';
 
@@ -76,6 +77,11 @@ class App extends Component {
               exact
               path="/eol-form/:id"
               component={EolForm}
+            />
+             <ProtectedRoute
+              exact
+              path="/npi-form/:id"
+              component={NpiForm}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
