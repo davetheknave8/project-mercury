@@ -70,6 +70,7 @@ const styles = theme => ({
         margin: 'auto',
         textAlign: 'center',
         padding: '10px',
+        border: '1px solid black',
     },
     pcndate: {
         

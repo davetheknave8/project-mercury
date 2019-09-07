@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PcnViewPart from '../PcnViewPart/PcnViewPart';
+import EolViewPart from '../EolViewPart/EolViewPart';
 import Nav from '../Nav/Nav';
 import Moment from 'moment';
 
@@ -67,6 +67,7 @@ const styles = theme => ({
         margin: 'auto',
         textAlign: 'center',
         padding: '10px',
+        border: '1px solid black',
     },
     pcndate: {
         
@@ -241,16 +242,13 @@ class EolView extends Component {
                     </div>
                     </div>
                         <div className={classes.pcnaudience}>
-                        <h4>Audience</h4>
+                            <h2>{this.props.reduxStore.pcnInfo.product}</h2>
+                            <p>End of Life Notification</p>
+                        </div>
                             <div className={classes.audiencerichbody} dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.audience
                             }}>
-                        </div>
-                    </div>
-                    <div className={classes.lasttime}>
-                        <h4>Last time Buy:</h4>
-                        <h4>Last time Ship:</h4>
                     </div>
                     <h4>Product End of Life</h4>
                     <div className={classes.richbody}>
@@ -263,11 +261,11 @@ class EolView extends Component {
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead>
-                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell ><CustomTableCell className={classes.cell}>Description</CustomTableCell></TableRow>
+                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell ><CustomTableCell className={classes.cell}>Description</CustomTableCell><CustomTableCell className={classes.cell}>Replacement Part</CustomTableCell></TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {this.props.reduxStore.pcnPart.map((part, i) => {
-                                            return (<PcnViewPart key={i} part={part}/>);
+                                            return (<EolViewPart key={i} part={part}/>);
                                         })}
                                     </TableBody>
                                 </Table>
@@ -278,6 +276,10 @@ class EolView extends Component {
                                 __html:
                                     this.props.reduxStore.pcnInfo.notes
                             }}>
+                            </div>
+                            <div>
+                                <h4>Last Time Buy: {this.props.reduxStore.pcnInfo.last_time_buy}</h4>
+                                <h4>Last Time Ship: {this.props.reduxStore.pcnInfo.last_time_ship}</h4>
                             </div>
                     </div>
                     <div className={classes.images}>
