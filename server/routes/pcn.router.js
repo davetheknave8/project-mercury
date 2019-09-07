@@ -350,16 +350,42 @@ router.put('/edit', (req, res) => {
 })
 
 router.put('/reviewpcn/:id', (req, res) => {
-    const sqlText = `UPDATE pcn SET status=$1, notification_message=$2 WHERE id=$3;`;
-    const values = [req.body.status, req.body.message, req.params.id]
-    pool.query(sqlText, values)
-        .then(response => {
-            res.sendStatus(200);
-        })
-        .catch(error => {
-            console.log('error editing pcn', error);
-            res.sendStatus(500);
-        })
+    if( req.body.type === 'PCN' ){
+        const sqlText = `UPDATE pcn SET status=$1, notification_message=$2 WHERE id=$3;`;
+        const values = [req.body.status, req.body.message, req.params.id]
+        pool.query(sqlText, values)
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error editing pcn', error);
+                res.sendStatus(500);
+            })
+    }
+    else if (req.body.type === 'EOL') {
+        const sqlText = `UPDATE eol SET status=$1, notification_message=$2 WHERE id=$3;`;
+        const values = [req.body.status, req.body.message, req.params.id]
+        pool.query(sqlText, values)
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error editing eol', error);
+                res.sendStatus(500);
+            })
+    }
+    else if (req.body.type === 'NPI') {
+        const sqlText = `UPDATE npi SET status=$1, notification_message=$2 WHERE id=$3;`;
+        const values = [req.body.status, req.body.message, req.params.id]
+        pool.query(sqlText, values)
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error editing npi', error);
+                res.sendStatus(500);
+            })
+    }
 })
 
 router.delete('/deletepcn', (req, res) => {

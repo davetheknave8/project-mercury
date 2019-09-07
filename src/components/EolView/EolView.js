@@ -200,8 +200,9 @@ class EolView extends Component {
             id: this.props.reduxStore.pcnInfo.id,
             status: action,
             message: this.state.message,
+            type: this.props.reduxStore.pcnInfo.type,
         }
-        this.props.dispatch({ type: 'REVIEW_EOL', payload: data });
+        this.props.dispatch({ type: 'REVIEW_PCN', payload: data });
         this.handleClose();
         this.props.history.push('/dashboard');
     }
