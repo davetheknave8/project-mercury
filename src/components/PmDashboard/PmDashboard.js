@@ -39,11 +39,13 @@ const styles = theme => ({
 
 
 class PmDashboard extends Component {
-
+  // Set state to 'empty' so on page load no buttons will be highlighted
+  // Once a filter button is clicked, state will be updated
   state = {
     status: 'empty'
   }
-
+  // Fetch PCNs for Product Manager (PM) on page load
+  // Send payload to fetchDashboardSaga
   componentDidMount() {
     const data = {
       userId: this.props.reduxStore.user.id,
@@ -51,7 +53,8 @@ class PmDashboard extends Component {
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data })
   }
-
+  // Conditionally rendering if the button will be highlighted in light blue or else
+  // Once button is clicked, handlePending() will run
   ifPending() {
     if (this.state.status == 'PENDING') {
       return <Button size="small" variant="outlined" style={{
@@ -66,7 +69,8 @@ class PmDashboard extends Component {
       }} onClick={() => this.handlePending()}>Pending</Button>;
     }
   }
-
+  // Conditionally rendering if the button will be highlighted in light blue or else
+  // Once button is clicked, handlePublished() will run
   ifPublished() {
     if (this.state.status == 'PUBLISHED') {
       return <Button size="small" variant="outlined" style={{
@@ -81,7 +85,8 @@ class PmDashboard extends Component {
       }} onClick={() => this.handlePublished()}>Published</Button>;
     }
   }
-
+  // Conditionally rendering if the button will be highlighted in light blue or else
+  // Once button is clicked, handleIncomplete() will run
   ifIncomplete() {
     if (this.state.status == 'INCOMPLETE') {
       return <Button size="small" variant="outlined" style={{
@@ -96,7 +101,8 @@ class PmDashboard extends Component {
       }} onClick={() => this.handleIncomplete()}>Incomplete</Button>;
     }
   }
-
+  // Conditionally rendering if the button will be highlighted in light blue or else
+  // Once button is clicked, handleDenied() will run
   ifDenied() {
     if (this.state.status == 'DENIED') {
       return <Button size="small" variant="outlined" style={{
@@ -111,7 +117,8 @@ class PmDashboard extends Component {
       }} onClick={() => this.handleDenied()}>Denied</Button>;
     }
   }
-
+  // Conditionally rendering if the button will be highlighted in light blue or else
+  // Once button is clicked, handleAll() will run
   ifAll() {
     if (this.state.status == '') {
       return <Button size="small" variant="outlined" style={{
@@ -126,7 +133,8 @@ class PmDashboard extends Component {
       }} onClick={() => this.handleAll()}>All</Button>;
     }
   }
-
+  // Set state to 'PENDING' so only pending PCNs will be shown
+  // Dispatch will send payload to get only PCNs that are 'PENDING' and created by the logged-in PM
   handlePending() {
     this.setState({status: 'PENDING'});
     const data = {
@@ -135,7 +143,8 @@ class PmDashboard extends Component {
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
-
+  // Set state to 'PUBLISHED' so only published PCNs will be shown
+  // Dispatch will send payload to get only PCNs that are 'PUBLISHED' and created by the logged-in PM
   handlePublished() {
     this.setState({ status: 'PUBLISHED' });
     const data = {
@@ -144,7 +153,8 @@ class PmDashboard extends Component {
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
-
+  // Set state to 'INCOMPLETE' so only incomplete PCNs will be shown
+  // Dispatch will send payload to get only PCNs that are 'INCOMPLETE' and created by the logged-in PM
   handleIncomplete() {
     this.setState({ status: 'INCOMPLETE' });
     const data = {
@@ -153,7 +163,8 @@ class PmDashboard extends Component {
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
-
+  // Set state to 'DENIED' so only denied PCNs will be shown
+  // Dispatch will send payload to get only PCNs that are 'DENIED' and created by the logged-in PM
   handleDenied() {
     this.setState({ status: 'DENIED' });
     const data = {
@@ -162,7 +173,8 @@ class PmDashboard extends Component {
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
   }
-
+  // Set state to empty string so all PCNs will be shown
+  // Dispatch will send payload to get all PCNs created by the logged-in PM
   handleAll() {
     this.setState({ status: '' });
     const data = {

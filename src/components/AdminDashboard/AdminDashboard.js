@@ -38,19 +38,21 @@ const styles = theme => ({
 })
 
 class AdminDashboard extends Component {
-
+    // Set state to 'empty' so on page load no buttons will be highlighted
+    // Once a filter button is clicked, state will be updated
     state = {
         status: 'empty'
     }
-
+    // Fetch PCNs for admin on page load
+    // Send payload to fetchAdminDashboardSaga
     componentDidMount() {
         const data = {
-            // userId: this.props.reduxStore.user.id,
             status: ''
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data })
     }
-
+    // Conditionally rendering if the button will be highlighted in light blue or else
+    // Once button is clicked, handlePending() will run
     ifPending() {
         if(this.state.status == 'PENDING'){
             return <Button size="small" variant="outlined" style={{
@@ -63,7 +65,8 @@ class AdminDashboard extends Component {
                 fontSize: '10px'}} onClick={() => this.handlePending()}>Pending</Button>;
         }
     }
-
+    // Conditionally rendering if the button will be highlighted in light blue or else
+    // Once button is clicked, handlePublished() will run
     ifPublished() {
         if (this.state.status == 'PUBLISHED') {
             return <Button size="small" variant="outlined" style={{
@@ -78,7 +81,8 @@ class AdminDashboard extends Component {
             }} onClick={() => this.handlePublished()}>Published</Button>;
         }
     }
-
+    // Conditionally rendering if the button will be highlighted in light blue or else
+    // Once button is clicked, handleIncomplete() will run
     ifIncomplete() {
         if (this.state.status == 'INCOMPLETE') {
             return <Button size="small" variant="outlined" style={{
@@ -93,7 +97,8 @@ class AdminDashboard extends Component {
             }} onClick={() => this.handleIncomplete()}>Incomplete</Button>;
         }
     }
-
+    // Conditionally rendering if the button will be highlighted in light blue or else
+    // Once button is clicked, handleDenied() will run
     ifDenied() {
         if (this.state.status == 'DENIED') {
             return <Button size="small" variant="outlined" style={{
@@ -108,7 +113,8 @@ class AdminDashboard extends Component {
             }} onClick={() => this.handleDenied()}>Denied</Button>;
         }
     }
-
+    // Conditionally rendering if the button will be highlighted in light blue or else
+    // Once button is clicked, handleAll() will run
     ifAll() {
         if (this.state.status == '') {
             return <Button size="small" variant="outlined" style={{
@@ -123,47 +129,47 @@ class AdminDashboard extends Component {
             }} onClick={() => this.handleAll()}>All</Button>;
         }
     }
-
+    // Set state to 'PENDING' so only pending PCNs will be shown
+    // Dispatch will send payload to get only PCNs that are 'PENDING'
     handlePending() {
         this.setState({status: 'PENDING'});
         const data = {
-            // userId: this.props.reduxStore.user.id,
             status: 'PENDING'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
-
+    // Set state to 'PUBLISHED' so only published PCNs will be shown
+    // Dispatch will send payload to get only PCNs that are 'PUBLISHED'
     handlePublished() {
         this.setState({ status: 'PUBLISHED' });
         const data = {
-            // userId: this.props.reduxStore.user.id,
             status: 'PUBLISHED'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
-
+    // Set state to 'INCOMPLETE' so only incomplete PCNs will be shown
+    // Dispatch will send payload to get only PCNs that are 'INCOMPLETE'
     handleIncomplete() {
         this.setState({ status: 'INCOMPLETE' });
         const data = {
-            // userId: this.props.reduxStore.user.id,
             status: 'INCOMPLETE'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
-
+    // Set state to 'DENIED' so only denied PCNs will be shown
+    // Dispatch will send payload to get only PCNs that are 'DENIED'
     handleDenied() {
         this.setState({ status: 'DENIED' });
         const data = {
-            // userId: this.props.reduxStore.user.id,
             status: 'DENIED'
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
     }
-
+    // Set state to empty string so all PCNs will be shown
+    // Dispatch will send payload to get all PCNs
     handleAll() {
         this.setState({ status: '' });
         const data = {
-            // userId: this.props.reduxStore.user.id,
             status: ''
         }
         this.props.dispatch({ type: 'FETCH_ADMIN_DASHBOARD', payload: data });
