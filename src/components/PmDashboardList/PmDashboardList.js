@@ -30,8 +30,9 @@ const styles = theme => ({
 
 class PmDashboardList extends Component {
 
-    handleClick = () => {
-        this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`);
+    handleClick = (event) => {
+        this.props.history.push(`/${this.props.item.type}-view/${this.props.item.type}/${this.props.item.id}`);
+
     }
 
     deletePcn = () => {

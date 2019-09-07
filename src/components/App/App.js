@@ -19,6 +19,8 @@ import InfoPage from '../InfoPage/InfoPage';
 import Search from '../Search/Search';
 import PcnForm from '../PcnForm/PcnForm';
 import PcnView from '../PcnView/PcnView';
+import EolView from '../EolView/EolView';
+import NpiView from '../NpiView/NpiView';
 import EolForm from '../EolForm/EolForm';
 
 import './App.css';
@@ -45,6 +47,16 @@ class App extends Component {
             exact
             path="/pcn-view/:type/:id"
             component={PcnView}
+            />
+            <Route
+            exact
+            path="/eol-view/:type/:id"
+            component={EolView}
+            />
+            <Route
+            exact
+            path="/npi-view/:type/:id"
+            component={NpiView}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
