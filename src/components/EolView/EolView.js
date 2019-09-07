@@ -279,8 +279,8 @@ class EolView extends Component {
                             }}>
                             </div>
                             <div>
-                                <h4>Last Time Buy: {this.props.reduxStore.pcnInfo.last_time_buy}</h4>
-                                <h4>Last Time Ship: {this.props.reduxStore.pcnInfo.last_time_ship}</h4>
+                                <h4>Last Time Buy: {Moment(this.props.reduxStore.pcnInfo.last_time_buy).format('MM/DD/YYYY')}</h4>
+                                <h4>Last Time Ship: {Moment(this.props.reduxStore.pcnInfo.last_time_ship).format('MM/DD/YYYY')}</h4>
                             </div>
                     </div>
                     <div className={classes.images}>
