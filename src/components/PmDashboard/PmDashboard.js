@@ -11,6 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   table: {
@@ -38,7 +39,11 @@ const styles = theme => ({
 
 
 class PmDashboard extends Component {
-  
+
+  state = {
+    status: 'empty'
+  }
+
   componentDidMount() {
     const data = {
       userId: this.props.reduxStore.user.id,
@@ -47,7 +52,83 @@ class PmDashboard extends Component {
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data })
   }
 
+  ifPending() {
+    if (this.state.status == 'PENDING') {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        backgroundColor: '#D6E4FF',
+        fontSize: '10px'
+      }} onClick={() => this.handlePending()}>Pending</Button>;
+    } else {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px'
+      }} onClick={() => this.handlePending()}>Pending</Button>;
+    }
+  }
+
+  ifPublished() {
+    if (this.state.status == 'PUBLISHED') {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px',
+        backgroundColor: '#D6E4FF',
+      }} onClick={() => this.handlePublished()}>Published</Button>;
+    } else {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px'
+      }} onClick={() => this.handlePublished()}>Published</Button>;
+    }
+  }
+
+  ifIncomplete() {
+    if (this.state.status == 'INCOMPLETE') {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px',
+        backgroundColor: '#D6E4FF',
+      }} onClick={() => this.handleIncomplete()}>Incomplete</Button>;
+    } else {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px'
+      }} onClick={() => this.handleIncomplete()}>Incomplete</Button>;
+    }
+  }
+
+  ifDenied() {
+    if (this.state.status == 'DENIED') {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px',
+        backgroundColor: '#D6E4FF',
+      }} onClick={() => this.handleDenied()}>Denied</Button>;
+    } else {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px'
+      }} onClick={() => this.handleDenied()}>Denied</Button>;
+    }
+  }
+
+  ifAll() {
+    if (this.state.status == '') {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px',
+        backgroundColor: '#D6E4FF',
+      }} onClick={() => this.handleAll()}>All</Button>;
+    } else {
+      return <Button size="small" variant="outlined" style={{
+        textTransform: 'none',
+        fontSize: '10px',
+      }} onClick={() => this.handleAll()}>All</Button>;
+    }
+  }
+
   handlePending() {
+    this.setState({status: 'PENDING'});
     const data = {
       userId: this.props.reduxStore.user.id,
       status: 'PENDING'
@@ -56,6 +137,7 @@ class PmDashboard extends Component {
   }
 
   handlePublished() {
+    this.setState({ status: 'PUBLISHED' });
     const data = {
       userId: this.props.reduxStore.user.id,
       status: 'PUBLISHED'
@@ -64,6 +146,7 @@ class PmDashboard extends Component {
   }
 
   handleIncomplete() {
+    this.setState({ status: 'INCOMPLETE' });
     const data = {
       userId: this.props.reduxStore.user.id,
       status: 'INCOMPLETE'
@@ -72,6 +155,7 @@ class PmDashboard extends Component {
   }
 
   handleDenied() {
+    this.setState({ status: 'DENIED' });
     const data = {
       userId: this.props.reduxStore.user.id,
       status: 'DENIED'
@@ -80,6 +164,7 @@ class PmDashboard extends Component {
   }
 
   handleAll() {
+    this.setState({ status: '' });
     const data = {
       userId: this.props.reduxStore.user.id,
       status: ''
@@ -96,15 +181,15 @@ class PmDashboard extends Component {
           <h4 className={classes.welcomeText}>Product Manager Dashboard</h4>
         </div>
         <p className="welcome">Filter: &nbsp;&nbsp;
-          <button onClick={() => this.handlePending()}>Pending</button>
-          &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handlePublished()}>Published</button>
-          &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handleIncomplete()}>Incomplete</button>
-          &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handleDenied()}>Denied</button>
-          &nbsp;&nbsp;&nbsp;
-          <button onClick={() => this.handleAll()}>All</button>
+          <Button onClick={() => this.handlePending()}>{this.ifPending(this.props.status)}</Button>
+          &nbsp;
+          <Button onClick={() => this.handlePublished()}>{this.ifPublished(this.props.status)}</Button>
+          &nbsp;
+          <Button onClick={() => this.handleIncomplete()}>{this.ifIncomplete(this.props.status)}</Button>
+          &nbsp;
+          <Button onClick={() => this.handleDenied()}>{this.ifDenied(this.props.status)}</Button>
+          &nbsp;
+          <Button onClick={() => this.handleAll()}>{this.ifAll(this.props.status)}</Button>
         </p>
         <Table className={classes.table}>
           <TableHead>
