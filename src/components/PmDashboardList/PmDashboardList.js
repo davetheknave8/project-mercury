@@ -24,7 +24,11 @@ const styles = theme => ({
     edit: {
         margin: theme.spacing.unit,
         fontSize: 32
-    }
+    },
+    tableCell: {
+        textAlign: 'left',
+        width: '25%',
+    },
 });
 
 class PmDashboardList extends Component {
@@ -49,7 +53,7 @@ class PmDashboardList extends Component {
     // If status is not 'PUBLISHED', that PCN will have an edit icon and a delete icon
     checkStatus = () => {
         const { classes } = this.props;
-        if (this.props.item.status === 'PUBLISHED') {
+        if (this.props.item.status === 'PUBLISHED' || this.props.item.status === 'PENDING') {
             return (<></>)
         }
         else {

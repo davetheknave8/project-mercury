@@ -23,6 +23,8 @@ const styles = theme => ({
     },
     tableCell: {
         color: 'white',
+        textAlign: 'left',
+        width: '35%',
     },
     welcome: {
         backgroundColor: '#666F99',

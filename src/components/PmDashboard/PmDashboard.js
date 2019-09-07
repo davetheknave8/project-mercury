@@ -23,6 +23,8 @@ const styles = theme => ({
   },
   tableCell: {
     color: 'white',
+    textAlign: 'left',
+    width: '25%',
   },
   welcome: {
     backgroundColor: '#666F99',
@@ -35,8 +37,7 @@ const styles = theme => ({
     fontWeight: 'lighter',
     marginRight: '1%'
   }
-})
-
+});
 
 class PmDashboard extends Component {
   // Set state to 'empty' so on page load no buttons will be highlighted
