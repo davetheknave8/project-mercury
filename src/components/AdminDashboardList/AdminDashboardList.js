@@ -4,10 +4,7 @@ import moment from 'moment';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 const styles = theme => ({
@@ -16,7 +13,6 @@ const styles = theme => ({
         marginLeft: '25%'
     }
 })
-
 
 class AdminDashboardList extends Component {
 
@@ -31,7 +27,6 @@ class AdminDashboardList extends Component {
             <>
                 <TableRow className="tc" align="center" onClick={() => this.handleClick()}>
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell>
-                    {/* <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell> */}
                     <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
                     <TableCell className={classes.tableCell}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                 </TableRow>

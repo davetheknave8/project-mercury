@@ -30,7 +30,7 @@ const styles = theme => ({
 
 class PmDashboardList extends Component {
 
-    handleClick = (event) => {
+    handleClick = () => {
         this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`);
     }
 
@@ -44,9 +44,8 @@ class PmDashboardList extends Component {
         this.props.dispatch({ type: 'DELETE_PCN', payload: data })
     }
 
-    checkStatus = (item) => {
+    checkStatus = () => {
         const { classes } = this.props;
-        let pcnInfo = this.props.reduxStore.pcnInfo;
         if (this.props.item.status === 'PUBLISHED') {
             return (<></>)
         }
