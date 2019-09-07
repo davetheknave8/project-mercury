@@ -157,19 +157,19 @@ class NpiForm extends Component {
         this.props.dispatch({type: 'FETCH_CURRENT_NPI', payload: this.props.match.params.id})
     }
 
-    // componentDidUpdate = (prevProps) => {
-    //     if(prevProps.reduxStore.currentNpiReducer !== this.props.reduxStore.currentNpiReducer){
-    //         this.setState({
-    //             newNpi: {
-    //                 date: this.props.reduxStore.currentNpiReducer.date,
-    //                 change_description: this.props.reduxStore.currentNpiReducer.change_description,
-    //                 number: this.props.reduxStore.currentNpiReducer.id,
-    //                 audience: this.props.reduxStore.currentNpiReducer.audience,
-    //                 type: 'NPI',
-    //                 notes: this.props.reduxStore.currentNpiReducer.notes} 
-    //             })
-    //     }
-    // }
+    componentDidUpdate = (prevProps) => {
+        if(prevProps.reduxStore.currentNpiReducer !== this.props.reduxStore.currentNpiReducer){
+            this.setState({
+                newNpi: {
+                    date: this.props.reduxStore.currentNpiReducer.date,
+                    change_description: this.props.reduxStore.currentNpiReducer.change_description,
+                    number: this.props.reduxStore.currentNpiReducer.id,
+                    audience: this.props.reduxStore.currentNpiReducer.audience,
+                    type: 'NPI',
+                    notes: this.props.reduxStore.currentNpiReducer.notes} 
+                })
+        }
+    }
 
     handleChange = (event, propToChange) => {
         console.log(propToChange);
