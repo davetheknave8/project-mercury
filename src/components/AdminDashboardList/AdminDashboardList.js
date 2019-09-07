@@ -11,6 +11,10 @@ const styles = theme => ({
     table: {
         width: '50%',
         marginLeft: '25%'
+    },
+    tableCell: {
+        textAlign: 'left',
+        width: '35%',
     }
 })
 
