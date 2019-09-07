@@ -11,14 +11,17 @@ const styles = theme => ({
     table: {
         width: '50%',
         marginLeft: '25%'
+    },
+    tableCell: {
+        textAlign: 'left',
+        width: '35%',
     }
 })
 
 class AdminDashboardList extends Component {
-
-    handleClick = (event) => {
+    // When run, user will be brought to the view of the PCN that has been clicked on
+    handleClick = () => {
         this.props.history.push(`/${this.props.item.type}-view/${this.props.item.type}/${this.props.item.id}`);
-        console.log('clicked handleClick', event);
     }
 
     render() {
