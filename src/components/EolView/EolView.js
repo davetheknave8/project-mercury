@@ -261,7 +261,7 @@ class EolView extends Component {
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead>
-                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell ><CustomTableCell className={classes.cell}>Description</CustomTableCell><CustomTableCell className={classes.cell}>Replacement Part</CustomTableCell></TableRow>
+                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell ><CustomTableCell className={classes.leftrightbottom}>Description</CustomTableCell><CustomTableCell className={classes.cell}>Replacement Part</CustomTableCell></TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {this.props.reduxStore.pcnPart.map((part, i) => {

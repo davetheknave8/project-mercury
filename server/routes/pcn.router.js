@@ -241,7 +241,7 @@ router.get('/pcnparts', (req, res) => {
                 })
         }
     else if( req.query.type === 'EOL' ){
-        let sqlText = 'select name, number, description, replacement_id from part join eol_part on part.id = eol_part.part_id where eol_part.eol_id = $1;';
+        let sqlText = 'select part.id, part.name, part.number, part.description, replacement_id, part2.number as replacement_number from eol_part left join part on part.id = eol_part.part_id left join part as part2 on part2.id = eol_part.replacement_id where eol_part.eol_id = $1;';
             pool.query(sqlText, [req.query.id])
                 .then((response) => {
                     console.log('sending response', response.rows);
