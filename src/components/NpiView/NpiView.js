@@ -196,6 +196,7 @@ class NpiView extends Component {
             id: this.props.reduxStore.pcnInfo.id,
             status: action,
             message: this.state.message,
+            type: this.props.reduxStore.pcnInfo.type,
         }
         this.props.dispatch({ type: 'REVIEW_PCN', payload: data });
         this.handleClose();
@@ -207,7 +208,7 @@ class NpiView extends Component {
         let pcnInfo = this.props.reduxStore.pcnInfo;
         if( this.props.reduxStore.user.admin === 1 ){
             if( pcnInfo.status === 'INCOMPLETE' || pcnInfo.status === 'PENDING' || pcnInfo.status === 'DENIED'){
-                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
+                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/npi-form/${pcnInfo.id}`)}>Edit</Button>
             }
         }
         else if( this.props.reduxStore.user.admin === 2 ){
