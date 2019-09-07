@@ -19,20 +19,20 @@ router.get('/', (req, res) => {
             WHERE npi.status = 'PUBLISHED')
             ORDER BY id ASC;`
     pool.query(queryText)
-    .then((response) => {
-        res.send(response.rows);
-    })
-    .catch((error)=> {
-        console.log(`error in get route for main search window${error}`)
-        res.sendStatus(500);
-    })
+        .then((response) => {
+            res.send(response.rows);
+        })
+        .catch((error) => {
+            console.log(`error in get route for main search window${error}`)
+            res.sendStatus(500);
+        })
 });
 // search route for main search page.
 router.get(`/search`, (req, res) => {
     console.log('req.query', req.query);
-        value = req.query.search.toUpperCase();
-        sqlValues = [`%${value}%`]
-            const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
+    value = req.query.search.toUpperCase();
+    sqlValues = [`%${value}%`]
+    const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn
             WHERE "id" LIKE $1 AND pcn.status = 'PUBLISHED')
             UNION
@@ -46,20 +46,20 @@ router.get(`/search`, (req, res) => {
             FROM npi
             WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
             ORDER BY id ASC LIMIT 30;`;
-    pool.query(queryText,sqlValues)
-    .then((response) => {
-        console.log('response.rows',response.rows);
-        res.send(response.rows);
-    })
-    .catch((error)=> {
-        console.log(`error in get route for main search window ${error}`)
-        res.sendStatus(500);
-    })
+    pool.query(queryText, sqlValues)
+        .then((response) => {
+            console.log('response.rows', response.rows);
+            res.send(response.rows);
+        })
+        .catch((error) => {
+            console.log(`error in get route for main search window ${error}`)
+            res.sendStatus(500);
+        })
 });
 
 router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
     console.log('get dashboard, req.query is', req.query);
-    if( req.query.status != '' ){
+    if (req.query.status != '') {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
                             pcn.status as status, pcn.date as date
                             FROM pcn
@@ -73,19 +73,20 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
                             (SELECT npi."type" as "type", npi.id as id, 
                             npi.status as status, npi.date as date
                             FROM npi
-                            WHERE creator_id = $1 AND status = $2);`
+                            WHERE creator_id = $1 AND status = $2)
+                            ORDER BY id;`
         const sqlValues = [req.query.id, req.query.status]
         pool.query(sqlText, sqlValues)
-        .then(response => {
-            console.log(response.rows);
-            res.send(response.rows)
-        })
-        .catch(error => {
-            console.log('get dashboard error', error);
-            res.sendStatus(500)
-        })
+            .then(response => {
+                console.log(response.rows);
+                res.send(response.rows)
+            })
+            .catch(error => {
+                console.log('get dashboard error', error);
+                res.sendStatus(500)
+            })
     }
-    else{
+    else {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
                             pcn.status as status, pcn.date as date
                             FROM pcn
@@ -99,7 +100,8 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
                             (SELECT npi."type" as "type", npi.id as id, 
                             npi.status as status, npi.date as date
                             FROM npi
-                            WHERE creator_id = $1);`
+                            WHERE creator_id = $1)
+                            ORDER BY id;`
         const sqlValues = [req.query.id]
         pool.query(sqlText, sqlValues)
             .then(response => {
@@ -129,7 +131,8 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
                             (SELECT npi."type" as "type", npi.id as id, 
                             npi.status as status, npi.date as date
                             FROM npi
-                            WHERE status = $1);`
+                            WHERE status = $1)
+                            ORDER BY id;`
         pool.query(sqlText, [req.query.status])
             .then(response => {
                 console.log(response.rows);
@@ -151,7 +154,8 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
                             union
                             (SELECT npi."type" as "type", npi.id as id, 
                             npi.status as status, npi.date as date
-                            FROM npi);`
+                            FROM npi)
+                            ORDER BY id;`
         pool.query(sqlText)
             .then(response => {
                 console.log(response.rows);
@@ -181,7 +185,7 @@ router.get('/current', (req, res) => {
 
 router.get('/info', (req, res) => {
     console.log('getting specific pcn info, req.query is:', req.query)
-    if ( req.query.type === 'PCN' ){
+    if (req.query.type === 'PCN') {
         let sqlText = 'select * from pcn where id = $1';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
@@ -313,7 +317,7 @@ router.get('/pcnimages', (req, res) => {
 router.post('/create', (req, res) => {
     console.log(req.body.type);
     const userId = req.user.id
-    if(req.body.type === 'pcn'){
+    if (req.body.type === 'pcn') {
         const sqlText = `INSERT INTO pcn(creator_id, contact_id, type)
                             VALUES($1, $2, $3)
                             RETURNING id;`;
@@ -326,7 +330,7 @@ router.post('/create', (req, res) => {
                 console.log('error creating new pcn');
                 res.sendStatus(500);
             })
-    } 
+    }
 })
 
 // PUT Routes
@@ -334,7 +338,7 @@ router.post('/create', (req, res) => {
 router.put('/edit', (req, res) => {
     const objectToEdit = req.body;
     const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='PENDING' WHERE id=$6;`;
-    const values=[objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
+    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
     pool.query(sqlText, values)
         .then(response => {
             res.sendStatus(200);
@@ -412,12 +416,12 @@ router.delete('/deletepcn', (req, res) => {
                     })
                     .catch((error) => {
                         console.log('error retrieving npi info', error);
-                    }) 
-            })  
+                    })
+            })
             .catch(error => {
                 console.log('error deleting npi_part', error);
                 res.sendStatus(500);
-            })      
+            })
     }
     else {
         res.sendStatus(500);
