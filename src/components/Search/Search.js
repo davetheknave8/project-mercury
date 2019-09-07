@@ -81,11 +81,11 @@ const styles = {
 
 class Search extends Component {
 
-
+    // grabs the pcn list of docs from the database
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PCN_LIST' });
     }
-
+    //takes the search string and dispatches the request.
     handleChange = (event) => {
         // console.log('entered search', event.target.value.toUpperCase());
         this.props.dispatch({ type: 'GET_SEARCH', payload: event.target.value })
