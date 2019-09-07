@@ -140,7 +140,7 @@ CREATE TABLE eol_part
     id SERIAL PRIMARY KEY,
     eol_id VARCHAR REFERENCES eol(id),
     part_id integer REFERENCES part(id),
-    replacement boolean
+    replacement_id int REFERENCES part(id)
 );
 
 CREATE TABLE npi_part
