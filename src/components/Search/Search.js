@@ -43,7 +43,6 @@ const styles = {
         height: '500px',
         borderWidth: '50px'
     },
-    
     input: {
         marginLeft: 8,
         display: 'center',
@@ -87,11 +86,9 @@ class Search extends Component {
     }
     //takes the search string and dispatches the request.
     handleChange = (event) => {
-        // console.log('entered search', event.target.value.toUpperCase());
         this.props.dispatch({ type: 'GET_SEARCH', payload: event.target.value })
     };
-
-
+    
     render() {
 
         const { classes } = this.props;
@@ -134,7 +131,6 @@ class Search extends Component {
 
 const mapStateToProps = reduxStore => ({
     reduxStore
-
 });
 
 export default withStyles(styles)(connect(mapStateToProps)(Search));

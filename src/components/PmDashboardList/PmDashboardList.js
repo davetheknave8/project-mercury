@@ -5,10 +5,7 @@ import moment from 'moment';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
@@ -37,7 +34,6 @@ class PmDashboardList extends Component {
         this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`);
     }
 
-    // Wrong type:
     deletePcn = () => {
         const data = {
             id: this.props.item.id,
@@ -45,7 +41,7 @@ class PmDashboardList extends Component {
             status: '',
             userId: this.props.reduxStore.user.id
         }
-        this.props.dispatch({type: 'DELETE_PCN', payload: data})
+        this.props.dispatch({ type: 'DELETE_PCN', payload: data })
     }
 
     checkStatus = (item) => {
@@ -57,7 +53,7 @@ class PmDashboardList extends Component {
         else {
             return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.icon} /></Button></>)
         }
-    } 
+    }
 
     render() {
         const { classes } = this.props;
@@ -65,7 +61,6 @@ class PmDashboardList extends Component {
             <>
                 <TableRow className="tc" align="center">
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.id}</TableCell>
-                    {/* <TableCell className={classes.tableCell}>{this.props.item.type}</TableCell> */}
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                     <TableCell className="column" className={classes.tableCell}>{this.checkStatus(this.props.item)}&nbsp;</TableCell>
