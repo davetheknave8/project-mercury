@@ -261,7 +261,7 @@ router.get('/pcnparts', (req, res) => {
                 })
         }
     else{
-        sendStatus(500)
+        res.sendStatus(500)
     }
 });
 
@@ -304,7 +304,7 @@ router.get('/pcnimages', (req, res) => {
             })
         }  
     else{
-        sendStatus(500);
+        res.sendStatus(500);
     }
 });
 

@@ -163,8 +163,8 @@ class EolView extends Component {
             type: this.props.match.params.type
         };
         this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
-        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id });
-        this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data.id });
+        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data });
+        this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data });
     }
 
     handleOpen = () => {
@@ -256,7 +256,7 @@ class EolView extends Component {
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead>
-                                            <TableRow><CustomTableCell>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell>Description</CustomTableCell></TableRow>
+                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell ><CustomTableCell className={classes.cell}>Description</CustomTableCell></TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {this.props.reduxStore.pcnPart.map((part, i) => {
