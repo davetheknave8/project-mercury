@@ -38,8 +38,7 @@ const styles = theme => ({
 
 
 class PmDashboard extends Component {
-
-
+  
   componentDidMount() {
     const data = {
       userId: this.props.reduxStore.user.id,
@@ -47,15 +46,6 @@ class PmDashboard extends Component {
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data })
   }
-
-  // // Change table row background color
-  // changeColor = (user, index) => {
-  //   if (this.props.reduxStore.user.id == user.id){
-  //     return (<DashboardListItem key={user.id} user={user} />)
-  //   } else{
-  //     return (<></>);
-  //   }
-  // }
 
   handlePending() {
     const data = {
@@ -120,7 +110,6 @@ class PmDashboard extends Component {
           <TableHead>
             <TableRow component="tr" scope="row" className="header">
               <TableCell className={classes.tableCell}>PCN - #</TableCell>
-              {/* <TableCell className={classes.tableCell}>Type</TableCell> */}
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>
               <TableCell className={classes.tableCell}>&nbsp;</TableCell>
