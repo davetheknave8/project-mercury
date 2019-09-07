@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PcnViewPart from '../PcnViewPart/PcnViewPart';
-import PcnViewImage from '../PcnViewImage/PcnViewImage';
 import Nav from '../Nav/Nav';
 import Moment from 'moment';
 
