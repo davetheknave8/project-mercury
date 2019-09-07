@@ -218,36 +218,94 @@ router.get('/info', (req, res) => {
             })
     }
     else {
-        res.sendStatus(500);
+        sendStatus(500);
     }
 });
 
 router.get('/pcnparts', (req, res) => {
     console.log('getting parts for specific pcn, req.query is:', req.query)
-    let sqlText = 'select name, number, description from part join pcn_part on part.id = pcn_part.part_id where pcn_part.pcn_id = $1;';
+    if( req.query.type === 'PCN' ){
+        let sqlText = 'select name, number, description from part join pcn_part on part.id = pcn_part.part_id where pcn_part.pcn_id = $1;';
+            pool.query(sqlText, [req.query.id])
+                .then((response) => {
+                    console.log('sending response', response.rows);
+                    res.send(response.rows)
+                })
+                .catch((error) => {
+                    console.log('error retrieving pcn parts', error);
+                    res.sendStatus(500)
+                })
+        }
+    else if( req.query.type === 'EOL' ){
+        let sqlText = 'select name, number, description from part join eol_part on part.id = eol_part.part_id where eol_part.eol_id = $1;';
+            pool.query(sqlText, [req.query.id])
+                .then((response) => {
+                    console.log('sending response', response.rows);
+                    res.send(response.rows)
+                })
+                .catch((error) => {
+                    console.log('error retrieving eol parts', error);
+                    res.sendStatus(500)
+                })
+        }
+    else if( req.query.type === 'NPI' ){
+        let sqlText = 'select name, number, description from part join npi_part on part.id = npi_part.part_id where npi_part.npi_id = $1;';
+            pool.query(sqlText, [req.query.id])
+                .then((response) => {
+                    console.log('sending response', response.rows);
+                    res.send(response.rows)
+                })
+                .catch((error) => {
+                    console.log('error retrieving npi parts', error);
+                    res.sendStatus(500)
+                })
+        }
+    else{
+        sendStatus(500)
+    }
+});
+
+router.get('/pcnimages', (req, res) => {
+    console.log('getting images for specific pcn, req.query is:', req.query)
+    if( req.query.type === 'PCN' ){
+        let sqlText = 'select image.id, image_url, figure from image join pcn_image on image.id = pcn_image.image_id where pcn_image.pcn_id = $1;';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
                 console.log('sending response', response.rows);
                 res.send(response.rows)
             })
             .catch((error) => {
-                console.log('error retrieving pcn parts', error);
+                console.log('error retrieving pcn images', error);
                 res.sendStatus(500)
             })
-});
-
-router.get('/pcnimages', (req, res) => {
-    console.log('getting images for specific pcn, req.query is:', req.query)
-    let sqlText = 'select image.id, image_url, figure from image join pcn_image on image.id = pcn_image.image_id where pcn_image.pcn_id = $1;';
-    pool.query(sqlText, [req.query.id])
-        .then((response) => {
-            console.log('sending response', response.rows);
-            res.send(response.rows)
-        })
-        .catch((error) => {
-            console.log('error retrieving pcn images', error);
-            res.sendStatus(500)
-        })
+        }  
+    else if( req.query.type === 'EOL' ){
+        let sqlText = 'select image.id, image_url, figure from image join eol_image on image.id = eol_image.image_id where eol_image.eol_id = $1;';
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving eol images', error);
+                res.sendStatus(500)
+            })
+        }  
+    else if( req.query.type === 'NPI' ){
+        let sqlText = 'select image.id, image_url, figure from image join npi_image on image.id = npi_image.image_id where npi_image.npi_id = $1;';
+        pool.query(sqlText, [req.query.id])
+            .then((response) => {
+                console.log('sending response', response.rows);
+                res.send(response.rows)
+            })
+            .catch((error) => {
+                console.log('error retrieving npi images', error);
+                res.sendStatus(500)
+            })
+        }  
+    else{
+        sendStatus(500);
+    }
 });
 
 //POST Routes

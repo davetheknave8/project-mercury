@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PcnViewPart from '../PcnViewPart/PcnViewPart';
+import EolViewPart from '../EolViewPart/EolViewPart';
 import Nav from '../Nav/Nav';
 import Moment from 'moment';
 
@@ -139,7 +139,7 @@ function getImageModalStyle() {
 
 }
 
-class PcnView extends Component {
+class EolView extends Component {
 
     state = {
         open: false,
@@ -155,8 +155,8 @@ class PcnView extends Component {
             type: this.props.match.params.type
         };
         this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
-        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data });
-        this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data });
+        this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data.id });
+        this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data.id });
     }
 
     handleOpen = () => {
@@ -189,7 +189,7 @@ class PcnView extends Component {
             status: action,
             message: this.state.message,
         }
-        this.props.dispatch({ type: 'REVIEW_PCN', payload: data });
+        this.props.dispatch({ type: 'REVIEW_EOL', payload: data });
         this.handleClose();
         this.props.history.push('/dashboard');
     }
@@ -252,7 +252,7 @@ class PcnView extends Component {
                                     </TableHead>
                                     <TableBody>
                                         {this.props.reduxStore.pcnPart.map((part, i) => {
-                                            return (<PcnViewPart key={i} part={part}/>);
+                                            return (<EolViewPart key={i} part={part}/>);
                                         })}
                                     </TableBody>
                                 </Table>
@@ -312,4 +312,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(PcnView));
+export default connect(mapStateToProps)(withStyles(styles)(EolView));
