@@ -2,7 +2,24 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 // Material-UI
-import ListItem from '@material-ui/core/ListItem';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import {withStyles} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+//Icon
+import DeleteIcon from '@material-ui/icons/Delete';
+
+const styles = theme => ({
+    searchItem: {
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: '#e0e0e0',
+            border: '1px',
+            borderStyle: 'solid'
+        }
+    }
+})
 
 class SearchPartListItem extends Component {
     handleAddPart = () => {
@@ -14,14 +31,19 @@ class SearchPartListItem extends Component {
     }
 
     render(){
+        const {classes} = this.props;
         return(
             <>
-            <ListItem button divider onClick={(event) => this.handleAddPart(event)}>
-                {this.props.part.number} {this.props.part.name}
-            </ListItem>
+
+            <TableRow className={classes.searchItem} divider onClick={(event) => this.handleAddPart(event)}>
+                <TableCell>{this.props.part.number}</TableCell>
+                <TableCell> {this.props.part.name}</TableCell>
+                <TableCell>{this.props.part.description}</TableCell>
+                <TableCell><Button><DeleteIcon /></Button></TableCell>
+            </TableRow>
             </>
         )
     }
 }
 
-export default connect()(SearchPartListItem);
+export default withStyles(styles)(connect()(SearchPartListItem));

@@ -19,6 +19,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import AddIcon from '@material-ui/icons/AddCircle';
 import List from '@material-ui/core/List';
+import Modal from '@material-ui/core/Modal';
 
 const styles = theme => ({
     form: {
@@ -125,6 +126,27 @@ const styles = theme => ({
     },
     audienceLabel: {
         color: 'white'
+    },
+    buyDate: {
+        marginLeft: '2%',
+        backgroundColor: 'white',
+        marginTop: '5%'
+    },
+    shipDate: {
+        float: 'right',
+        marginRight: '2%',
+        backgroundColor: 'white',
+        marginTop: '5%'
+    },
+    search: {
+        position: 'absolute',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+        outline: 'none',
+        overflowY: 'auto',
+        height: '40%'
     }
 })
 
@@ -138,7 +160,9 @@ class EolForm extends Component {
             number: '',
             audience: '',
             type: 'EOL',
-            notes: ''
+            notes: '',
+            buyDate: '',
+            shipDate: ''
         },
         newPart: {
             name: '',
@@ -149,7 +173,8 @@ class EolForm extends Component {
         },
         searching: false,
         descriptionLength: 2000,
-        description: ''
+        description: '',
+        show: false
     }
 
     componentDidMount = () => {
@@ -218,6 +243,14 @@ class EolForm extends Component {
         this.props.dispatch({ type: 'SEARCH_PARTS', payload: { query: event.target.value } })
     }
 
+    openSearch = () => {
+        this.setState({show: true});
+    }
+
+    handleCloseSearch = () => {
+        this.setState({show: false})
+    }
+
     render() {
         const { classes } = this.props;
         console.log(this.props.reduxStore.currentEolReducer.change_description)
@@ -225,13 +258,16 @@ class EolForm extends Component {
             <>
                 <Nav history={this.props.history} />
                 <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
-                    <h1 className={classes.formHeader}>Eol Form</h1>
+                    <h1 className={classes.formHeader}>EOL Form</h1>
                     <div className={classes.topElements}>
                         <TextField className={classes.date} value={this.state.newEol.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
                             shrink: true,
                         }}
                         />
                         <TextField className={classes.number} value={this.props.match.params.id} label="EOL #:" disabled />
+                        <br />
+                        <TextField className={classes.buyDate} value={this.state.newEol.buyDate} type="date" label="Last Purchase Date:" onChange={event => this.handleChange(event, 'buyDate')} InputLabelProps={{shrink: true}} />
+                        <TextField className={classes.shipDate} value={this.state.newEol.shipDate} type="date" label="Last Shipping Date:" onChange={event => this.handleChange(event, 'shipDate')} InputLabelProps={{shrink: true}} />
                     </div>
                     <br />
                     <label className={classes.label}>Description of Change: ({this.state.descriptionLength} characters remaining.)</label>
@@ -247,17 +283,12 @@ class EolForm extends Component {
                                 <TableCell>Part Affected</TableCell>
                                 <TableCell>Name</TableCell>
                                 <TableCell>Description</TableCell>
-                                <TableCell>&nbsp;</TableCell>
+                                <TableCell>Replacement Part #</TableCell>
+                                <TableCell><Button variant="outlined" onClick={this.openSearch} style={{fontSize: '1em', textTransform: 'none'}}>Search for Part</Button></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow>
-                                <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
-                            </TableRow>
-                            <List>
-                                {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='EOL' eolNumber={this.props.match.params.id} part={part} />) : <></>}
-                            </List>
-                            {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
+                            {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem type="eol" pcnId={this.props.match.params.id} part={part} />) : <></>}
                             <TableRow>
                                 <TableCell className={classes.cell}><TextField value={this.state.newPart.number} onChange={event => this.handleChangePart(event, 'number')} placeholder="Add Part #..." /></TableCell>
                                 <TableCell className={classes.cell}><TextField value={this.state.newPart.name} onChange={event => this.handleChangePart(event, 'name')} placeholder="Add Name..." /></TableCell>
@@ -266,6 +297,25 @@ class EolForm extends Component {
                             </TableRow>
                         </TableBody>
                     </Table>
+                    <Modal
+                        open={this.state.show}
+                        onClose={this.handleCloseSearch}
+                        >
+                            <div style={{top: '10%', left: '35%'}} className={classes.search}>
+                            <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
+                                <Table>
+                                    <TableHead>
+                                        <TableCell>Part Number</TableCell>
+                                        <TableCell>Part Name</TableCell>
+                                        <TableCell>Description</TableCell>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='EOL' eolNumber={this.props.match.params.id} part={part} />) : <></>}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        </Modal>
+
                     <br />
                     <div>
                         <div className={classes.notesDiv}>

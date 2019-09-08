@@ -7,6 +7,7 @@ const router = express.Router();
  */
 router.get('/current', (req, res) => {
     const idToGet = req.query.id;
+    console.log(req.query);
     if(req.query.type === 'pcn'){
         const sqlText = `SELECT part.name, part.number, part.description FROM part
                             JOIN pcn_part ON part.id = pcn_part.part_id
@@ -21,8 +22,9 @@ router.get('/current', (req, res) => {
                 res.sendStatus(500);
             })
     } else if (req.query.type === 'eol'){
-        const sqlText = `SELECT part.name, part.number, part.description FROM part
-                            JOIN eol_part ON part.id = eol_part.part_id
+        const sqlText = `SELECT part.name, part.number, part.description, part2.name as replacement_name, part2.number as replacement_number, part2.description as replacement_description from eol_part
+	                        LEFT JOIN part ON eol_part.part_id = part.id
+                            LEFT JOIN part as part2 ON eol_part.replacement_id = part2.id
                             WHERE eol_part.eol_id=$1;`;
         const values = [idToGet];
         pool.query(sqlText, values)
@@ -117,6 +119,31 @@ router.post('/add', (req, res) => {
             })
             .catch(error => {
                 console.log('error adding part', error);
+                res.sendStatus(500);
+            })
+    }
+})
+
+router.delete('/pcn_part', (req, res) => {
+    console.log(req.query);
+    if(req.query.type === 'pcn'){
+        const sqlText = `DELETE FROM pcn_part WHERE id=$1;`;
+        pool.query(sqlText, [req.query.id])
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error deleting pcn_part', error);
+                res.sendStatus(500);
+            })
+    } else if(req.query.type === 'eol'){
+        const sqlText = `DELETE FROM eol_part WHERE id=$1;`;
+        pool.query(sqlText, [req.query.id])
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error deleting eol_part', error);
                 res.sendStatus(500);
             })
     }
