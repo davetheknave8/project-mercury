@@ -52,7 +52,7 @@ const styles = theme => ({
     },
 });
 
-class PcnViewPart extends Component {
+class EolViewPart extends Component {
 
     render() {
         const { classes } = this.props;
@@ -62,6 +62,7 @@ class PcnViewPart extends Component {
                     <CustomTableCell className={classes.rightbottom}>{this.props.part.number}</CustomTableCell>
                     <CustomTableCell className={classes.bottom}>{this.props.part.name}</CustomTableCell>
                     <CustomTableCell className={classes.leftbottom}>{this.props.part.description}</CustomTableCell>
+                    <CustomTableCell className={classes.leftbottom}>{this.props.part.replacement_number}</CustomTableCell>
                 </TableRow>
             </>
         );
@@ -72,4 +73,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(PcnViewPart));
+export default connect(mapStateToProps)(withStyles(styles)(EolViewPart));

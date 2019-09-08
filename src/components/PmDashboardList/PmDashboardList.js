@@ -16,7 +16,7 @@ const styles = theme => ({
         width: '50%',
         marginLeft: '25%'
     },
-    icon: {
+    delete: {
         margin: theme.spacing.unit,
         fontSize: 32,
         color: '#BF0000',
@@ -24,16 +24,21 @@ const styles = theme => ({
     edit: {
         margin: theme.spacing.unit,
         fontSize: 32
-    }
-})
-
+    },
+    tableCell: {
+        textAlign: 'left',
+        width: '25%',
+    },
+});
 
 class PmDashboardList extends Component {
-
+    // When run, user will be brought to the view of the PCN that has been clicked on
     handleClick = () => {
-        this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`);
-    }
+        this.props.history.push(`/${this.props.item.type}-view/${this.props.item.type}/${this.props.item.id}`);
 
+    }
+    // Sends the PCN id, type, status, and user id (of the PCN that is to be deleted) to the deletePcnSaga
+    // All of the data has to be sent to deletePcnSaga in order for that PCN to be deleted
     deletePcn = () => {
         const data = {
             id: this.props.item.id,
@@ -43,14 +48,16 @@ class PmDashboardList extends Component {
         }
         this.props.dispatch({ type: 'DELETE_PCN', payload: data })
     }
-
+    // Checks if status is 'PUBLISHED' or else
+    // If status is 'PUBLISHED', that PCN will not have an edit or a delete icon
+    // If status is not 'PUBLISHED', that PCN will have an edit icon and a delete icon
     checkStatus = () => {
         const { classes } = this.props;
-        if (this.props.item.status === 'PUBLISHED') {
+        if (this.props.item.status === 'PUBLISHED' || this.props.item.status === 'PENDING') {
             return (<></>)
         }
         else {
-            return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.icon} /></Button></>)
+            return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.delete} /></Button></>)
         }
     }
 

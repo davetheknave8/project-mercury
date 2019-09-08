@@ -38,10 +38,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: "auto",
-        borderRight: '1px solid black',
-        borderLeft: '1px solid black',
-        borderTop: '1px solid black',
-
+        border: '1px solid black',
     },
     table: {
         margin: 'auto',
@@ -70,7 +67,6 @@ const styles = theme => ({
         margin: 'auto',
         textAlign: 'center',
         padding: '10px',
-        border: '1px solid black',
     },
     pcndate: {
         
@@ -151,7 +147,7 @@ function getImageModalStyle() {
 
 }
 
-class PcnView extends Component {
+class NpiView extends Component {
 
     state = {
         open: false,
@@ -212,7 +208,7 @@ class PcnView extends Component {
         let pcnInfo = this.props.reduxStore.pcnInfo;
         if( this.props.reduxStore.user.admin === 1 ){
             if( pcnInfo.status === 'INCOMPLETE' || pcnInfo.status === 'PENDING' || pcnInfo.status === 'DENIED'){
-                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/pcn-form/${pcnInfo.id}`)}>Edit</Button>
+                return <Button size='small' variant='contained' className={classes.button} color='secondary' onClick={() => this.props.history.push(`/npi-form/${pcnInfo.id}`)}>Edit</Button>
             }
         }
         else if( this.props.reduxStore.user.admin === 2 ){
@@ -243,14 +239,13 @@ class PcnView extends Component {
                     </div>
                     </div>
                         <div className={classes.pcnaudience}>
-                        <h2>{this.props.reduxStore.pcnInfo.product}</h2>
-                        <p>Product Change Notification</p>
-                    </div>
+                        <h4>Audience</h4>
                             <div className={classes.audiencerichbody} dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.audience
                             }}>
                         </div>
+                    </div>
                     <h4>Description of Change</h4>
                     <div className={classes.richbody}>
                         <div className={classes.pcndescription}dangerouslySetInnerHTML={{
@@ -262,7 +257,7 @@ class PcnView extends Component {
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead>
-                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell ><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell className={classes.cell}>Description</CustomTableCell></TableRow>
+                                        <TableRow><CustomTableCell>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell>Description</CustomTableCell></TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {this.props.reduxStore.pcnPart.map((part, i) => {
@@ -326,4 +321,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(PcnView));
+export default connect(mapStateToProps)(withStyles(styles)(NpiView));
