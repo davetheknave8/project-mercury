@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PartListItem from '../PartListItem/PartListItem';
 import Nav from '../Nav/Nav';
 import SearchPartListItem from '../SearchPartListItem/SearchPartListItem';
+import moment from 'moment';
 
 //React Quill
 import ReactQuill from 'react-quill';
@@ -161,7 +162,7 @@ class PcnForm extends Component {
         if(prevProps.reduxStore.currentPcnReducer !== this.props.reduxStore.currentPcnReducer){
             this.setState({
                 newPcn: {
-                    date: this.props.reduxStore.currentPcnReducer.date,
+                    date: moment(this.props.reduxStore.currentPcnReducer.date).format('YYYY-MM-DD'),
                     change_description: this.props.reduxStore.currentPcnReducer.change_description,
                     number: this.props.reduxStore.currentPcnReducer.id,
                     audience: this.props.reduxStore.currentPcnReducer.audience,
