@@ -229,7 +229,7 @@ class EolForm extends Component {
 
     handleSubmitPart = (event) => {
         console.log('submit part');
-        this.props.dispatch({ type: 'CREATE_PART', payload: this.state.newPart })
+        this.props.dispatch({ type: 'CREATE_PART', payload: {...this.state.newPart, type: 'eol', id: this.props.match.params.id}})
         this.setState({ newPart: { name: '', number: '', description: '' } })
     }
 
