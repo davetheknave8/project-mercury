@@ -260,7 +260,7 @@ class PcnForm extends Component {
                         <List>
                             {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='PCN' pcnNumber={this.props.match.params.id} part={part} />) : <></> }
                         </List>
-                        {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
+                        {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem type="pcn" part={part} pcnId={this.props.match.params.id} />) : <></>}
                         <TableRow>
                             <TableCell className={classes.cell}><TextField value={this.state.newPart.number} onChange={event => this.handleChangePart(event, 'number')} placeholder="Add Part #..." /></TableCell>
                             <TableCell className={classes.cell}><TextField value={this.state.newPart.name} onChange={event => this.handleChangePart(event, 'name')} placeholder="Add Name..." /></TableCell>
