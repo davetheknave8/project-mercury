@@ -38,6 +38,16 @@ const styles = theme => ({
         width: '25%',
         color:'#BF0000'
     },
+    pendingTableCell: {
+        textAlign: 'left',
+        width: '25%',
+        color: 'green'
+    },
+    incompleteTableCell: {
+        textAlign: 'left',
+        width: '25%',
+        color: 'blue'
+    },
 });
 
 class PmDashboardList extends Component {
@@ -69,10 +79,16 @@ class PmDashboardList extends Component {
         }
     }
     // If denied, text render as red
-    checkDenied = () => {
+    colorStatus = () => {
         const { classes } = this.props;
         if (this.props.item.status === 'DENIED') {
             return (<TableCell className={classes.deniedTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+        else if (this.props.item.status === 'PENDING') {
+            return (<TableCell className={classes.pendingTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+        else if (this.props.item.status === 'INCOMPLETE') {
+            return (<TableCell className={classes.incompleteTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
         }
         else {
             return (<TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
@@ -86,7 +102,7 @@ class PmDashboardList extends Component {
             <>
                 <TableRow className="tc" align="center">
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.id}</TableCell>
-                    {this.checkDenied(this.props.item.status)}
+                    {this.colorStatus(this.props.item.status)}
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                     <TableCell className="column" className={classes.tableCell4}>{this.checkStatus(this.props.item)}</TableCell>
                 </TableRow>
