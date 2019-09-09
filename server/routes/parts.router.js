@@ -1,11 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {rejectUnauthenticated} = require('../modules/authentication-middleware');
 
 /**
  * GET route template
  */
-router.get('/current', (req, res) => {
+router.get('/current', rejectUnauthenticated, (req, res) => {
     const idToGet = req.query.id;
     console.log(req.query);
     if(req.query.type === 'pcn'){
@@ -40,7 +41,7 @@ router.get('/current', (req, res) => {
     }
 });
 
-router.get('/search', (req, res) => {
+router.get('/search', rejectUnauthenticated, (req, res) => {
     const search = `%${req.query.search}%`;
     const sqlText = `SELECT * FROM part WHERE number LIKE $1;`;
     pool.query(sqlText, [search])
@@ -56,7 +57,7 @@ router.get('/search', (req, res) => {
 /**
  * POST route template
  */
-router.post('/create', (req, res) => {
+router.post('/create', rejectUnauthenticated, (req, res) => {
     console.log(req.body);
     const sqlText = `INSERT INTO part(name, number, description)
                         VALUES($1, $2, $3)
@@ -94,7 +95,7 @@ router.post('/create', (req, res) => {
         })
 });
 
-router.post('/add', (req, res) => {
+router.post('/add', rejectUnauthenticated, (req, res) => {
     console.log('hello');
     if(req.body.type === 'pcn'){
         const partToAdd = req.body;
@@ -125,7 +126,7 @@ router.post('/add', (req, res) => {
     }
 })
 
-router.delete('/pcn_part', (req, res) => {
+router.delete('/pcn_part', rejectUnauthenticated, (req, res) => {
     if(req.query.type === 'pcn'){
         const sqlText = `DELETE FROM pcn_part WHERE id=$1;`;
         pool.query(sqlText, [req.query.id])
@@ -150,7 +151,7 @@ router.delete('/pcn_part', (req, res) => {
 })
 
 //EDIT 
-router.put('/replacement', (req, res) => {
+router.put('/replacement', rejectUnauthenticated, (req, res) => {
     console.log(req.body);
     const sqlText = `UPDATE eol_part SET replacement_id=$1 WHERE id=$2;`;
     const values = [req.body.replacement_id, req.body.part_number];
