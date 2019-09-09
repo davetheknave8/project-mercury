@@ -60,21 +60,25 @@ const styles = {
         color: 'white',
         textAlign: 'left',
         width: '20%',
+        backgroundColor: '#666F99',
     },
     tableCell2: {
         color: 'white',
         textAlign: 'left',
         width: '15%',
+        backgroundColor: '#666F99',
     },
     tableCell3: {
         color: 'white',
         textAlign: 'left',
         width: '20%',
+        backgroundColor: '#666F99',
     },
     tableCell4: {
         color: 'white',
         textAlign: 'left',
         width: '45%',
+        backgroundColor: '#666F99',
     },
 };
 

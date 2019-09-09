@@ -28,6 +28,8 @@ class SearchPartListItem extends Component {
             this.props.dispatch({type: 'ADD_PART', payload: {partId: this.props.part.id, id: this.props.pcnNumber, type: 'pcn'}});
         } else if(this.props.type === 'EOL'){
             this.props.dispatch({ type: 'ADD_PART', payload: { partId: this.props.part.id, id: this.props.eolNumber, type: 'eol' } });
+        } else if(this.props.type === 'NPI'){
+            this.props.dispatch({type: 'ADD_PART', payload: {partId: this.props.part.id, id: this.props.npiNumber, type:'npi'} });
         }
     }
 

@@ -50,7 +50,7 @@ const styles = theme => ({
     product: {
         textAlign:'center',
         marginLeft: '9%',
-        width: '40%',
+        width: '30em',
         backgroundColor: 'white'
     },
     notesLabel: {
@@ -181,7 +181,7 @@ class NpiForm extends Component {
 
     handleChange = (event, propToChange) => {
         console.log(propToChange);
-        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience' && propToChange !== 'product'){
+        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event.target.value}})
         } else {
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event}})
@@ -243,7 +243,9 @@ class NpiForm extends Component {
                         shrink: true,
                     }}
                     />
-                    <TextField className={classes.product} value={this.state.newNpi.product} label="Product Name" onChange={event => this.handleChange(event, 'product')} />
+                    <TextField className={classes.product} value={this.state.newNpi.product} type='text' label="Product Name:" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{
+                        shrink: true,
+                    }} />
                     <TextField className={classes.number} value={this.props.match.params.id} label="NPI #:" disabled />
                 </div>
                 <br />

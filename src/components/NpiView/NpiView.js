@@ -38,7 +38,10 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: "auto",
-        border: '1px solid black',
+        borderRight: '1px solid black',
+        borderLeft: '1px solid black',
+        borderTop: '1px solid black',
+
     },
     table: {
         margin: 'auto',
@@ -67,9 +70,10 @@ const styles = theme => ({
         margin: 'auto',
         textAlign: 'center',
         padding: '10px',
+        border: '1px solid black',
     },
     pcndate: {
-        
+
     },
     pcnbackground: {
         backgroundColor: '#f5f5f5',
@@ -105,6 +109,9 @@ const styles = theme => ({
         height: '200px',
         cursor: 'pointer',
         objectFit: 'cover',
+    },
+    modalimage: {
+        maxHeight: '600px',
     },
     pcnbuttons: {
         width: '100%',
@@ -227,91 +234,92 @@ class NpiView extends Component {
         const { classes } = this.props;
         return (
             <>
-            <div className={classes.pcnbackground}>
-            <Nav history={this.props.history} />
-                <div className={classes.pcnform}>
+                <div className={classes.pcnbackground}>
+                    <Nav history={this.props.history} />
+                    <div className={classes.pcnform}>
                         <div className={classes.pcnheader}>
-                        {/* <h2>Company Name Here</h2> 
+                            {/* <h2>Company Name Here</h2> 
                         <h2>Product Change Notification</h2> */}
-                        <h2>{this.props.reduxStore.pcnInfo.id}</h2>
-                    <div className={classes.pcndate}>
-                        <p>{Moment(this.props.reduxStore.pcnInfo.date).format('MM/DD/YYYY')}</p>
-                    </div>
-                    </div>
-                        <div className={classes.pcnaudience}>
-                        <h4>Audience</h4>
-                            <div className={classes.audiencerichbody} dangerouslySetInnerHTML={{
-                                __html:
-                                    this.props.reduxStore.pcnInfo.audience
-                            }}>
+                            <h2>{this.props.reduxStore.pcnInfo.id}</h2>
+                            <div className={classes.pcndate}>
+                                <p>{Moment(this.props.reduxStore.pcnInfo.date).format('MM/DD/YYYY')}</p>
+                            </div>
                         </div>
-                    </div>
-                    <h4>Description of Change</h4>
-                    <div className={classes.richbody}>
-                        <div className={classes.pcndescription}dangerouslySetInnerHTML={{
+                        <div className={classes.pcnaudience}>
+                            <h2>{this.props.reduxStore.pcnInfo.product}</h2>
+                            <p>New Product Information</p>
+                        </div>
+                        <div className={classes.audiencerichbody} dangerouslySetInnerHTML={{
                             __html:
-                            this.props.reduxStore.pcnInfo.change_description
+                                this.props.reduxStore.pcnInfo.audience
                         }}>
                         </div>
-                        <div className="pcntable">
-                            <Paper className={classes.root}>
-                                <Table className={classes.table}>
-                                    <TableHead>
-                                        <TableRow><CustomTableCell>Part Number</CustomTableCell><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell>Description</CustomTableCell></TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {this.props.reduxStore.pcnPart.map((part, i) => {
-                                            return (<PcnViewPart key={i} part={part}/>);
-                                        })}
-                                    </TableBody>
-                                </Table>
-                            </Paper>
-                        </div>
+                        <h4>Description</h4>
+                        <div className={classes.richbody}>
+                            <div className={classes.pcndescription} dangerouslySetInnerHTML={{
+                                __html:
+                                    this.props.reduxStore.pcnInfo.description
+                            }}>
+                            </div>
+                            <div className="pcntable">
+                                <Paper className={classes.root}>
+                                    <Table className={classes.table}>
+                                        <TableHead>
+                                            <TableRow><CustomTableCell className={classes.cell}>Part Number</CustomTableCell ><CustomTableCell className={classes.leftrightbottom}>Part Name</CustomTableCell><CustomTableCell className={classes.cell}>Description</CustomTableCell></TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {this.props.reduxStore.pcnPart.map((part, i) => {
+                                                return (<PcnViewPart key={i} part={part} />);
+                                            })}
+                                        </TableBody>
+                                    </Table>
+                                </Paper>
+                            </div>
                             <h4>Notes</h4>
                             <div className={classes.richbody} dangerouslySetInnerHTML={{
                                 __html:
                                     this.props.reduxStore.pcnInfo.notes
                             }}>
                             </div>
-                    </div>
-                    <div className={classes.images}>
+                        </div>
+                        <div className={classes.images}>
                             {this.props.reduxStore.pcnImage.map((image, i) => {
                                 return (<img className={classes.image} src={image.image_url} alt={image.figure} key={i} onClick={() => this.handleOpenImage(image.image_url, image.figure)}></img>);
                             })}
-                    </div>
-                    <div className={classes.pcnbuttons}>
-                        <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
-                        {this.renderButton()}
+                        </div>
+                        <div className={classes.pcnbuttons}>
+                            <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
+                            {this.renderButton()}
 
-                        <Modal
-                            aria-labelledby="Deny PCN"
-                            aria-describedby="Modal to input a reason for denying PCN"
-                            open={this.state.open}
-                            onClose={this.handleClose}
+                            <Modal
+                                aria-labelledby="Deny PCN"
+                                aria-describedby="Modal to input a reason for denying PCN"
+                                open={this.state.open}
+                                onClose={this.handleClose}
                             >
-                            <div style={getModalStyle()} className={classes.paper}>
-                                <Typography variant="h6" id="modal-title">Notes</Typography>
-                                <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
-                                <br/>
-                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
-                                <Button size='small' onClick={() => this.handleClose()}>Return</Button>
-                            </div>
-                        </Modal>
+                                <div style={getModalStyle()} className={classes.paper}>
+                                    <Typography variant="h6" id="modal-title">Notes</Typography>
+                                    <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
+                                    <br />
+                                    <Button size='small' color='primary' onClick={() => this.reviewPCN('DENIED')}>Confirm</Button>
+                                    <Button size='small' color='secondary' onClick={() => this.handleClose()}>Back</Button>
+                                </div>
+                            </Modal>
 
-                        <Modal
-                            aria-labelledby="View image"
-                            aria-describedby="Modal to view image in full size"
-                            open={this.state.openImage}
-                            onClose={this.handleCloseImage}
+                            <Modal
+                                aria-labelledby="View image"
+                                aria-describedby="Modal to view image in full size"
+                                open={this.state.openImage}
+                                onClose={this.handleCloseImage}
                             >
-                            <div style={getImageModalStyle()} className={classes.paper}>
-                                <img src={this.state.image} alt={this.state.alt}></img>
-                                <p>{this.state.alt}</p>
-                            </div>
-                        </Modal>
+                                <div style={getImageModalStyle()} className={classes.paper}>
+                                    <img className={classes.modalimage} src={this.state.image} alt={this.state.alt}></img>
+                                    <p>{this.state.alt}</p>
+                                </div>
+                            </Modal>
+                        </div>
                     </div>
                 </div>
-            </div>        
             </>
         )
     }

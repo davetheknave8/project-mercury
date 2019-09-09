@@ -25,11 +25,13 @@ const styles = theme => ({
     color: 'white',
     textAlign: 'left',
     width: '25%',
+    backgroundColor: '#666F99',
   }, 
   tableCell4: {
     color: 'white',
     textAlign: 'right',
     width: '25%',
+    backgroundColor: '#666F99',
   },
   welcome: {
     backgroundColor: '#666F99',
@@ -41,7 +43,7 @@ const styles = theme => ({
     textAlign: 'right',
     fontWeight: 'lighter',
     marginRight: '1%'
-  }
+  },
 });
 
 class PmDashboard extends Component {
@@ -71,7 +73,8 @@ class PmDashboard extends Component {
     } else {
       return <Button size="small" variant="outlined" style={{
         textTransform: 'none',
-        fontSize: '10px'
+        backgroundColor: '#E5E7EE',
+        fontSize: '10px',
       }} onClick={() => this.handlePending()}>Pending</Button>;
     }
   }
@@ -87,6 +90,7 @@ class PmDashboard extends Component {
     } else {
       return <Button size="small" variant="outlined" style={{
         textTransform: 'none',
+        backgroundColor: '#E5E7EE',
         fontSize: '10px'
       }} onClick={() => this.handlePublished()}>Published</Button>;
     }
@@ -103,6 +107,7 @@ class PmDashboard extends Component {
     } else {
       return <Button size="small" variant="outlined" style={{
         textTransform: 'none',
+        backgroundColor: '#E5E7EE',
         fontSize: '10px'
       }} onClick={() => this.handleIncomplete()}>Incomplete</Button>;
     }
@@ -119,6 +124,7 @@ class PmDashboard extends Component {
     } else {
       return <Button size="small" variant="outlined" style={{
         textTransform: 'none',
+        backgroundColor: '#E5E7EE',
         fontSize: '10px'
       }} onClick={() => this.handleDenied()}>Denied</Button>;
     }
@@ -135,6 +141,7 @@ class PmDashboard extends Component {
     } else {
       return <Button size="small" variant="outlined" style={{
         textTransform: 'none',
+        backgroundColor: '#E5E7EE',
         fontSize: '10px',
       }} onClick={() => this.handleAll()}>All</Button>;
     }
@@ -211,7 +218,7 @@ class PmDashboard extends Component {
         </p>
         <Table className={classes.table}>
           <TableHead>
-            <TableRow component="tr" scope="row" className="header">
+            <TableRow>
               <TableCell className={classes.tableCell}>PCN - #</TableCell>
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>
