@@ -1,6 +1,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
+    background-color: #C7CAD9
 }
 
 .alert {
@@ -9,7 +10,7 @@ body {
 }
 
 .login-form {
-    background-color: #666F99;
+    background-color: #E3E4EC;
     width: 30%;
     height: 250px;
     margin: 20px auto;

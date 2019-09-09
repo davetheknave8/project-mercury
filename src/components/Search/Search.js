@@ -23,7 +23,6 @@ const styles = {
         textAlign: 'center',
     },
     root: {
-        
         padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
@@ -41,7 +40,8 @@ const styles = {
     table: {
         overflow:'auto',
         height: '500px',
-        borderWidth: '50px'
+        borderWidth: '50px',
+        marginBottom: '65px',
     },
     input: {
         marginLeft: 8,
@@ -60,21 +60,25 @@ const styles = {
         color: 'white',
         textAlign: 'left',
         width: '20%',
+        backgroundColor: '#666F99',
     },
     tableCell2: {
         color: 'white',
         textAlign: 'left',
         width: '15%',
+        backgroundColor: '#666F99',
     },
     tableCell3: {
         color: 'white',
         textAlign: 'left',
         width: '20%',
+        backgroundColor: '#666F99',
     },
     tableCell4: {
         color: 'white',
         textAlign: 'left',
         width: '45%',
+        backgroundColor: '#666F99',
     },
 };
 

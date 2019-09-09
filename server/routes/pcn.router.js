@@ -1,7 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthenticated, rejectUnauthenticatedAdmin } = require('../modules/authentication-middleware');
 
 router.get('/', (req, res) => {
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
@@ -226,7 +226,8 @@ router.get('/info', (req, res) => {
     }
 });
 
-router.get('/pcnparts', (req, res) => {
+// expecting in req.query: 
+router.get('/pcnparts', (req, res) => {  
     console.log('getting parts for specific pcn, req.query is:', req.query)
     if( req.query.type === 'PCN' ){
         let sqlText = 'select name, number, description from part join pcn_part on part.id = pcn_part.part_id where pcn_part.pcn_id = $1;';
@@ -265,10 +266,12 @@ router.get('/pcnparts', (req, res) => {
                 })
         }
     else{
-        res.sendStatus(500)
+        res.sendStatus(500);
     }
 });
 
+// expecting in req.query: PCN type and PCN id
+// this route will grab the images associated with the pcn ID sent
 router.get('/pcnimages', (req, res) => {
     console.log('getting images for specific pcn, req.query is:', req.query)
     if( req.query.type === 'PCN' ){
@@ -349,7 +352,7 @@ router.put('/edit', (req, res) => {
         })
 })
 
-router.put('/reviewpcn/:id', (req, res) => {
+router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
     if( req.body.type === 'PCN' ){
         const sqlText = `UPDATE pcn SET status=$1, notification_message=$2 WHERE id=$3;`;
         const values = [req.body.status, req.body.message, req.params.id]
@@ -385,6 +388,8 @@ router.put('/reviewpcn/:id', (req, res) => {
                 console.log('error editing npi', error);
                 res.sendStatus(500);
             })
+    }else{
+        res.sendStatus(500);
     }
 })
 

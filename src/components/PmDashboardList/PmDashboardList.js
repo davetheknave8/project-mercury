@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
     table: {
         width: '50%',
-        marginLeft: '25%'
+        marginLeft: '25%',
     },
     delete: {
         margin: theme.spacing.unit,
@@ -23,21 +23,21 @@ const styles = theme => ({
     },
     edit: {
         margin: theme.spacing.unit,
-        fontSize: 32
+        fontSize: 32,
     },
     tableCell: {
         textAlign: 'left',
         width: '25%',
+        height: '30px',
+        minWidth: '92px'
     },
     tableCell4: {
         textAlign: 'right',
         width: '25%',
-    },
-    deniedTableCell: {
-        textAlign: 'left',
-        width: '25%',
-        color:'#BF0000'
-    },
+        padding: '0px',
+        height: '30px',
+        minWidth: '128px',
+    }
 });
 
 class PmDashboardList extends Component {
@@ -65,20 +65,11 @@ class PmDashboardList extends Component {
             return (<></>)
         }
         else {
-            return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.delete} /></Button></>)
+            return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}>
+                    <EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}>
+                    <DeleteForeverIcon className={classes.delete} /></Button></>)
         }
     }
-    // If denied, text render as red
-    checkDenied = () => {
-        const { classes } = this.props;
-        if (this.props.item.status === 'DENIED') {
-            return (<TableCell className={classes.deniedTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
-        }
-        else {
-            return (<TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
-        }
-    }
-
 
     render() {
         const { classes } = this.props;
@@ -86,9 +77,9 @@ class PmDashboardList extends Component {
             <>
                 <TableRow className="tc" align="center">
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.id}</TableCell>
-                    {this.checkDenied(this.props.item.status)}
+                    <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
-                    <TableCell className="column" className={classes.tableCell4}>{this.checkStatus(this.props.item)}</TableCell>
+                    <TableCell className={classes.tableCell4}>{this.checkStatus(this.props.item)}</TableCell>
                 </TableRow>
             </>
         );
