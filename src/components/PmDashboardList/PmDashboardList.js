@@ -29,6 +29,10 @@ const styles = theme => ({
         textAlign: 'left',
         width: '25%',
     },
+    tableCell4: {
+        textAlign: 'right',
+        width: '25%',
+    },
 });
 
 class PmDashboardList extends Component {
@@ -53,7 +57,7 @@ class PmDashboardList extends Component {
     // If status is not 'PUBLISHED', that PCN will have an edit icon and a delete icon
     checkStatus = () => {
         const { classes } = this.props;
-        if (this.props.item.status === 'PUBLISHED' || this.props.item.status === 'PENDING') {
+        if (this.props.item.status === 'PUBLISHED') {
             return (<></>)
         }
         else {
@@ -69,7 +73,7 @@ class PmDashboardList extends Component {
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.id}</TableCell>
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
-                    <TableCell className="column" className={classes.tableCell}>{this.checkStatus(this.props.item)}&nbsp;</TableCell>
+                    <TableCell className="column" className={classes.tableCell4}>{this.checkStatus(this.props.item)}</TableCell>
                 </TableRow>
             </>
         );

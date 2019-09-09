@@ -32,7 +32,7 @@ const styles = {
         width: '35%',
     },
     header: {
-        width: '80%',
+        width: '50%',
         margin: 'auto',
         borderColor: 'black',
         borderStyle: 'solid',
@@ -59,22 +59,22 @@ const styles = {
     tableCell1: {
         color: 'white',
         textAlign: 'left',
-        width: '15%',
+        width: '20%',
     },
     tableCell2: {
         color: 'white',
         textAlign: 'left',
-        width: '10%',
+        width: '15%',
     },
     tableCell3: {
         color: 'white',
         textAlign: 'left',
-        width: '25%',
+        width: '20%',
     },
     tableCell4: {
         color: 'white',
         textAlign: 'left',
-        width: '50%',
+        width: '45%',
     },
 };
 
