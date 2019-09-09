@@ -9,7 +9,7 @@ router.get('/current', (req, res) => {
     const idToGet = req.query.id;
     console.log(req.query);
     if(req.query.type === 'pcn'){
-        const sqlText = `SELECT part.name, part.number, part.description FROM part
+        const sqlText = `SELECT pcn_part.id, part.name, part.number, part.description FROM part
                             JOIN pcn_part ON part.id = pcn_part.part_id
                             WHERE pcn_part.pcn_id=$1;`;
         const values = [idToGet];
@@ -22,10 +22,11 @@ router.get('/current', (req, res) => {
                 res.sendStatus(500);
             })
     } else if (req.query.type === 'eol'){
-        const sqlText = `SELECT part.name, part.number, part.description, part2.name as replacement_name, part2.number as replacement_number, part2.description as replacement_description from eol_part
+        const sqlText = `SELECT eol_part.id, part.name, part.number, part.description, part2.name as replacement_name, part2.number as replacement_number, part2.description as replacement_description from eol_part
 	                        LEFT JOIN part ON eol_part.part_id = part.id
                             LEFT JOIN part as part2 ON eol_part.replacement_id = part2.id
-                            WHERE eol_part.eol_id=$1;`;
+                            WHERE eol_part.eol_id=$1
+                            ORDER BY eol_part.id;`;
         const values = [idToGet];
         pool.query(sqlText, values)
             .then(response => {
@@ -125,7 +126,6 @@ router.post('/add', (req, res) => {
 })
 
 router.delete('/pcn_part', (req, res) => {
-    console.log(req.query);
     if(req.query.type === 'pcn'){
         const sqlText = `DELETE FROM pcn_part WHERE id=$1;`;
         pool.query(sqlText, [req.query.id])
@@ -147,6 +147,21 @@ router.delete('/pcn_part', (req, res) => {
                 res.sendStatus(500);
             })
     }
+})
+
+//EDIT 
+router.put('/replacement', (req, res) => {
+    console.log(req.body);
+    const sqlText = `UPDATE eol_part SET replacement_id=$1 WHERE id=$2;`;
+    const values = [req.body.replacement_id, req.body.part_number];
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+            console.log('error adding replacement part', error);
+        })
 })
 
 module.exports = router;
