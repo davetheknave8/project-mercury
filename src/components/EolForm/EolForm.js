@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PartListItem from '../PartListItem/PartListItem';
 import Nav from '../Nav/Nav';
 import SearchPartListItem from '../SearchPartListItem/SearchPartListItem';
+import moment from 'moment';
 
 //React Quill
 import ReactQuill from 'react-quill';
@@ -186,7 +187,7 @@ class EolForm extends Component {
         if (prevProps.reduxStore.currentEolReducer !== this.props.reduxStore.currentEolReducer) {
             this.setState({
                 newEol: {
-                    date: this.props.reduxStore.currentEolReducer.date,
+                    date: moment(this.props.reduxStore.currentEolReducer.date).format('YYYY-MM-DD'),
                     change_description: this.props.reduxStore.currentEolReducer.change_description,
                     number: this.props.reduxStore.currentEolReducer.id,
                     audience: this.props.reduxStore.currentEolReducer.audience,
