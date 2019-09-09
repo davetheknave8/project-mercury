@@ -156,6 +156,7 @@ const styles = theme => ({
 })
 
 let length = 0;
+let goOn = 0;
 
 class EolForm extends Component {
     state = {
@@ -221,10 +222,10 @@ class EolForm extends Component {
         this.setState({ descriptionLength: this.state.descriptionLength - length })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         console.log(this.state.newEol);
-        this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
+        await this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
         this.props.history.push('/dashboard');
     }
 

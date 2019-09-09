@@ -61,17 +61,17 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
     console.log('get dashboard, req.query is', req.query);
     if (req.query.status != '') {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
-                            pcn.status as status, pcn.date as date
+                            pcn.status as status, pcn.date as "date"
                             FROM pcn
                             WHERE creator_id = $1 AND status = $2)
                             union
                             (SELECT eol."type" as "type", eol.id as id, 
-                            eol.status as status, eol.date as date
+                            eol.status as status, eol.date as "date"
                             FROM eol
                             WHERE creator_id = $1 AND status = $2)
                             union
                             (SELECT npi."type" as "type", npi.id as id, 
-                            npi.status as status, npi.date as date
+                            npi.status as status, npi.date as "date"
                             FROM npi
                             WHERE creator_id = $1 AND status = $2)
                             ORDER BY id;`
@@ -88,17 +88,17 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
     }
     else {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
-                            pcn.status as status, pcn.date as date
+                            pcn.status as status, pcn.date as "date"
                             FROM pcn
                             WHERE creator_id = $1)
                             union
                             (SELECT eol."type" as "type", eol.id as id, 
-                            eol.status as status, eol.date as date
+                            eol.status as status, eol.date as "date"
                             FROM eol
                             WHERE creator_id = $1)
                             union
                             (SELECT npi."type" as "type", npi.id as id, 
-                            npi.status as status, npi.date as date
+                            npi.status as status, npi.date as "date"
                             FROM npi
                             WHERE creator_id = $1)
                             ORDER BY id;`
@@ -119,17 +119,17 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
     console.log('get admin dashboard, req.query is', req.query);
     if (req.query.status != '') {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
-                            pcn.status as status, pcn.date as date
+                            pcn.status as status, pcn.date as "date"
                             FROM pcn
                             WHERE status = $1)
                             union
                             (SELECT eol."type" as "type", eol.id as id, 
-                            eol.status as status, eol.date as date
+                            eol.status as status, eol.date as "date"
                             FROM eol
                             WHERE status = $1)
                             union
                             (SELECT npi."type" as "type", npi.id as id, 
-                            npi.status as status, npi.date as date
+                            npi.status as status, npi.date as "date"
                             FROM npi
                             WHERE status = $1)
                             ORDER BY id;`
@@ -145,15 +145,15 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
     }
     else {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
-                            pcn.status as status, pcn.date as date
+                            pcn.status as status, pcn.date as "date"
                             FROM pcn)
                             union
                             (SELECT eol."type" as "type", eol.id as id, 
-                            eol.status as status, eol.date as date
+                            eol.status as status, eol.date as "date"
                             FROM eol)
                             union
                             (SELECT npi."type" as "type", npi.id as id, 
-                            npi.status as status, npi.date as date
+                            npi.status as status, npi.date as "date"
                             FROM npi)
                             ORDER BY id;`
         pool.query(sqlText)
