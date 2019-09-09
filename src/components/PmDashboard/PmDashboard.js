@@ -25,6 +25,11 @@ const styles = theme => ({
     color: 'white',
     textAlign: 'left',
     width: '25%',
+  }, 
+  tableCell4: {
+    color: 'white',
+    textAlign: 'right',
+    width: '25%',
   },
   welcome: {
     backgroundColor: '#666F99',
@@ -210,7 +215,7 @@ class PmDashboard extends Component {
               <TableCell className={classes.tableCell}>PCN - #</TableCell>
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>
-              <TableCell className={classes.tableCell}>&nbsp;</TableCell>
+              <TableCell className={classes.tableCell4}>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
