@@ -71,7 +71,7 @@ const styles = theme => ({
         padding: '10px',
         border: '1px solid black',
     },
-    pcndate: {
+    dates: {
         
     },
     pcnbackground: {
@@ -108,6 +108,9 @@ const styles = theme => ({
         height: '200px',
         cursor: 'pointer',
         objectFit: 'cover',
+    },
+    modalimage: {
+        maxHeight: '600px',
     },
     pcnbuttons: {
         width: '100%',
@@ -280,7 +283,7 @@ class EolView extends Component {
                                     this.props.reduxStore.pcnInfo.notes
                             }}>
                             </div>
-                            <div>
+                            <div className={classes.dates}>
                                 <h4>Last Time Buy: {Moment(this.props.reduxStore.pcnInfo.last_time_buy).format('MM/DD/YYYY')}</h4>
                                 <h4>Last Time Ship: {Moment(this.props.reduxStore.pcnInfo.last_time_ship).format('MM/DD/YYYY')}</h4>
                             </div>
@@ -316,7 +319,7 @@ class EolView extends Component {
                             onClose={this.handleCloseImage}
                             >
                             <div style={getImageModalStyle()} className={classes.paper}>
-                                <img src={this.state.image} alt={this.state.alt}></img>
+                                <img src={this.state.image} className={classes.modalimage} alt={this.state.alt}></img>
                                 <p>{this.state.alt}</p>
                             </div>
                         </Modal>

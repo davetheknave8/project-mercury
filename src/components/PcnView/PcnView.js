@@ -110,6 +110,9 @@ const styles = theme => ({
         cursor: 'pointer',
         objectFit: 'cover',
     },
+    modalimage: {
+        maxHeight: '600px',
+    },
     pcnbuttons: {
         width: '100%',
         margin: 'auto',
@@ -310,7 +313,7 @@ class PcnView extends Component {
                             onClose={this.handleCloseImage}
                             >
                             <div style={getImageModalStyle()} className={classes.paper}>
-                                <img src={this.state.image} alt={this.state.alt}></img>
+                                <img src={this.state.image} className={classes.modalimage} alt={this.state.alt}></img>
                                 <p>{this.state.alt}</p>
                             </div>
                         </Modal>
