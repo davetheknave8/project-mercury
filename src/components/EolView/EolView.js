@@ -38,7 +38,9 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: "auto",
-        border: '1px solid black',
+        borderRight: '1px solid black',
+        borderLeft: '1px solid black',
+        borderTop: '1px solid black',
     },
     table: {
         margin: 'auto',
@@ -302,8 +304,8 @@ class EolView extends Component {
                                 <Typography variant="h6" id="modal-title">Notes</Typography>
                                 <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
                                 <br/>
-                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
-                                <Button size='small' onClick={() => this.handleClose()}>Return</Button>
+                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Confirm</Button>
+                                <Button size='small' onClick={() => this.handleClose()}>Back</Button>
                             </div>
                         </Modal>
 

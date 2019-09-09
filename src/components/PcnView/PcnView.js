@@ -298,8 +298,8 @@ class PcnView extends Component {
                                 <Typography variant="h6" id="modal-title">Notes</Typography>
                                 <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
                                 <br/>
-                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
-                                <Button size='small' onClick={() => this.handleClose()}>Return</Button>
+                                <Button size='small' color='primary' onClick={() => this.reviewPCN('DENIED')}>Confirm</Button>
+                                <Button size='small' color='secondary' onClick={() => this.handleClose()}>Back</Button>
                             </div>
                         </Modal>
 
