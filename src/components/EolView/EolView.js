@@ -294,8 +294,8 @@ class EolView extends Component {
                             })}
                     </div>
                     <div className={classes.pcnbuttons}>
-                        <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
                         {this.renderButton()}
+                        <Button variant='contained' size='small' className={classes.button} onClick={() => this.props.history.push('/dashboard')}>Home</Button>
 
                         <Modal
                             aria-labelledby="Deny PCN"
