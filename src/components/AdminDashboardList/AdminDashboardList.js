@@ -15,6 +15,11 @@ const styles = theme => ({
     tableCell: {
         textAlign: 'left',
         width: '35%',
+    },
+    pendingTableCell: {
+        textAlign: 'left',
+        width: '35%',
+        color: '#BF0000',
     }
 })
 
@@ -23,6 +28,16 @@ class AdminDashboardList extends Component {
     handleClick = () => {
         this.props.history.push(`/${this.props.item.type}-view/${this.props.item.type}/${this.props.item.id}`);
     }
+    // If pending, text render as red
+    checkPending = () => {
+        const { classes } = this.props;
+        if (this.props.item.status === 'PENDING') {
+            return (<TableCell className={classes.pendingTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+        else {
+            return (<TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+    }
 
     render() {
         const { classes } = this.props;
@@ -30,7 +45,7 @@ class AdminDashboardList extends Component {
             <>
                 <TableRow className="tc" align="center" onClick={() => this.handleClick()}>
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell>
-                    <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
+                    {this.checkPending(this.props.item.status)}
                     <TableCell className={classes.tableCell}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                 </TableRow>
             </>
