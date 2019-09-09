@@ -157,7 +157,7 @@ class NpiForm extends Component {
         this.props.dispatch({type: 'FETCH_CURRENT_NPI', payload: this.props.match.params.id})
     }
 
-    componentDidUpdate = (prevProps) => {
+    componentDidUpdate(prevProps) {
         if(prevProps.reduxStore.currentNpiReducer !== this.props.reduxStore.currentNpiReducer){
             this.setState({
                 newNpi: {
@@ -241,7 +241,7 @@ class NpiForm extends Component {
                 <br />
                 <ReactQuill className={classes.description}
                 onChange={event => this.handleChange(event, 'change_description')}
-                value={this.state.newNpi.change_description}
+                value={this.state.newNpi.change_description || ''}
                  />
                 <br />
                 <Table className={classes.table}>
@@ -276,13 +276,13 @@ class NpiForm extends Component {
                         <br />
                         <ReactQuill className={classes.notes}
                         onChange={event => this.handleChange(event, 'notes')}
-                        value={this.state.newNpi.notes} />
+                        value={this.state.newNpi.notes || ''} />
                     </div>
                     <div className={classes.audience}>
                         <label className={classes.audienceLabel}>Audience:</label>
                         <br />
                         <br />
-                        <ReactQuill value={this.state.newNpi.audience} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience') } />                        
+                        <ReactQuill value={this.state.newNpi.audience || ''} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience') } />                        
                     </div>
                 </div>
                 <br />

@@ -22,6 +22,10 @@ import editEolSaga from './editEolSaga';
 import deletePcnSaga from './deletePcnSaga';
 import fetchPcnImageSaga from './fetchPcnImageSaga';
 import deletePcnPartSaga from './deletePcnPartSaga';
+import fetchCurrentNpiSaga from './fetchCurrentNpi';
+import createNpiSaga from './createNpiSaga';
+import editNpiSaga from './editNpiSaga';
+
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -55,6 +59,11 @@ export default function* rootSaga() {
     editEolSaga(),
     deletePcnSaga(),
     fetchPcnImageSaga(),
-    deletePcnPartSaga()
+    deletePcnPartSaga(),
+    fetchCurrentNpiSaga(),
+    createNpiSaga(),
+    editNpiSaga(),
+
+
   ]);
 }
