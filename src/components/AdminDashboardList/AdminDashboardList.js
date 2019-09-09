@@ -16,43 +16,12 @@ const styles = theme => ({
         textAlign: 'left',
         width: '35%',
     },
-    pendingTableCell: {
-        textAlign: 'left',
-        width: '35%',
-        color: '#BF0000',
-    },
-    deniedTableCell: {
-        textAlign: 'left',
-        width: '35%',
-        color: 'green',
-    },
-    incompleteTableCell: {
-        textAlign: 'left',
-        width: '35%',
-        color: 'blue',
-    }
 })
 
 class AdminDashboardList extends Component {
     // When run, user will be brought to the view of the PCN that has been clicked on
     handleClick = () => {
         this.props.history.push(`/${this.props.item.type}-view/${this.props.item.type}/${this.props.item.id}`);
-    }
-    // If pending, text render as red
-    colorStatus = () => {
-        const { classes } = this.props;
-        if (this.props.item.status === 'PENDING') {
-            return (<TableCell className={classes.pendingTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
-        }
-        else if (this.props.item.status === 'INCOMPLETE') {
-            return (<TableCell className={classes.incompleteTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
-        }
-        else if (this.props.item.status === 'DENIED') {
-            return (<TableCell className={classes.deniedTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
-        }
-        else {
-            return (<TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
-        }
     }
 
     render() {
@@ -61,7 +30,7 @@ class AdminDashboardList extends Component {
             <>
                 <TableRow className="tc" align="center" onClick={() => this.handleClick()}>
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell>
-                    {this.colorStatus(this.props.item.status)}
+                    <TableCell className={classes.tableCell}>{this.props.item.status}</TableCell>
                     <TableCell className={classes.tableCell}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                 </TableRow>
             </>

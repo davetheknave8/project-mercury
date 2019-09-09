@@ -20,6 +20,7 @@ const styles = theme => ({
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: '2px',
+    marginBottom: '65px',
   },
   tableCell: {
     color: 'white',
