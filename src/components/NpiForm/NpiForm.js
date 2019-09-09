@@ -134,7 +134,7 @@ class NpiForm extends Component {
     state = {
         newNpi: {
             date: '',
-            change_description: '',
+            description: '',
             number: '',
             audience: '',
             type: 'npi',
@@ -162,7 +162,7 @@ class NpiForm extends Component {
             this.setState({
                 newNpi: {
                     date: this.props.reduxStore.currentNpiReducer.date,
-                    change_description: this.props.reduxStore.currentNpiReducer.change_description,
+                    description: this.props.reduxStore.currentNpiReducer.description,
                     number: this.props.reduxStore.currentNpiReducer.id,
                     audience: this.props.reduxStore.currentNpiReducer.audience,
                     type: 'NPI',
@@ -173,13 +173,13 @@ class NpiForm extends Component {
 
     handleChange = (event, propToChange) => {
         console.log(propToChange);
-        if(propToChange !== 'change_description' && propToChange !== 'notes' && propToChange !== 'audience'){
+        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event.target.value}})
         } else {
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event}})
             console.log(this.state);
         }
-        let html = this.state.newNpi.change_description;
+        let html = this.state.newNpi.description;
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
@@ -223,7 +223,7 @@ class NpiForm extends Component {
 
     render(){
         const {classes} = this.props;
-        console.log(this.props.reduxStore.currentNpiReducer.change_description)
+        console.log(this.props.reduxStore.currentNpiReducer.description)
         return(
             <>
             <Nav history={this.props.history} />
@@ -237,11 +237,11 @@ class NpiForm extends Component {
                     <TextField className={classes.number} value={this.props.match.params.id} label="NPI #:" disabled />
                 </div>
                 <br />
-                <label className={classes.label}>Description of Change: ({this.state.descriptionLength} characters remaining.)</label>
+                <label className={classes.label}>Description: ({this.state.descriptionLength} characters remaining.)</label>
                 <br />
                 <ReactQuill className={classes.description}
-                onChange={event => this.handleChange(event, 'change_description')}
-                value={this.state.newNpi.change_description || ''}
+                onChange={event => this.handleChange(event, 'description')}
+                value={this.state.newNpi.description || ''}
                  />
                 <br />
                 <Table className={classes.table}>
