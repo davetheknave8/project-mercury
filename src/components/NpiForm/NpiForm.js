@@ -169,6 +169,7 @@ class NpiForm extends Component {
             this.setState({
                 newNpi: {
                     date: this.props.reduxStore.currentNpiReducer.date,
+                    product: this.props.reduxStore.currentNpiReducer.product,
                     description: this.props.reduxStore.currentNpiReducer.description,
                     number: this.props.reduxStore.currentNpiReducer.id,
                     audience: this.props.reduxStore.currentNpiReducer.audience,
@@ -180,7 +181,7 @@ class NpiForm extends Component {
 
     handleChange = (event, propToChange) => {
         console.log(propToChange);
-        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
+        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience' && propToChange !== 'product'){
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event.target.value}})
         } else {
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event}})
