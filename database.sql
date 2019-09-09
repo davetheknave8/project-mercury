@@ -65,6 +65,7 @@ CREATE TABLE npi
     "date" date DEFAULT now(),
     "description" character varying(2000),
     notes character varying(2000),
+    audience character varying(1000),
     status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
     product VARCHAR(100),

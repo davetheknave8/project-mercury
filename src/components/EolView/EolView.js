@@ -38,7 +38,9 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: "auto",
-        border: '1px solid black',
+        borderRight: '1px solid black',
+        borderLeft: '1px solid black',
+        borderTop: '1px solid black',
     },
     table: {
         margin: 'auto',
@@ -69,7 +71,7 @@ const styles = theme => ({
         padding: '10px',
         border: '1px solid black',
     },
-    pcndate: {
+    dates: {
         
     },
     pcnbackground: {
@@ -106,6 +108,9 @@ const styles = theme => ({
         height: '200px',
         cursor: 'pointer',
         objectFit: 'cover',
+    },
+    modalimage: {
+        maxHeight: '600px',
     },
     pcnbuttons: {
         width: '100%',
@@ -278,7 +283,7 @@ class EolView extends Component {
                                     this.props.reduxStore.pcnInfo.notes
                             }}>
                             </div>
-                            <div>
+                            <div className={classes.dates}>
                                 <h4>Last Time Buy: {Moment(this.props.reduxStore.pcnInfo.last_time_buy).format('MM/DD/YYYY')}</h4>
                                 <h4>Last Time Ship: {Moment(this.props.reduxStore.pcnInfo.last_time_ship).format('MM/DD/YYYY')}</h4>
                             </div>
@@ -302,8 +307,8 @@ class EolView extends Component {
                                 <Typography variant="h6" id="modal-title">Notes</Typography>
                                 <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
                                 <br/>
-                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Deny</Button>
-                                <Button size='small' onClick={() => this.handleClose()}>Return</Button>
+                                <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Confirm</Button>
+                                <Button size='small' onClick={() => this.handleClose()}>Back</Button>
                             </div>
                         </Modal>
 
@@ -314,7 +319,7 @@ class EolView extends Component {
                             onClose={this.handleCloseImage}
                             >
                             <div style={getImageModalStyle()} className={classes.paper}>
-                                <img src={this.state.image} alt={this.state.alt}></img>
+                                <img src={this.state.image} className={classes.modalimage} alt={this.state.alt}></img>
                                 <p>{this.state.alt}</p>
                             </div>
                         </Modal>
