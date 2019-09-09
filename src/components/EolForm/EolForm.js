@@ -191,12 +191,8 @@ class EolForm extends Component {
         if (prevProps.reduxStore.currentEolReducer !== this.props.reduxStore.currentEolReducer) {
             this.setState({
                 newEol: {
-
                     date: moment(this.props.reduxStore.currentEolReducer.date).format('YYYY-MM-DD'),
-
                     product: this.props.reduxStore.currentEolReducer.product,
-                   
-
                     change_description: this.props.reduxStore.currentEolReducer.change_description,
                     number: this.props.reduxStore.currentEolReducer.id,
                     audience: this.props.reduxStore.currentEolReducer.audience,
