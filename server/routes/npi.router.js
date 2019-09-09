@@ -17,6 +17,7 @@ router.get('/current', (req,res)=>{
         })
 })
 
+
 router.post('/create', (req, res) => {
     console.log(req.body.type);
     const userId = req.user.id
