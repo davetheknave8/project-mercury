@@ -45,6 +45,8 @@ CREATE TABLE eol
     audience character varying(1000),
     status VARCHAR(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
+    message_read int,
+    message_time VARCHAR(100),
     product VARCHAR(100),
     CONSTRAINT eol_pkey PRIMARY KEY (id)
 );
@@ -68,6 +70,8 @@ CREATE TABLE npi
     audience character varying(1000),
     status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
+    message_read int,
+    message_time VARCHAR(100),
     product VARCHAR(100),
     CONSTRAINT npi_pkey PRIMARY KEY (id)
 );
@@ -91,6 +95,8 @@ CREATE TABLE pcn
     notes character varying(2000),
     status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
+    message_read int,
+    message_time VARCHAR(100),
     product VARCHAR(100),
     CONSTRAINT pcn_pkey PRIMARY KEY (id)
 );
@@ -159,6 +165,89 @@ CREATE TABLE pcn_part
     pcn_id VARCHAR REFERENCES pcn(id),
     part_id integer REFERENCES part(id)
 );
+
+CREATE TABLE pcn_review_log
+(
+    id SERIAL PRIMARY KEY,
+    pcn_id VARCHAR REFERENCES pcn(id),
+    notification_message varchar(1000),
+    message_time varchar,
+    status varchar
+);
+
+-- Trigger to log when a PCN is approved or denied
+create or replace function logpcnreviewfunction
+() returns trigger as $review_table$
+begin
+    insert into pcn_review_log
+        (pcn_id, notification_message, message_time, status)
+    VALUES
+        (new.id, new.notification_message, new.message_time, new.status);
+    return new;
+end;
+$review_table$ LANGUAGE plpgsql;
+
+create trigger logpcnreviewtrigger after
+update on pcn
+for each row
+execute procedure logpcnreviewfunction
+();
+
+--
+CREATE TABLE eol_review_log
+(
+    id SERIAL PRIMARY KEY,
+    eol_id VARCHAR REFERENCES eol(id),
+    notification_message varchar(1000),
+    message_time varchar,
+    status varchar
+);
+
+-- Trigger to log when an EOL is approved or denied
+create or replace function logeolreviewfunction
+() returns trigger as $review_table$
+begin
+    insert into eol_review_log
+        (eol_id, notification_message, message_time, status)
+    VALUES
+        (new.id, new.notification_message, new.message_time, new.status);
+    return new;
+end;
+$review_table$ LANGUAGE plpgsql;
+
+create trigger logeolreviewtrigger after
+update on eol
+for each row
+execute procedure logeolreviewfunction
+();
+
+--
+CREATE TABLE npi_review_log
+(
+    id SERIAL PRIMARY KEY,
+    npi_id VARCHAR REFERENCES npi(id),
+    notification_message varchar(1000),
+    message_time varchar,
+    status varchar
+);
+
+-- Trigger to log when a NPI is approved or denied
+create or replace function lognpireviewfunction
+() returns trigger as $review_table$
+begin
+    insert into npi_review_log
+        (npi_id, notification_message, message_time, status)
+    VALUES
+        (new.id, new.notification_message, new.message_time, new.status);
+    return new;
+end;
+$review_table$ LANGUAGE plpgsql;
+
+create trigger lognpireviewtrigger after
+update on npi
+for each row
+execute procedure lognpireviewfunction
+();
 
 --CREATE TABLE notifications (
 --    id SERIAL PRIMARY KEY,

@@ -364,8 +364,8 @@ router.put('/edit', (req, res) => {
 
 router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
     if( req.body.type === 'PCN' ){
-        const sqlText = `UPDATE pcn SET status=$1, notification_message=$2 WHERE id=$3;`;
-        const values = [req.body.status, req.body.message, req.params.id]
+        const sqlText = `UPDATE pcn SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
+        const values = [req.body.status, req.body.message, req.body.time, req.params.id]
         pool.query(sqlText, values)
             .then(response => {
                 res.sendStatus(200);
@@ -376,8 +376,8 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
             })
     }
     else if (req.body.type === 'EOL') {
-        const sqlText = `UPDATE eol SET status=$1, notification_message=$2 WHERE id=$3;`;
-        const values = [req.body.status, req.body.message, req.params.id]
+        const sqlText = `UPDATE eol SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
+        const values = [req.body.status, req.body.message, req.body.time, req.params.id]
         pool.query(sqlText, values)
             .then(response => {
                 res.sendStatus(200);
@@ -388,8 +388,8 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
             })
     }
     else if (req.body.type === 'NPI') {
-        const sqlText = `UPDATE npi SET status=$1, notification_message=$2 WHERE id=$3;`;
-        const values = [req.body.status, req.body.message, req.params.id]
+        const sqlText = `UPDATE npi SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
+        const values = [req.body.status, req.body.message, req.body.time, req.params.id]
         pool.query(sqlText, values)
             .then(response => {
                 res.sendStatus(200);
