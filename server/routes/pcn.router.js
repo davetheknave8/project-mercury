@@ -270,7 +270,8 @@ router.get('/pcnparts', (req, res) => {
     }
 });
 
-// expecting in req.query: 
+// expecting in req.query: PCN type and PCN id
+// this route will grab the images associated with the pcn ID sent
 router.get('/pcnimages', (req, res) => {
     console.log('getting images for specific pcn, req.query is:', req.query)
     if( req.query.type === 'PCN' ){
