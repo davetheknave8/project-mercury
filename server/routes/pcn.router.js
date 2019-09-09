@@ -3,6 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated, rejectUnauthenticatedAdmin } = require('../modules/authentication-middleware');
 
+
+// expecting in req.query: PCN type, PCN id, PCN status, PCN date, and PCN description
+// this route will grab the info associated with the pcn ID sent
 router.get('/', (req, res) => {
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn
@@ -27,9 +30,12 @@ router.get('/', (req, res) => {
             res.sendStatus(500);
         })
 });
+
 // search route for main search page.
+// expecting in req.query: PCN type, PCN id, PCN status, PCN date, and PCN description
+// this route will grab the info associated with the pcn ID sent
 router.get(`/search`, (req, res) => {
-    console.log('req.query', req.query);
+    console.log('search req.query', req.query);
     value = req.query.search.toUpperCase();
     sqlValues = [`%${value}%`]
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
@@ -168,6 +174,8 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
     }
 });
 
+// expecting in req.query: PCN id
+// this route will grab the info associated with the pcn ID sent
 router.get('/current', (req, res) => {
     const idToGet = req.query.id;
     const sqlText = `SELECT * FROM pcn WHERE id=$1;`;
@@ -182,7 +190,8 @@ router.get('/current', (req, res) => {
         })
 })
 
-
+// expecting in req.query: PCN type and PCN id
+// this route will grab the info associated with the pcn ID sent
 router.get('/info', (req, res) => {
     console.log('getting specific pcn info, req.query is:', req.query)
     if (req.query.type === 'PCN') {
@@ -226,7 +235,8 @@ router.get('/info', (req, res) => {
     }
 });
 
-// expecting in req.query: 
+// expecting in req.query: PCN type and PCN id
+// this route will grab the parts associated with the pcn ID sent
 router.get('/pcnparts', (req, res) => {  
     console.log('getting parts for specific pcn, req.query is:', req.query)
     if( req.query.type === 'PCN' ){
