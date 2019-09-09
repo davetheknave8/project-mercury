@@ -128,6 +128,16 @@ const styles = theme => ({
     lasttime: {
         textAlign: 'center',
     },
+    denialmessage: {
+        textAlign: 'center',
+        width: '80%',
+        marginTop: '10px',
+        margin: 'auto',
+        backgroundColor: 'white',
+        fontSize: '1.2em',
+        padding: '3px',
+        border: '1px solid red',
+    },
 });
 
 function getModalStyle() {
@@ -174,6 +184,18 @@ class EolView extends Component {
         this.props.dispatch({ type: 'FETCH_PCN_INFO', payload: data });
         this.props.dispatch({ type: 'FETCH_PCN_PARTS', payload: data });
         this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data });
+    }
+
+    checkMessage() {
+        const { classes } = this.props;
+        if (this.props.reduxStore.pcnInfo.status === 'DENIED') {
+            return (
+                <div className={classes.denialmessage}>
+                    <h4> Admin Notes </h4>
+                    <p>{this.props.reduxStore.pcnInfo.notification_message}</p>
+                </div>
+            )
+        }
     }
 
     handleOpen = () => {
