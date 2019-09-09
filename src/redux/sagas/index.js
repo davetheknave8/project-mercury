@@ -25,6 +25,7 @@ import deletePcnPartSaga from './deletePcnPartSaga';
 import fetchCurrentNpiSaga from './fetchCurrentNpi';
 import createNpiSaga from './createNpiSaga';
 import editNpiSaga from './editNpiSaga';
+import addReplacementSaga from './addReplacement';
 
 
 // rootSaga is the primary saga.
@@ -63,6 +64,7 @@ export default function* rootSaga() {
     fetchCurrentNpiSaga(),
     createNpiSaga(),
     editNpiSaga(),
+    addReplacementSaga()
 
 
   ]);
