@@ -28,7 +28,7 @@ const styles = theme => ({
     borderRadius: 3,
   },
   header:{
-    color:'white',
+    color:'#3D3D5C',
     textAlign: 'center',
   },
   btn:{
