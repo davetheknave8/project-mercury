@@ -157,7 +157,7 @@ class NpiForm extends Component {
         this.props.dispatch({type: 'FETCH_CURRENT_NPI', payload: this.props.match.params.id})
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate = (prevProps) => {
         if(prevProps.reduxStore.currentNpiReducer !== this.props.reduxStore.currentNpiReducer){
             this.setState({
                 newNpi: {
