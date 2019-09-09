@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PartListItem from '../PartListItem/PartListItem';
 import Nav from '../Nav/Nav';
 import SearchPartListItem from '../SearchPartListItem/SearchPartListItem';
-
+import moment from 'moment';
 //React Quill
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
@@ -50,7 +50,7 @@ const styles = theme => ({
     product: {
         textAlign:'center',
         marginLeft: '9%',
-        width: '32%',
+        width: '30vh',
         backgroundColor: 'white'
     },
     notesLabel: {
@@ -156,7 +156,8 @@ class NpiForm extends Component {
         },
         searching: false,
         descriptionLength: 2000,
-        description: ''
+        description: '',
+        show: false,
     }
 
     componentDidMount = () => {
@@ -168,7 +169,7 @@ class NpiForm extends Component {
         if(prevProps.reduxStore.currentNpiReducer !== this.props.reduxStore.currentNpiReducer){
             this.setState({
                 newNpi: {
-                    date: this.props.reduxStore.currentNpiReducer.date,
+                    date: moment(this.props.reduxStore.currentNpiReducer.date).format('YYYY-MM-DD'),
                     product: this.props.reduxStore.currentNpiReducer.product,
                     description: this.props.reduxStore.currentNpiReducer.description,
                     number: this.props.reduxStore.currentNpiReducer.id,
@@ -231,8 +232,7 @@ class NpiForm extends Component {
 
     render(){
         const {classes} = this.props;
-        console.log(this.props.reduxStore.currentNpiReducer.description)
-        console.log('this.state.newNpi.product', this.state.newNpi.product);
+     
         return(
             <>
             <Nav history={this.props.history} />

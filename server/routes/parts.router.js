@@ -38,6 +38,20 @@ router.get('/current', rejectUnauthenticated, (req, res) => {
                 console.log('error getting current eol parts', error);
                 res.sendStatus(500);
             })
+    } else if (req.query.type === 'npi'){
+        const sqlText = `SELECT npi_part.id, part.name, part.number, part.description FROM part
+                            JOIN npi_part ON part.id = npi_part.part_id
+                            WHERE npi_part.npi_id=$1;`;
+        const values = [idToGet];
+        pool.query(sqlText, values)
+            .then(response => {
+                console.log(response.rows);
+                res.send(response.rows);
+            })
+            .catch(error => {
+                console.log('error getting current eol parts', error);
+                res.sendStatus(500);
+            })
     }
 });
 
@@ -87,6 +101,17 @@ router.post('/create', rejectUnauthenticated, (req, res) => {
                     .catch(error => {
                         console.log('error inserting into pcn_part', error);
                     })
+            } else if(req.body.type === 'npi'){
+                const partId = response.rows[0].id;
+                const npiNumber = req.body.npiNumber;
+                pool.query(`INSERT INTO npi_part(npi_id, part_id)
+                            VALUES($1, $2);`, [npiNumber, partId])
+                    .then(response => {
+                        res.sendStatus(200);
+                    })
+                    .catch(error => {
+                        console.log('error inserting into npi_pcn_part', error);
+                    })
             }
         })
         .catch(error => {
@@ -123,6 +148,19 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
                 console.log('error adding part', error);
                 res.sendStatus(500);
             })
+    } else if(req.body.type === 'npi'){
+        const partToAdd = req.body;
+        const sqlText = `INSERT INTO npi_part(npi_id, part_id)
+                            VALUES($1, $2);`;
+        const values = [partToAdd.id, partToAdd.partId];
+        pool.query(sqlText, values)
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error adding part', error);
+                res.sendStatus(500);
+            })
     }
 })
 
@@ -145,6 +183,16 @@ router.delete('/pcn_part', rejectUnauthenticated, (req, res) => {
             })
             .catch(error => {
                 console.log('error deleting eol_part', error);
+                res.sendStatus(500);
+            })
+    } else if(req.query.type === 'npi'){
+        const sqlText = `DELETE FROM npi_part WHERE id=$1;`;
+        pool.query(sqlText, [req.query.id])
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error deleting npi_part', error);
                 res.sendStatus(500);
             })
     }
