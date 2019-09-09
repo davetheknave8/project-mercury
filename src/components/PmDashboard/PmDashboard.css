@@ -3,5 +3,6 @@
 }
 
 .table {
-    width: 50%
+    width: 50%;
+    padding-top: 100px;
 }

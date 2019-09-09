@@ -23,7 +23,6 @@ const styles = {
         textAlign: 'center',
     },
     root: {
-        
         padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
@@ -41,7 +40,8 @@ const styles = {
     table: {
         overflow:'auto',
         height: '500px',
-        borderWidth: '50px'
+        borderWidth: '50px',
+        marginBottom: '65px',
     },
     input: {
         marginLeft: 8,
