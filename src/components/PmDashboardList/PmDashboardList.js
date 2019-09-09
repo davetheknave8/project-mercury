@@ -68,7 +68,7 @@ class PmDashboardList extends Component {
             return (<><Button onClick={() => this.props.history.push(`/${this.props.item.type.toLowerCase()}-form/${this.props.item.id}`)}><EditIcon className={classes.edit} /></Button><Button onClick={() => this.deletePcn()}><DeleteForeverIcon className={classes.delete} /></Button></>)
         }
     }
-
+    // If denied, text render as red
     checkDenied = () => {
         const { classes } = this.props;
         if (this.props.item.status === 'DENIED') {
