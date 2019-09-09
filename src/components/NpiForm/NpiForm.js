@@ -50,7 +50,7 @@ const styles = theme => ({
     product: {
         textAlign:'center',
         marginLeft: '9%',
-        width: '30em',
+        width: '32%',
         backgroundColor: 'white'
     },
     notesLabel: {

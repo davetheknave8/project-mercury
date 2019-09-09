@@ -50,8 +50,8 @@ router.post('/', (req, res) => {
 
 router.put('/edit', (req, res) => {
     const objectToEdit = req.body;
-    const sqlText = `UPDATE eol SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='PENDING' WHERE id=$6;`;
-    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
+    const sqlText = `UPDATE eol SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='PENDING', product=$6 WHERE id=$7;`;
+    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.product, objectToEdit.number]
     pool.query(sqlText, values)
         .then(response => {
             res.sendStatus(200);
