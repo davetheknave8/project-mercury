@@ -23,6 +23,7 @@ const styles = theme => ({
 
 class SearchPartListItem extends Component {
     handleAddPart = () => {
+        console.log(this.props.part)
         if(this.props.type === 'PCN'){
             this.props.dispatch({type: 'ADD_PART', payload: {partId: this.props.part.id, id: this.props.pcnNumber, type: 'pcn'}});
         } else if(this.props.type === 'EOL'){
@@ -32,6 +33,7 @@ class SearchPartListItem extends Component {
 
     render(){
         const {classes} = this.props;
+        console.log(this.props.part);
         return(
             <>
 
@@ -39,7 +41,6 @@ class SearchPartListItem extends Component {
                 <TableCell>{this.props.part.number}</TableCell>
                 <TableCell> {this.props.part.name}</TableCell>
                 <TableCell>{this.props.part.description}</TableCell>
-                <TableCell><Button><DeleteIcon /></Button></TableCell>
             </TableRow>
             </>
         )
