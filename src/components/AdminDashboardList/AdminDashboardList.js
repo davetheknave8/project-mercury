@@ -20,6 +20,16 @@ const styles = theme => ({
         textAlign: 'left',
         width: '35%',
         color: '#BF0000',
+    },
+    deniedTableCell: {
+        textAlign: 'left',
+        width: '35%',
+        color: 'green',
+    },
+    incompleteTableCell: {
+        textAlign: 'left',
+        width: '35%',
+        color: 'blue',
     }
 })
 
@@ -29,10 +39,16 @@ class AdminDashboardList extends Component {
         this.props.history.push(`/${this.props.item.type}-view/${this.props.item.type}/${this.props.item.id}`);
     }
     // If pending, text render as red
-    checkPending = () => {
+    colorStatus = () => {
         const { classes } = this.props;
         if (this.props.item.status === 'PENDING') {
             return (<TableCell className={classes.pendingTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+        else if (this.props.item.status === 'INCOMPLETE') {
+            return (<TableCell className={classes.incompleteTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+        else if (this.props.item.status === 'DENIED') {
+            return (<TableCell className={classes.deniedTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
         }
         else {
             return (<TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
@@ -45,7 +61,7 @@ class AdminDashboardList extends Component {
             <>
                 <TableRow className="tc" align="center" onClick={() => this.handleClick()}>
                     <TableCell className={classes.tableCell}>{this.props.item.id}</TableCell>
-                    {this.checkPending(this.props.item.status)}
+                    {this.colorStatus(this.props.item.status)}
                     <TableCell className={classes.tableCell}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                 </TableRow>
             </>

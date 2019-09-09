@@ -25,6 +25,7 @@ const styles = theme => ({
         color: 'white',
         textAlign: 'left',
         width: '35%',
+        backgroundColor: '#666F99',
     },
     welcome: {
         backgroundColor: '#666F99',
@@ -64,6 +65,7 @@ class AdminDashboard extends Component {
         } else {
             return <Button size="small" variant="outlined" style={{
                 textTransform: 'none',
+                backgroundColor: '#E5E7EE',
                 fontSize: '10px'}} onClick={() => this.handlePending()}>Pending</Button>;
         }
     }
@@ -79,7 +81,8 @@ class AdminDashboard extends Component {
         } else {
             return <Button size="small" variant="outlined" style={{
                 textTransform: 'none',
-                fontSize: '10px'
+                fontSize: '10px',
+                backgroundColor: '#E5E7EE',
             }} onClick={() => this.handlePublished()}>Published</Button>;
         }
     }
@@ -95,7 +98,8 @@ class AdminDashboard extends Component {
         } else {
             return <Button size="small" variant="outlined" style={{
                 textTransform: 'none',
-                fontSize: '10px'
+                fontSize: '10px',
+                backgroundColor: '#E5E7EE',
             }} onClick={() => this.handleIncomplete()}>Incomplete</Button>;
         }
     }
@@ -111,7 +115,8 @@ class AdminDashboard extends Component {
         } else {
             return <Button size="small" variant="outlined" style={{
                 textTransform: 'none',
-                fontSize: '10px'
+                fontSize: '10px',
+                backgroundColor: '#E5E7EE',
             }} onClick={() => this.handleDenied()}>Denied</Button>;
         }
     }
@@ -128,6 +133,7 @@ class AdminDashboard extends Component {
             return <Button size="small" variant="outlined" style={{
                 textTransform: 'none',
                 fontSize: '10px',
+                backgroundColor: '#E5E7EE',
             }} onClick={() => this.handleAll()}>All</Button>;
         }
     }
