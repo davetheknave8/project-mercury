@@ -33,13 +33,17 @@ const styles = theme => ({
         textAlign: 'right',
         width: '25%',
     },
+    deniedTableCell: {
+        textAlign: 'left',
+        width: '25%',
+        color:'#BF0000'
+    },
 });
 
 class PmDashboardList extends Component {
     // When run, user will be brought to the view of the PCN that has been clicked on
     handleClick = () => {
         this.props.history.push(`/${this.props.item.type}-view/${this.props.item.type}/${this.props.item.id}`);
-
     }
     // Sends the PCN id, type, status, and user id (of the PCN that is to be deleted) to the deletePcnSaga
     // All of the data has to be sent to deletePcnSaga in order for that PCN to be deleted
@@ -65,13 +69,24 @@ class PmDashboardList extends Component {
         }
     }
 
+    checkDenied = () => {
+        const { classes } = this.props;
+        if (this.props.item.status === 'DENIED') {
+            return (<TableCell className={classes.deniedTableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+        else {
+            return (<TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>);
+        }
+    }
+
+
     render() {
         const { classes } = this.props;
         return (
             <>
                 <TableRow className="tc" align="center">
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.id}</TableCell>
-                    <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{this.props.item.status}</TableCell>
+                    {this.checkDenied(this.props.item.status)}
                     <TableCell className={classes.tableCell} onClick={() => this.handleClick()}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
                     <TableCell className="column" className={classes.tableCell4}>{this.checkStatus(this.props.item)}</TableCell>
                 </TableRow>
