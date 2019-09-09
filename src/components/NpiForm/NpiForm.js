@@ -47,6 +47,12 @@ const styles = theme => ({
         color: 'white',
         marginLeft: '10%'
     },
+    product: {
+        textAlign:'center',
+        marginLeft: '9%',
+        width: '40%',
+        backgroundColor: 'white'
+    },
     notesLabel: {
         color: 'white'
     },
@@ -60,7 +66,7 @@ const styles = theme => ({
         backgroundColor: 'white',        
     },
     topElements: {
-        backgroundColor: '#A3A8C2',
+        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -134,6 +140,7 @@ class NpiForm extends Component {
     state = {
         newNpi: {
             date: '',
+            product:'',
             description: '',
             number: '',
             audience: '',
@@ -162,6 +169,7 @@ class NpiForm extends Component {
             this.setState({
                 newNpi: {
                     date: this.props.reduxStore.currentNpiReducer.date,
+                    product: this.props.reduxStore.currentNpiReducer.product,
                     description: this.props.reduxStore.currentNpiReducer.description,
                     number: this.props.reduxStore.currentNpiReducer.id,
                     audience: this.props.reduxStore.currentNpiReducer.audience,
@@ -173,7 +181,7 @@ class NpiForm extends Component {
 
     handleChange = (event, propToChange) => {
         console.log(propToChange);
-        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
+        if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience' && propToChange !== 'product'){
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event.target.value}})
         } else {
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event}})
@@ -224,6 +232,7 @@ class NpiForm extends Component {
     render(){
         const {classes} = this.props;
         console.log(this.props.reduxStore.currentNpiReducer.description)
+        console.log('this.state.newNpi.product', this.state.newNpi.product);
         return(
             <>
             <Nav history={this.props.history} />
@@ -234,6 +243,7 @@ class NpiForm extends Component {
                         shrink: true,
                     }}
                     />
+                    <TextField className={classes.product} value={this.state.newNpi.product} label="Product Name" onChange={event => this.handleChange(event, 'product')} />
                     <TextField className={classes.number} value={this.props.match.params.id} label="NPI #:" disabled />
                 </div>
                 <br />
