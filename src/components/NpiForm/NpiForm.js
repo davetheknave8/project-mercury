@@ -50,7 +50,7 @@ const styles = theme => ({
     product: {
         textAlign:'center',
         marginLeft: '9%',
-        width: '40%',
+        width: '30em',
         backgroundColor: 'white'
     },
     notesLabel: {
@@ -243,7 +243,9 @@ class NpiForm extends Component {
                         shrink: true,
                     }}
                     />
-                    <TextField className={classes.product} value={this.state.newNpi.product} type='text' label="Product Name" onChange={event => this.handleChange(event, 'product')} />
+                    <TextField className={classes.product} value={this.state.newNpi.product} type='text' label="Product Name:" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{
+                        shrink: true,
+                    }} />
                     <TextField className={classes.number} value={this.props.match.params.id} label="NPI #:" disabled />
                 </div>
                 <br />
