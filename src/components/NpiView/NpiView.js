@@ -247,14 +247,14 @@ class NpiView extends Component {
                         </div>
                         <div className={classes.pcnaudience}>
                             <h2>{this.props.reduxStore.pcnInfo.product}</h2>
-                            <p>Product Change Notification</p>
+                            <p>New Product Information</p>
                         </div>
                         <div className={classes.audiencerichbody} dangerouslySetInnerHTML={{
                             __html:
                                 this.props.reduxStore.pcnInfo.audience
                         }}>
                         </div>
-                        <h4>Description of Change</h4>
+                        <h4>Description</h4>
                         <div className={classes.richbody}>
                             <div className={classes.pcndescription} dangerouslySetInnerHTML={{
                                 __html:
