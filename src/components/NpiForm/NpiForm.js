@@ -198,14 +198,14 @@ class NpiForm extends Component {
         this.setState({descriptionLength: this.state.descriptionLength - length})
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         let data = {
             id: this.props.reduxStore.user.id,
             newNpi: this.state.newNpi
         }
         event.preventDefault();
         console.log(this.state.newNpi);
-        this.props.dispatch({type: 'EDIT_NPI', payload: data});
+        await this.props.dispatch({type: 'EDIT_NPI', payload: data});
         this.props.history.push('/dashboard');
     }
 

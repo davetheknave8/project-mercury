@@ -190,14 +190,14 @@ class PcnForm extends Component {
         this.setState({descriptionLength: this.state.descriptionLength - length})
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         let data = {
             id: this.props.reduxStore.user.id,
             newPcn: this.state.newPcn
         }
         event.preventDefault();
         console.log(this.state.newPcn);
-        this.props.dispatch({type: 'EDIT_PCN', payload: data});
+        await this.props.dispatch({type: 'EDIT_PCN', payload: data});
         this.props.history.push('/dashboard');
     }
 
