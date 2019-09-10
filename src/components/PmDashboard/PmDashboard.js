@@ -20,6 +20,11 @@ const styles = theme => ({
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: '2px',
+  },
+  tableDiv: {
+    overflow: 'auto',
+    height: '500px',
+    borderWidth: '50px',
     marginBottom: '65px',
   },
   tableCell: {
@@ -218,6 +223,7 @@ class PmDashboard extends Component {
           &nbsp;
           <Button onClick={() => this.handleAll()}>{this.ifAll(this.props.status)}</Button>
         </p>
+        <div className={classes.tableDiv}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -232,6 +238,7 @@ class PmDashboard extends Component {
             )}
           </TableBody>
         </Table>
+        </div>
       </>
     );
   }
