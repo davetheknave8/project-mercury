@@ -212,15 +212,19 @@ class PmDashboard extends Component {
           <h4 className={classes.welcomeText}>Product Manager Dashboard</h4>
         </div>
         <p className="filter">Filter: &nbsp;&nbsp;
-          <Button onClick={() => this.handlePending()}>{this.ifPending(this.props.status)}</Button>
+          {this.ifPending(this.props.status)}
           &nbsp;
-          <Button onClick={() => this.handlePublished()}>{this.ifPublished(this.props.status)}</Button>
           &nbsp;
-          <Button onClick={() => this.handleIncomplete()}>{this.ifIncomplete(this.props.status)}</Button>
+          {this.ifPublished(this.props.status)}
           &nbsp;
-          <Button onClick={() => this.handleDenied()}>{this.ifDenied(this.props.status)}</Button>
           &nbsp;
-          <Button onClick={() => this.handleAll()}>{this.ifAll(this.props.status)}</Button>
+          {this.ifIncomplete(this.props.status)}
+          &nbsp;
+          &nbsp;
+          {this.ifDenied(this.props.status)}
+          &nbsp;
+          &nbsp;
+          {this.ifAll(this.props.status)}
         </p>
         <div className={classes.tableDiv}>
         <Table className={classes.table}>
