@@ -199,7 +199,9 @@ class EolForm extends Component {
                     number: this.props.reduxStore.currentEolReducer.id,
                     audience: this.props.reduxStore.currentEolReducer.audience,
                     type: 'EOL',
-                    notes: this.props.reduxStore.currentEolReducer.notes
+                    notes: this.props.reduxStore.currentEolReducer.notes,
+                    buyDate: this.props.reduxStore.currentEolReducer.buyDate,
+                    shipDate: this.props.reduxStore.currentEolReducer.shipDate,
                 }
             })
         }
