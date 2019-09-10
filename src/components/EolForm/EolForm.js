@@ -168,7 +168,8 @@ class EolForm extends Component {
             type: 'EOL',
             notes: '',
             buyDate: '',
-            shipDate: ''
+            shipDate: '',
+            userId: this.props.reduxStore.user.id
         },
         newPart: {
             name: '',
@@ -222,15 +223,16 @@ class EolForm extends Component {
         this.setState({ descriptionLength: this.state.descriptionLength - length })
     }
 
-    handleSubmit = async (event) => {
+    handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.newEol);
-        await this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
+        console.log(this.props.reduxStore.user.id);
+        this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
         this.props.history.push('/dashboard');
     }
 
     handleSubmitPart = (event) => {
         console.log('submit part');
+        console.log(this.props.reduxStore.user);
         this.props.dispatch({ type: 'CREATE_PART', payload: {...this.state.newPart, type: 'eol', id: this.props.match.params.id}})
         this.setState({ newPart: { name: '', number: '', description: '' } })
     }
