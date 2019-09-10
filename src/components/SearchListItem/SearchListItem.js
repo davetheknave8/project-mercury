@@ -23,10 +23,11 @@ const styles = theme => ({
         width: '25%',
     },
     tableCell4: {
-        
-       height: '10%',
         textAlign: 'left',
-        width: '50%',
+        width: '60%',
+       
+        padding: '1%',
+        
     },
 });
 
@@ -53,7 +54,7 @@ class SearchListItem extends Component {
                     <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell>
                     <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
                     <TableCell className={classes.tableCell3}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
-                    <TableCell className={classes.tableCell4}>{div.innerText}</TableCell>
+                    <TableCell className={classes.tableCell4}>{div.innerText.substr(0, 95)}</TableCell>
                 </TableRow>
             </>
         );
