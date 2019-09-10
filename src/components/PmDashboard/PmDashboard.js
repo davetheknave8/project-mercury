@@ -61,7 +61,6 @@ class PmDashboard extends Component {
       status: ''
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
-    this.props.dispatch({ type: 'FETCH_MESSAGES', payload: data});
   }
   // Conditionally rendering if the button will be highlighted in light blue or else
   // Once button is clicked, handlePending() will run

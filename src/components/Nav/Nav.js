@@ -95,7 +95,8 @@ class Nav extends Component{
     show: false,
     window: false,
     showCreate: null,
-    showMessage: false,
+		showMessage: false,
+		messages: 'new'
   }
 
 
@@ -189,6 +190,11 @@ class Nav extends Component{
   }
 
   handleOpenMessages = (event) => {
+		const data = {
+			userId: this.props.reduxStore.user.id,
+		}
+		this.props.dispatch({ type: 'FETCH_MESSAGES', payload: data });
+		this.props.dispatch({ type: 'FETCH_UNREAD_MESSAGES', payload: data })
     this.setState({ showMessage: true })
   }
 
@@ -209,6 +215,33 @@ class Nav extends Component{
   handleNpi = () => {
     console.log('create npi');
     this.props.dispatch({type: 'CREATE_NPI', payload: {type: 'npi'}})
+	}
+
+	checkMessages = () => {
+		if( this.state.messages === 'new' ){
+			return(
+				<>
+				{/* <Typography variant="h5" id="modal-title">New Messages</Typography> */}
+				<div>
+					{this.props.reduxStore.unreadMessages.map((message, i) => {
+						return (<MessageList history={this.props.history} message={message} key={i} type='unread' />);
+					})}
+				</div>
+				</>
+			)
+		}
+		else if (this.state.messages === 'all') {
+			return (
+				<>
+					{/* <Typography variant="h5" id="modal-title">History</Typography> */}
+					<div>
+						{this.props.reduxStore.messages.map((message, i) => {
+							return (<MessageList history={this.props.history} message={message} key={i} type='read' />);
+						})}
+					</div>
+				</>
+			)
+		}
 	}
 
   render(){
@@ -358,20 +391,22 @@ class Nav extends Component{
                 onClose={this.handleCloseMessages}
               >
                 <div style={getModalStyle()} className={classes.paper}>
-                  <Typography variant="h6" id="modal-title">Messages</Typography>
                   <div className={classes.messages}>
-										<p>Unread Messages</p>
-										<ul>
-											{this.props.reduxStore.messages.map((message, i) => {
-												return (<MessageList message={message} key={i}/>);
+										<Button size="small" onClick={() => this.setState({ messages: 'new' })}>Unread</Button>
+										<Button size="small" onClick={() => this.setState({ messages: 'all' })}>All</Button>
+										{this.checkMessages()}
+                  	{/* <Typography variant="h5" id="modal-title">New Messages</Typography>
+										<div>
+											{this.props.reduxStore.unreadMessages.map((message, i) => {
+												return (<MessageList history={this.props.history} message={message} key={i} show={this.state.messages}/>);
 											})}
-										</ul>
-										<p>Message History</p>
-										<ul>
+										</div> */}
+										{/* <Typography variant="h5" id="modal-title">History</Typography>
+										<div>
 											{this.props.reduxStore.messages.map((message, i) => {
-												return (<MessageList message={message} key={i}/>);
+												return (<MessageList history={this.props.history} message={message} key={i} type='read'/>);
 											})}
-										</ul>
+										</div> */}
                   </div>
                   <Button size='small' color='secondary' onClick={() => this.handleCloseMessages()}>Back</Button>
                 </div>

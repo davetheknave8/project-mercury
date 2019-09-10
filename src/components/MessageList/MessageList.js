@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import Moment from 'moment';
 
 class MessageList extends Component {
 
-    checkStatus = (message) => {
-        if (message.message_read === 0) {
-            return (<li>
-                {message.notification_message} -
-            </li>)
+    navigate = (id) => {
+        const type = id.substring(0, 3)
+        this.props.history.push(`/${type}-view/${type}/${id}`)
+    }
+
+    checkStatus = (message, type) => {
+        if( message.status === 'PUBLISHED' || message.status === 'DENIED'){
+            if(type === 'unread'){
+                return (<p onClick={() => this.navigate(message.id)}>
+                    {message.id} was denied on {Moment(message.message_time).format('MM/DD/YYYY')}
+                </p>)
+            }
+            else if (type === 'read') {
+                return (<p>
+                    {message.id} was {message.status.toLowerCase()} on {Moment(message.message_time).format('MM/DD/YYYY')}
+                </p>)
+            }
         }
     }
 
     render() {
         return (
             <>
-                {this.checkStatus(this.props.message)}
+                {this.checkStatus(this.props.message, this.props.type, this.props.key)}
             </>
         );
     }
