@@ -25,7 +25,7 @@ import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
   settingsBtn: {
-    float: 'left',
+    marginLeft: 'auto',
     color: 'white',
     paddingRight: '0%',
     paddingLeft: '0%',
@@ -33,7 +33,7 @@ const styles = theme => ({
     paddingBottom: '13%'
   },
   paper: {
-    position: 'absolute',
+    marginLeft: 'auto',
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -49,7 +49,7 @@ const styles = theme => ({
     marginLeft: '40%'
   },
   settingsBtnAdmin: {
-    float: 'left',
+    marginLeft: 'auto',
     color: 'white',
     paddingRight: '0%',
     paddingLeft: '0%',
@@ -62,8 +62,7 @@ const styles = theme => ({
     marginRight: 'auto',
     width: 200,
     overFlow: "auto",
-
-  },
+  }
 })
 
 function getModalStyle() {
@@ -217,7 +216,7 @@ class Nav extends Component{
         </Link>
         <div className="nav-right">
           {!this.props.user.id ?
-          <Link className="nav-link" to="/dashboard">Login</Link> : <></>}
+          <Link className={classes.settingsBtn} to="/dashboard">Login</Link> : <></>}
           {/* Show the link to the info page and the logout button if the user is logged in */}
           {this.props.user.id && (
             <>
