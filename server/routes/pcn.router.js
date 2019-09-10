@@ -382,6 +382,7 @@ router.put('/edit', (req, res) => {
 
 router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
     if( req.body.type === 'PCN' ){
+        if (req.body.status === 'DENIED'){
         const sqlText = `UPDATE pcn SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
         const values = [req.body.status, req.body.message, req.body.time, req.params.id]
         pool.query(sqlText, values)
@@ -392,30 +393,71 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
                 console.log('error editing pcn', error);
                 res.sendStatus(500);
             })
+        }
+        else if (req.body.status === 'PUBLISHED'){
+        const sqlText = `UPDATE pcn SET status=$1, notification_message=$2, message_time=$3, message_read=1 WHERE id=$4;`;
+        const values = [req.body.status, req.body.message, req.body.time, req.params.id]
+        pool.query(sqlText, values)
+            .then(response => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                console.log('error editing pcn', error);
+                res.sendStatus(500);
+            })
+        }
     }
     else if (req.body.type === 'EOL') {
-        const sqlText = `UPDATE eol SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
-        const values = [req.body.status, req.body.message, req.body.time, req.params.id]
-        pool.query(sqlText, values)
-            .then(response => {
-                res.sendStatus(200);
-            })
-            .catch(error => {
-                console.log('error editing eol', error);
-                res.sendStatus(500);
-            })
+        if (req.body.status === 'DENIED') {
+            const sqlText = `UPDATE eol SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
+            const values = [req.body.status, req.body.message, req.body.time, req.params.id]
+            pool.query(sqlText, values)
+                .then(response => {
+                    res.sendStatus(200);
+                })
+                .catch(error => {
+                    console.log('error editing eol', error);
+                    res.sendStatus(500);
+                })
+        }
+        else if (req.body.status === 'PUBLISHED') {
+            const sqlText = `UPDATE eol SET status=$1, notification_message=$2, message_time=$3, message_read=1 WHERE id=$4;`;
+            const values = [req.body.status, req.body.message, req.body.time, req.params.id]
+            pool.query(sqlText, values)
+                .then(response => {
+                    res.sendStatus(200);
+                })
+                .catch(error => {
+                    console.log('error editing eol', error);
+                    res.sendStatus(500);
+                })
+        }
     }
     else if (req.body.type === 'NPI') {
-        const sqlText = `UPDATE npi SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
-        const values = [req.body.status, req.body.message, req.body.time, req.params.id]
-        pool.query(sqlText, values)
-            .then(response => {
-                res.sendStatus(200);
-            })
-            .catch(error => {
-                console.log('error editing npi', error);
-                res.sendStatus(500);
-            })
+        if (req.body.status === 'DENIED') {
+            const sqlText = `UPDATE npi SET status=$1, notification_message=$2, message_time=$3, message_read=0 WHERE id=$4;`;
+            const values = [req.body.status, req.body.message, req.body.time, req.params.id]
+            pool.query(sqlText, values)
+                .then(response => {
+                    res.sendStatus(200);
+                })
+                .catch(error => {
+                    console.log('error editing npi', error);
+                    res.sendStatus(500);
+                })
+        }
+        else if (req.body.status === 'PUBLISHED') {
+            const sqlText = `UPDATE npi SET status=$1, notification_message=$2, message_time=$3, message_read=1 WHERE id=$4;`;
+            const values = [req.body.status, req.body.message, req.body.time, req.params.id]
+            pool.query(sqlText, values)
+                .then(response => {
+                    res.sendStatus(200);
+                })
+                .catch(error => {
+                    console.log('error editing npi', error);
+                    res.sendStatus(500);
+                })
+        }
     }else{
         res.sendStatus(500);
     }

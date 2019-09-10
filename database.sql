@@ -45,7 +45,7 @@ CREATE TABLE eol
     audience character varying(1000),
     status VARCHAR(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
-    message_read int,
+    message_read int DEFAULT 1,
     message_time VARCHAR(100),
     product VARCHAR(100),
     CONSTRAINT eol_pkey PRIMARY KEY (id)
@@ -70,7 +70,7 @@ CREATE TABLE npi
     audience character varying(1000),
     status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
-    message_read int,
+    message_read int DEFAULT 1,
     message_time VARCHAR(100),
     product VARCHAR(100),
     CONSTRAINT npi_pkey PRIMARY KEY (id)
@@ -95,7 +95,7 @@ CREATE TABLE pcn
     notes character varying(2000),
     status varchar(20) DEFAULT 'INCOMPLETE',
     notification_message VARCHAR(2000),
-    message_read int,
+    message_read int DEFAULT 1,
     message_time VARCHAR(100),
     product VARCHAR(100),
     CONSTRAINT pcn_pkey PRIMARY KEY (id)
