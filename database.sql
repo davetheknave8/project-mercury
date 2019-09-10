@@ -166,6 +166,7 @@ CREATE TABLE pcn_part
     part_id integer REFERENCES part(id)
 );
 
+--
 CREATE TABLE pcn_review_log
 (
     id SERIAL PRIMARY KEY,
@@ -177,7 +178,7 @@ CREATE TABLE pcn_review_log
 
 -- Trigger to log when a PCN is approved or denied
 create or replace function logpcnreviewfunction
-() returns trigger as $review_table$
+() returns trigger as $pcnreview_table$
 begin
     insert into pcn_review_log
         (pcn_id, notification_message, message_time, status)
@@ -185,13 +186,15 @@ begin
         (new.id, new.notification_message, new.message_time, new.status);
     return new;
 end;
-$review_table$ LANGUAGE plpgsql;
+$pcnreview_table$ LANGUAGE plpgsql;
 
 create trigger logpcnreviewtrigger after
 update on pcn
 for each row
 execute procedure logpcnreviewfunction
 ();
+
+
 
 --
 CREATE TABLE eol_review_log
@@ -205,7 +208,7 @@ CREATE TABLE eol_review_log
 
 -- Trigger to log when an EOL is approved or denied
 create or replace function logeolreviewfunction
-() returns trigger as $review_table$
+() returns trigger as $eolreview_table$
 begin
     insert into eol_review_log
         (eol_id, notification_message, message_time, status)
@@ -213,13 +216,15 @@ begin
         (new.id, new.notification_message, new.message_time, new.status);
     return new;
 end;
-$review_table$ LANGUAGE plpgsql;
+$eolreview_table$ LANGUAGE plpgsql;
 
 create trigger logeolreviewtrigger after
 update on eol
 for each row
 execute procedure logeolreviewfunction
 ();
+
+
 
 --
 CREATE TABLE npi_review_log
@@ -233,7 +238,7 @@ CREATE TABLE npi_review_log
 
 -- Trigger to log when a NPI is approved or denied
 create or replace function lognpireviewfunction
-() returns trigger as $review_table$
+() returns trigger as $npireview_table$
 begin
     insert into npi_review_log
         (npi_id, notification_message, message_time, status)
@@ -241,21 +246,10 @@ begin
         (new.id, new.notification_message, new.message_time, new.status);
     return new;
 end;
-$review_table$ LANGUAGE plpgsql;
+$npireview_table$ LANGUAGE plpgsql;
 
 create trigger lognpireviewtrigger after
 update on npi
 for each row
 execute procedure lognpireviewfunction
 ();
-
---CREATE TABLE notifications (
---    id SERIAL PRIMARY KEY,
---    "message" character varying(2000)
---);
---
---CREATE TABLE user_notification (
---    id SERIAL PRIMARY KEY,
---    user_id integer REFERENCES "user"(id),
---    notification_id integer REFERENCES notifications(id)
---);

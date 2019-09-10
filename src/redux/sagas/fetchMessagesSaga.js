@@ -4,7 +4,7 @@ import axios from 'axios';
 function* fetchMessages(action) {
     console.log('in fetchMessages, action.payload:', action.payload)
     try {
-        const response = yield axios.get(`/api/pcn/getadmindashboard?id=${action.payload.id}`);
+        const response = yield axios.get(`/api/pcn/messages?id=${action.payload.userId}`);
         console.log('in fetchMessages, response.data is:', response.data)
         yield put({ type: 'SET_MESSAGES', payload: response.data })
     } catch (error) {
