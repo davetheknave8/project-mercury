@@ -23,6 +23,7 @@ import EolView from '../EolView/EolView';
 import NpiView from '../NpiView/NpiView';
 import EolForm from '../EolForm/EolForm';
 import NpiForm from '../NpiForm/NpiForm';
+import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
 
@@ -58,6 +59,11 @@ class App extends Component {
             exact
             path="/npi-view/:type/:id"
             component={NpiView}
+            />
+            <Route
+            exact
+            path="/register"
+            component={RegisterPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
