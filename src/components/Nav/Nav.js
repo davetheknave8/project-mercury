@@ -10,6 +10,7 @@ import UserIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CreateIcon from '@material-ui/icons/Build';
+import MessageIcon from '@material-ui/icons/Message';
 
 //Material-UI
 import Button from '@material-ui/core/Button';
@@ -17,6 +18,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -64,6 +66,19 @@ const styles = theme => ({
   },
 })
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+    textAlign: 'center',
+  };
+
+}
+
+
 class Nav extends Component{
   state = {
     firstName: '',
@@ -76,6 +91,7 @@ class Nav extends Component{
     show: false,
     window: false,
     showCreate: null,
+    showMessage: false,
   }
 
 
@@ -166,6 +182,14 @@ class Nav extends Component{
 
   handleCloseCreate = (event) => {
     this.setState({showCreate: null})
+  }
+
+  handleOpenMessages = (event) => {
+    this.setState({ showMessage: true })
+  }
+
+  handleCloseMessages = (event) => {
+    this.setState({ showMessage: false })
   }
 
   handlePcn = () => {
@@ -323,6 +347,18 @@ class Nav extends Component{
             <>{this.props.user.admin === 1 ?
               <>
               <Button onClick={event => this.handleOpenCreate(event)} size="small" className={classes.settingsBtn}><CreateIcon /></Button>
+              <Button onClick={event => this.handleOpenMessages(event)} size="small" className={classes.settingsBtn}><MessageIcon /></Button>
+              <Modal
+                aria-labelledby="View Messages"
+                aria-describedby="Modal to view messages"
+                open={this.state.showMessage}
+                onClose={this.handleCloseMessages}
+              >
+                <div style={getModalStyle()} className={classes.paper}>
+                  <Typography variant="h6" id="modal-title">Messages</Typography>
+                  <Button size='small' color='secondary' onClick={() => this.handleCloseMessages()}>Back</Button>
+                </div>
+              </Modal>
               <Menu
                 id="simple-menu"
                 anchorEl={this.state.showCreate}
@@ -339,6 +375,7 @@ class Nav extends Component{
               <LogOutButton className="nav-link" />
             </>
           )}
+          
         </div>
       </div>
     )
