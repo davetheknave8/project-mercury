@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import MessageList from '../MessageList/MessageList';
 import './Nav.css';
 
 
@@ -63,7 +64,10 @@ const styles = theme => ({
     width: 200,
     overFlow: "auto",
 
-  },
+	},
+	messages: {
+
+	},
 })
 
 function getModalStyle() {
@@ -205,8 +209,7 @@ class Nav extends Component{
   handleNpi = () => {
     console.log('create npi');
     this.props.dispatch({type: 'CREATE_NPI', payload: {type: 'npi'}})
-  }
-
+	}
 
   render(){
     const {classes} = this.props;
@@ -356,6 +359,20 @@ class Nav extends Component{
               >
                 <div style={getModalStyle()} className={classes.paper}>
                   <Typography variant="h6" id="modal-title">Messages</Typography>
+                  <div className={classes.messages}>
+										<p>Unread Messages</p>
+										<ul>
+											{this.props.reduxStore.messages.map((message, i) => {
+												return (<MessageList message={message} key={i}/>);
+											})}
+										</ul>
+										<p>Message History</p>
+										<ul>
+											{this.props.reduxStore.messages.map((message, i) => {
+												return (<MessageList message={message} key={i}/>);
+											})}
+										</ul>
+                  </div>
                   <Button size='small' color='secondary' onClick={() => this.handleCloseMessages()}>Back</Button>
                 </div>
               </Modal>
