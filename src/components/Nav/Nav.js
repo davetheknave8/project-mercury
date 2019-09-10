@@ -67,8 +67,8 @@ const styles = theme => ({
 })
 
 function getModalStyle() {
-  const top = 50;
-  const left = 50;
+  const top = 0;
+  const left = 0;
   return {
     top: `${top}%`,
     left: `${left}%`,
@@ -217,7 +217,8 @@ class Nav extends Component{
 		if( this.state.messages === 'new' ){
 			return(
 				<>
-				{/* <Typography variant="h5" id="modal-title">New Messages</Typography> */}
+				<Button size="small" variant='contained' color='primary' onClick={() => this.setState({ messages: 'new' })}>Unread</Button>
+				<Button size="small" onClick={() => this.setState({ messages: 'all' })}>All</Button>
 				<div>
 					{this.props.reduxStore.unreadMessages.map((message, i) => {
 						return (<MessageList history={this.props.history} message={message} key={i} type='unread' />);
@@ -229,7 +230,8 @@ class Nav extends Component{
 		else if (this.state.messages === 'all') {
 			return (
 				<>
-					{/* <Typography variant="h5" id="modal-title">History</Typography> */}
+					<Button size="small" onClick={() => this.setState({ messages: 'new' })}>Unread</Button>
+					<Button size="small" variant='contained' color='primary' onClick={() => this.setState({ messages: 'all' })}>All</Button>
 					<div>
 						{this.props.reduxStore.messages.map((message, i) => {
 							return (<MessageList history={this.props.history} message={message} key={i} type='read' />);
@@ -386,10 +388,8 @@ class Nav extends Component{
                 open={this.state.showMessage}
                 onClose={this.handleCloseMessages}
               >
-                <div style={getModalStyle()} className={classes.paper}>
+                <div style={getModalStyle()} className={classes.paper} >
                   <div className={classes.messages}>
-										<Button size="small" onClick={() => this.setState({ messages: 'new' })}>Unread</Button>
-										<Button size="small" onClick={() => this.setState({ messages: 'all' })}>All</Button>
 										{this.checkMessages()}
                   	{/* <Typography variant="h5" id="modal-title">New Messages</Typography>
 										<div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'moment';
+import './MessageList.css'
 
 class MessageList extends Component {
 
@@ -17,7 +18,7 @@ class MessageList extends Component {
                 </p>)
             }
             else if (type === 'read') {
-                return (<p>
+                return (<p onClick={() => this.navigate(message.id)}>
                     {message.id} was {message.status.toLowerCase()} on {Moment(message.message_time).format('MM/DD/YYYY')}
                 </p>)
             }
