@@ -38,7 +38,7 @@ router.post('/create', (req, res) => {
 })
 
 router.put('/edit', (req, res) => {
-    console.log('req.body', req.body);
+    console.log('req.body', req.body)
     const objectToEdit = req.body;
     const sqlText = `UPDATE npi SET type=$1, date=$2, audience=$3, description=$4, notes=$5, product=$6, status='PENDING' WHERE id=$7;`;
     const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.description, objectToEdit.notes, objectToEdit.product, objectToEdit.number ]

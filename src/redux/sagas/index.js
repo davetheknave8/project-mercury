@@ -26,6 +26,7 @@ import fetchCurrentNpiSaga from './fetchCurrentNpi';
 import createNpiSaga from './createNpiSaga';
 import editNpiSaga from './editNpiSaga';
 import addReplacementSaga from './addReplacement';
+import fetchMessagesSaga from './fetchMessagesSaga';
 
 
 // rootSaga is the primary saga.
@@ -64,7 +65,8 @@ export default function* rootSaga() {
     fetchCurrentNpiSaga(),
     createNpiSaga(),
     editNpiSaga(),
-    addReplacementSaga()
+    addReplacementSaga(),
+    fetchMessagesSaga(),
 
 
   ]);

@@ -228,6 +228,7 @@ class EolView extends Component {
             status: action,
             message: this.state.message,
             type: this.props.reduxStore.pcnInfo.type,
+            time: new Date(),
         }
         this.props.dispatch({ type: 'REVIEW_PCN', payload: data });
         this.handleClose();
@@ -261,10 +262,9 @@ class EolView extends Component {
             <div className={classes.pcnbackground}>
             <Nav history={this.props.history} />
                 <div className={classes.pcnform}>
-                        <div className={classes.pcnheader}>
-                        {/* <h2>Company Name Here</h2> 
-                        <h2>Product Change Notification</h2> */}
-                        <h2>{this.props.reduxStore.pcnInfo.id}</h2>
+                    {this.checkMessage()}
+                    <div className={classes.pcnheader}>
+                    <h2>{this.props.reduxStore.pcnInfo.id}</h2>
                     <div className={classes.pcndate}>
                         <p>{Moment(this.props.reduxStore.pcnInfo.date).format('MM/DD/YYYY')}</p>
                     </div>

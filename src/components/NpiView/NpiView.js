@@ -226,6 +226,7 @@ class NpiView extends Component {
             status: action,
             message: this.state.message,
             type: this.props.reduxStore.pcnInfo.type,
+            time: new Date(),
         }
         this.props.dispatch({ type: 'REVIEW_PCN', payload: data });
         this.handleClose();
@@ -259,7 +260,7 @@ class NpiView extends Component {
                 <div className={classes.pcnbackground}>
                     <Nav history={this.props.history} />
                     <div className={classes.pcnform}>
-                            {this.checkMessage()}
+                        {this.checkMessage()}
                         <div className={classes.pcnheader}>
                             <h2>{this.props.reduxStore.pcnInfo.id}</h2>
                             <div className={classes.pcndate}>
