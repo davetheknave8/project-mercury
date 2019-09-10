@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
             npi.status as status, npi.date as date, npi.description as descripiton
             FROM npi
             WHERE npi.status = 'PUBLISHED')
-            ORDER BY id ASC;`
+            ORDER BY id ASC LIMIT 50;`
     pool.query(queryText)
         .then((response) => {
             res.send(response.rows);

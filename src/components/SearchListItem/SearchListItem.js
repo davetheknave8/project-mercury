@@ -23,6 +23,8 @@ const styles = theme => ({
         width: '25%',
     },
     tableCell4: {
+        
+       height: '10%',
         textAlign: 'left',
         width: '50%',
     },
@@ -47,7 +49,7 @@ class SearchListItem extends Component {
         const { classes } = this.props;
         return (
             <>
-                <TableRow className="tc" align="center" onClick={() => this.goToLink()}>
+                <TableRow className="tc" align="center" style={{height: 10}} onClick={() => this.goToLink()}>
                     <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell>
                     <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
                     <TableCell className={classes.tableCell3}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>

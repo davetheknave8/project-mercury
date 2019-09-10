@@ -34,7 +34,7 @@ const styles = theme => ({
     paddingBottom: '13%'
   },
   paper: {
-    marginLeft: 'auto',
+    // marginLeft: 'auto',
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
