@@ -207,7 +207,7 @@ class PmDashboard extends Component {
         <div className={classes.welcome}>
           <h4 className={classes.welcomeText}>Product Manager Dashboard</h4>
         </div>
-        <p className="welcome">Filter: &nbsp;&nbsp;
+        <p className="filter">Filter: &nbsp;&nbsp;
           <Button onClick={() => this.handlePending()}>{this.ifPending(this.props.status)}</Button>
           &nbsp;
           <Button onClick={() => this.handlePublished()}>{this.ifPublished(this.props.status)}</Button>
