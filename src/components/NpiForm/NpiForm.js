@@ -19,6 +19,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import AddIcon from '@material-ui/icons/AddCircle';
 import List from '@material-ui/core/List';
+import Modal from '@material-ui/core/Modal';
 
 const styles = theme => ({
     form: {
@@ -131,6 +132,16 @@ const styles = theme => ({
     audienceIn: {
         backgroundColor: 'white',
         width: '100%',
+    },
+    search: {
+        position: 'absolute',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+        outline: 'none',
+        overflowY: 'auto',
+        height: '40%'
     }
 })
 
@@ -230,6 +241,14 @@ class NpiForm extends Component {
         this.props.dispatch({type: 'SEARCH_PARTS', payload: {query: event.target.value}})
     }
 
+    openSearch = () => {
+        this.setState({ show: true });
+    }
+
+    handleCloseSearch = () => {
+        this.setState({ show: false })
+    }
+
     render(){
         const {classes} = this.props;
      
@@ -262,17 +281,11 @@ class NpiForm extends Component {
                             <TableCell>Part Affected</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell>Description</TableCell>
-                            <TableCell>&nbsp;</TableCell>
+                            <TableCell><Button variant="outlined" onClick={this.openSearch} style={{fontSize: '1em', textTransform: 'none'}}>Search for Part</Button></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                            <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
-                        </TableRow>
-                        <List>
-                            {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='NPI' npiNumber={this.props.match.params.id} part={part} />) : <></> }
-                        </List>
-                        {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem part={part} />) : <></>}
+                        {this.props.reduxStore.currentPartsReducer ? this.props.reduxStore.currentPartsReducer.map(part => <PartListItem type="npi" pcnId={this.props.match.params.id} part={part} />) : <></>}
                         <TableRow>
                             <TableCell className={classes.cell}><TextField value={this.state.newPart.number} onChange={event => this.handleChangePart(event, 'number')} placeholder="Add Part #..." /></TableCell>
                             <TableCell className={classes.cell}><TextField value={this.state.newPart.name} onChange={event => this.handleChangePart(event, 'name')} placeholder="Add Name..." /></TableCell>
@@ -281,6 +294,24 @@ class NpiForm extends Component {
                         </TableRow>
                     </TableBody>
                 </Table>
+                <Modal
+                        open={this.state.show}
+                        onClose={this.handleCloseSearch}
+                        >
+                            <div style={{top: '10%', left: '35%'}} className={classes.search}>
+                            <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
+                                <Table>
+                                    <TableHead>
+                                        <TableCell>Part Number</TableCell>
+                                        <TableCell>Part Name</TableCell>
+                                        <TableCell>Description</TableCell>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='NPI' npiNumber={this.props.match.params.id} part={part} />) : <></>}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        </Modal>
                 <br />
                 <div>
                     <div className={classes.notesDiv}>
