@@ -20,6 +20,11 @@ const styles = theme => ({
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: '2px',
+  },
+  tableDiv: {
+    overflow: 'auto',
+    height: '500px',
+    borderWidth: '50px',
     marginBottom: '65px',
   },
   tableCell: {
@@ -61,7 +66,6 @@ class PmDashboard extends Component {
       status: ''
     }
     this.props.dispatch({ type: 'FETCH_DASHBOARD', payload: data });
-    this.props.dispatch({ type: 'FETCH_MESSAGES', payload: data});
   }
   // Conditionally rendering if the button will be highlighted in light blue or else
   // Once button is clicked, handlePending() will run
@@ -207,7 +211,7 @@ class PmDashboard extends Component {
         <div className={classes.welcome}>
           <h4 className={classes.welcomeText}>Product Manager Dashboard</h4>
         </div>
-        <p className="welcome">Filter: &nbsp;&nbsp;
+        <p className="filter">Filter: &nbsp;&nbsp;
           <Button onClick={() => this.handlePending()}>{this.ifPending(this.props.status)}</Button>
           &nbsp;
           <Button onClick={() => this.handlePublished()}>{this.ifPublished(this.props.status)}</Button>
@@ -218,6 +222,7 @@ class PmDashboard extends Component {
           &nbsp;
           <Button onClick={() => this.handleAll()}>{this.ifAll(this.props.status)}</Button>
         </p>
+        <div className={classes.tableDiv}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -232,6 +237,7 @@ class PmDashboard extends Component {
             )}
           </TableBody>
         </Table>
+        </div>
       </>
     );
   }

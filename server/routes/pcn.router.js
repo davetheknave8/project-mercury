@@ -327,11 +327,11 @@ router.get('/pcnimages', (req, res) => {
 
 
 router.get('/messages', (req, res) => {
-    const sqlText = `(select eol.message_read, eol_review_log.eol_id as id, eol_review_log.message_time, eol_review_log.notification_message, eol_review_log.status from eol_review_log join eol on eol.id = eol_review_log.eol_id where creator_id = $1)
+    const sqlText = `(select eol_review_log.eol_id as id, eol_review_log.message_time, eol_review_log.notification_message, eol_review_log.status from eol_review_log join eol on eol.id = eol_review_log.eol_id where creator_id = $1)
                         union
-                        (select npi.message_read, npi_review_log.npi_id as id, npi_review_log.message_time, npi_review_log.notification_message, npi_review_log.status from npi_review_log join npi on npi.id = npi_review_log.npi_id where creator_id = $1)
+                        (select npi_review_log.npi_id as id, npi_review_log.message_time, npi_review_log.notification_message, npi_review_log.status from npi_review_log join npi on npi.id = npi_review_log.npi_id where creator_id = $1)
                         union
-                        (select pcn.message_read, pcn_review_log.pcn_id as id, pcn_review_log.message_time, pcn_review_log.notification_message, pcn_review_log.status from pcn_review_log join pcn on pcn.id = pcn_review_log.pcn_id where creator_id = $1)
+                        (select pcn_review_log.pcn_id as id, pcn_review_log.message_time, pcn_review_log.notification_message, pcn_review_log.status from pcn_review_log join pcn on pcn.id = pcn_review_log.pcn_id where creator_id = $1)
                         order by message_time DESC;`;
     pool.query(sqlText, [req.query.id])
         .then(response => {
@@ -339,6 +339,23 @@ router.get('/messages', (req, res) => {
         })
         .catch(error => {
             console.log('error retrieving messages', error);
+            res.sendStatus(500);
+        })
+})
+
+router.get('/unreadmessages', (req, res) => {
+    const sqlText = `(select eol.id as id, eol.message_time, eol.notification_message, eol.status from eol where creator_id = $1 and message_read = 0 and status = 'DENIED')
+                        union
+                        (select npi.id as id, npi.message_time, npi.notification_message, npi.status from npi where creator_id = $1 and message_read = 0 and status = 'DENIED')
+                        union
+                        (select pcn.id as id, pcn.message_time, pcn.notification_message, pcn.status from pcn where creator_id = $1 and message_read = 0 and status = 'DENIED')
+                        order by message_time DESC;`;
+    pool.query(sqlText, [req.query.id])
+        .then(response => {
+            res.send(response.rows)
+        })
+        .catch(error => {
+            console.log('error retrieving unread messages', error);
             res.sendStatus(500);
         })
 })

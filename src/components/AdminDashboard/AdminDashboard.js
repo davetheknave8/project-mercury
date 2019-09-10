@@ -22,6 +22,12 @@ const styles = theme => ({
         borderWidth: '2px',
         marginBottom: '65px',
     },
+    tableDiv: {
+        overflow: 'auto',
+        height: '500px',
+        borderWidth: '50px',
+        marginBottom: '65px',
+    },
     tableCell: {
         color: 'white',
         textAlign: 'left',
@@ -203,6 +209,7 @@ class AdminDashboard extends Component {
                     &nbsp;
                     <Button onClick={() => this.handleAll()}>{this.ifAll(this.props.status)}</Button>
                 </p>
+                <div className={classes.tableDiv}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
@@ -216,6 +223,7 @@ class AdminDashboard extends Component {
                         )}
                     </TableBody>
                 </Table>
+                </div>
             </>
         );
     }
