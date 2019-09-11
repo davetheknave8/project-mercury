@@ -486,14 +486,33 @@ router.delete('/deletepcn', (req, res) => {
         const values = [req.query.id];
         pool.query(sqlText, values)
             .then(response => {
+                const sqlText = `DELETE FROM pcn_review_log WHERE pcn_id = $1;`;
+                pool.query(sqlText, [req.query.id])
+                    .then((response) => {
+                        res.sendStatus(200)
+                    })
+                    .catch((error) => {
+                        console.log('error deleting from pcn log', error);
+                    })
+            })
+            .then(response => {
+                const sqlText = `DELETE FROM pcn_image WHERE pcn_id = $1;`;
+                pool.query(sqlText, [req.query.id])
+                    .then((response) => {
+                        res.sendStatus(200)
+                    })
+                    .catch((error) => {
+                        console.log('error deleting from pcn image', error);
+                    })
+            })
+            .then(response => {
                 const sqlText = `DELETE FROM pcn WHERE id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
-                        console.log('sending response', response.rows);
-                        res.send(response.rows)
+                        res.sendStatus(200)
                     })
                     .catch((error) => {
-                        console.log('error retrieving pcn info', error);
+                        console.log('error deleting pcn', error);
                     })
             })
             .catch(error => {
@@ -506,14 +525,33 @@ router.delete('/deletepcn', (req, res) => {
         const values = [req.query.id];
         pool.query(sqlText, values)
             .then(response => {
+                const sqlText = `DELETE FROM eol_review_log WHERE eol_id = $1;`;
+                pool.query(sqlText, [req.query.id])
+                    .then((response) => {
+                        res.sendStatus(200)
+                    })
+                    .catch((error) => {
+                        console.log('error deleting from eol log', error);
+                    })
+            })
+            .then(response => {
+                const sqlText = `DELETE FROM eol_image WHERE eol_id = $1;`;
+                pool.query(sqlText, [req.query.id])
+                    .then((response) => {
+                        res.sendStatus(200)
+                    })
+                    .catch((error) => {
+                        console.log('error deleting from eol image', error);
+                    })
+            })
+            .then(response => {
                 const sqlText = `DELETE FROM eol WHERE id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
-                        console.log('sending response', response.rows);
-                        res.send(response.rows)
+                        res.sendStatus(200)
                     })
                     .catch((error) => {
-                        console.log('error retrieving eol info', error);
+                        console.log('error deleting eol', error);
                     })
             })
             .catch(error => {
@@ -526,19 +564,37 @@ router.delete('/deletepcn', (req, res) => {
         const values = [req.query.id];
         pool.query(sqlText, values)
             .then(response => {
+                const sqlText = `DELETE FROM npi_review_log WHERE npi_id = $1;`;
+                pool.query(sqlText, [req.query.id])
+                    .then((response) => {
+                        res.sendStatus(200)
+                    })
+                    .catch((error) => {
+                        console.log('error deleting from npi log', error);
+                    })
+            })
+            .then(response => {
+                const sqlText = `DELETE FROM npi_image WHERE npi_id = $1;`;
+                pool.query(sqlText, [req.query.id])
+                    .then((response) => {
+                        res.sendStatus(200)
+                    })
+                    .catch((error) => {
+                        console.log('error deleting from npi image', error);
+                    })
+            })
+            .then(response => {
                 const sqlText = `DELETE FROM npi WHERE id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
-                        console.log('sending response', response.rows);
-                        res.send(response.rows)
+                        res.sendStatus(200)
                     })
                     .catch((error) => {
-                        console.log('error retrieving npi info', error);
+                        console.log('error deleting npi', error);
                     })
             })
             .catch(error => {
-                console.log('error deleting npi_part', error);
-                res.sendStatus(500);
+                res.sendStatus(200)
             })
     }
     else {

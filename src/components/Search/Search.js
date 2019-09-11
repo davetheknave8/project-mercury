@@ -30,16 +30,20 @@ const styles = {
         marginRight: 'auto',
         width: '35%',
     },
-    header: {
+    table: {
         width: '50%',
         margin: 'auto',
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: '2px',
+        
     },
-    table: {
-        overflow:'auto',
-        height: '500px',
+    tableDiv: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width:'50%',
+        overflow:'scroll',
+        height:  '500px',
         borderWidth: '50px',
         marginBottom: '65px',
     },
@@ -111,9 +115,9 @@ class Search extends Component {
                     </IconButton>
                 </Paper>
                 <h1 className={classes.title}>&nbsp;</h1>
-                <div className={classes.table}>
-                <Table className={classes.header}>
-                    <TableHead>
+                <div className={classes.tableDiv}>
+                <Table stickyHeader className={classes.table} className="table">
+                    <TableHead className={classes.head}>
                         <TableRow component="tr" scope="row" className="header">
                             <TableCell className={classes.tableCell1}>PCN - #</TableCell>
                             <TableCell className={classes.tableCell2}>Type</TableCell>
