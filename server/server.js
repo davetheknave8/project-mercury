@@ -14,6 +14,7 @@ const pcnRouter = require('./routes/pcn.router');
 const partsRouter = require('./routes/parts.router');
 const eolRouter = require('./routes/eol.router');
 const npiRouter = require('./routes/npi.router');
+const awsRouter = require('./routes/aws.router');
 
 
 // Body parser middleware
@@ -33,6 +34,7 @@ app.use('/api/pcn', pcnRouter);
 app.use('/api/parts', partsRouter);
 app.use('/api/eol', eolRouter);
 app.use('/api/npi', npiRouter);
+app.use('/api/aws', awsRouter);
 
 // Serve static files
 app.use(express.static('build'));
