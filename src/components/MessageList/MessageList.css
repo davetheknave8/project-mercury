@@ -1,7 +1,4 @@
-p {
+.messagetext {
     cursor: pointer;
-}
-
-p:hover {
-    color: #537FAC;
-}
+    
+};
