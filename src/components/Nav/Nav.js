@@ -255,7 +255,7 @@ class Nav extends Component{
           {/* Show the link to the info page and the logout button if the user is logged in */}
           {this.props.user.id && (
             <>
-              <Button onClick={event => this.handleOpenSettings(event)}size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
+              <Button data-title="Settings" onClick={event => this.handleOpenSettings(event)}size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
                 <SettingsIcon />
               </Button>
               <Menu
@@ -368,13 +368,13 @@ class Nav extends Component{
                 </div>
              
               </Modal>
-              <Link className="nav-link" to="/dashboard">
+              <Link className="nav-link" to="/dashboard" data-title="Dashboard">
                 <UserIcon />
               </Link>
             </>
           )}
           {/* Always show this link since the about page is not protected */}
-          <Link className="nav-link" to="/search">
+          <Link className="nav-link" to="/search" data-title="Search">
             <SearchIcon />
           </Link>
           {this.props.user.id && (
@@ -419,8 +419,9 @@ class Nav extends Component{
               </>
               :
               <></>
-            }
-              <LogOutButton className="nav-link" />
+            } <Link data-title="Log Out" className="nav-link" to="/dashboard">
+                <LogOutButton/>
+              </Link>
             </>
           )}
           
