@@ -216,17 +216,28 @@ class Nav extends Component{
 
 	checkMessages = () => {
 		if( this.state.messages === 'new' ){
-			return(
-				<>
-				<Button size="small" variant='contained' color='primary' onClick={() => this.setState({ messages: 'new' })}>Unread</Button>
-				<Button size="small" onClick={() => this.setState({ messages: 'all' })}>All</Button>
-				<div>
-					{this.props.reduxStore.unreadMessages.map((message, i) => {
-						return (<MessageList history={this.props.history} message={message} key={i} type='unread' />);
-					})}
-				</div>
-				</>
-			)
+			if( this.props.reduxStore.unreadMessages.length === 0 ){
+				return (<>
+					<Button size="small" variant='contained' color='primary' onClick={() => this.setState({ messages: 'new' })}>Unread</Button>
+					<Button size="small" onClick={() => this.setState({ messages: 'all' })}>All</Button>
+					<div>
+						<p>No unread Messages</p>
+					</div>
+				</>)
+			}
+			else{
+				return(
+					<>
+					<Button size="small" variant='contained' color='primary' onClick={() => this.setState({ messages: 'new' })}>Unread</Button>
+					<Button size="small" onClick={() => this.setState({ messages: 'all' })}>All</Button>
+					<div>
+						{this.props.reduxStore.unreadMessages.map((message, i) => {
+							return (<MessageList history={this.props.history} message={message} key={i} type='unread' />);
+						})}
+					</div>
+					</>
+				)
+			}
 		}
 		else if (this.state.messages === 'all') {
 			return (
