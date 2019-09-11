@@ -15,14 +15,17 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     table: {
-        width: '50%',
+        width: '100%',
         margin: 'auto',
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: '2px',
     },
     tableDiv: {
-        overflow: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width:'50%',
+        overflow: 'scroll',
         height: '500px',
         borderWidth: '50px',
         marginBottom: '65px',
@@ -213,7 +216,7 @@ class AdminDashboard extends Component {
                     {this.ifAll(this.props.status)}
                 </p>
                 <div className={classes.tableDiv}>
-                <Table className={classes.table}>
+                <Table stickyHeader className={classes.table}>
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
                             <TableCell className={classes.tableCell}>PCN - #</TableCell>

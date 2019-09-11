@@ -15,14 +15,18 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   table: {
-    width: '50%',
+    width: '100%',
     margin: 'auto',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: '2px',
+    zIndex: 100,
   },
   tableDiv: {
-    overflow: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width:'50%',
+    overflow: 'scroll',
     height: '500px',
     borderWidth: '50px',
     marginBottom: '65px',
@@ -227,13 +231,13 @@ class PmDashboard extends Component {
           {this.ifAll(this.props.status)}
         </p>
         <div className={classes.tableDiv}>
-        <Table className={classes.table}>
+        <Table style={{ zIndex: 1000 }}  stickyHeader className={classes.table}>
           <TableHead>
-            <TableRow>
+            <TableRow style={{ zIndex: 100 }}>
               <TableCell className={classes.tableCell}>PCN - #</TableCell>
               <TableCell className={classes.tableCell}>Status</TableCell>
               <TableCell className={classes.tableCell}>Date</TableCell>
-              <TableCell className={classes.tableCell4}>&nbsp;</TableCell>
+              <TableCell style={{ zIndex: 1 }} className={classes.tableCell4}>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
