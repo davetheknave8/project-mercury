@@ -21,13 +21,15 @@ const styles = theme => ({
     borderStyle: 'solid',
     borderWidth: '2px',
     zIndex: 100,
+    
   },
   tableDiv: {
+    position: 'sticky',
     marginLeft: 'auto',
     marginRight: 'auto',
     width:'50%',
-    overflow: 'scroll',
-    height: '500px',
+    // overflow: 'scroll',
+    // height: '500px',
     borderWidth: '50px',
     marginBottom: '65px',
   },
@@ -54,6 +56,13 @@ const styles = theme => ({
     fontWeight: 'lighter',
     marginRight: '1%'
   },
+  position:{
+    position: 'sticky',
+    top: 0,
+    backgroundColor: '#C7CAD9',
+    paddingBottom: '1%',
+    
+  }
 });
 
 class PmDashboard extends Component {
@@ -211,7 +220,9 @@ class PmDashboard extends Component {
     const { classes } = this.props;
     return (
       <>
+      <div style={{ zIndex: 1000 }} className={classes.position}>
         <Nav history={this.props.history} />
+        
         <div className={classes.welcome}>
           <h4 className={classes.welcomeText}>Product Manager Dashboard</h4>
         </div>
@@ -230,8 +241,9 @@ class PmDashboard extends Component {
           &nbsp;
           {this.ifAll(this.props.status)}
         </p>
+        </div>
         <div className={classes.tableDiv}>
-        <Table style={{ zIndex: 1000 }}  stickyHeader className={classes.table}>
+        <Table  style={{ zIndex: 1000 }} className={classes.table}>
           <TableHead>
             <TableRow style={{ zIndex: 100 }}>
               <TableCell className={classes.tableCell}>PCN - #</TableCell>
