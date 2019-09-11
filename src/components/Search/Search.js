@@ -38,10 +38,14 @@ const styles = {
         borderWidth: '2px',
     },
     table: {
-        overflow:'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width:'50%',
+        overflow:'scroll',
         height: '500px',
         borderWidth: '50px',
         marginBottom: '65px',
+
     },
     input: {
         marginLeft: 8,
@@ -112,7 +116,7 @@ class Search extends Component {
                 </Paper>
                 <h1 className={classes.title}>&nbsp;</h1>
                 <div className={classes.table}>
-                <Table className={classes.header}>
+                <Table className={classes.header} className="table">
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
                             <TableCell className={classes.tableCell1}>PCN - #</TableCell>
