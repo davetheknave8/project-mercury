@@ -282,48 +282,6 @@ router.get('/pcnparts', (req, res) => {
 
 // expecting in req.query: PCN type and PCN id
 // this route will grab the images associated with the pcn ID sent
-router.get('/pcnimages', (req, res) => {
-    console.log('getting images for specific pcn, req.query is:', req.query)
-    if( req.query.type === 'PCN' ){
-        let sqlText = 'select image.id, image_url, figure from image join pcn_image on image.id = pcn_image.image_id where pcn_image.pcn_id = $1;';
-        pool.query(sqlText, [req.query.id])
-            .then((response) => {
-                console.log('sending response', response.rows);
-                res.send(response.rows)
-            })
-            .catch((error) => {
-                console.log('error retrieving pcn images', error);
-                res.sendStatus(500)
-            })
-        }  
-    else if( req.query.type === 'EOL' ){
-        let sqlText = 'select image.id, image_url, figure from image join eol_image on image.id = eol_image.image_id where eol_image.eol_id = $1;';
-        pool.query(sqlText, [req.query.id])
-            .then((response) => {
-                console.log('sending response', response.rows);
-                res.send(response.rows)
-            })
-            .catch((error) => {
-                console.log('error retrieving eol images', error);
-                res.sendStatus(500)
-            })
-        }  
-    else if( req.query.type === 'NPI' ){
-        let sqlText = 'select image.id, image_url, figure from image join npi_image on image.id = npi_image.image_id where npi_image.npi_id = $1;';
-        pool.query(sqlText, [req.query.id])
-            .then((response) => {
-                console.log('sending response', response.rows);
-                res.send(response.rows)
-            })
-            .catch((error) => {
-                console.log('error retrieving npi images', error);
-                res.sendStatus(500)
-            })
-        }  
-    else{
-        res.sendStatus(500);
-    }
-});
 
 
 router.get('/messages', (req, res) => {
