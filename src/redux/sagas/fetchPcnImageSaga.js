@@ -5,9 +5,9 @@ import axios from 'axios';
 function* fetchPcnImage(action) {
     console.log('in fetchPcnImage, action.payload is', action.payload)
     try {
-        const response = yield axios.get(`/api/pcn/pcnimages?id=${action.payload.id}&type=${action.payload.type}`);
-        console.log('in fetchPcnImage, response is:', response.data)
-        yield put({ type: 'SET_PCN_IMAGES', payload: response.data })
+        const id = action.payload.id;
+        const response = yield axios.get(`/api/aws/retrieve?id=${id}`);
+        yield put({type: 'SET_PCN_IMAGES', payload: response.data});
     } catch (error) {
         console.log('Error retrieving collection:', error);
     }

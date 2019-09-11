@@ -161,12 +161,14 @@ class PcnForm extends Component {
         },
         searching: false,
         descriptionLength: 2000,
-        description: ''
+        description: '',
+        image: ''
     }
 
     componentDidMount = () => {
         this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {id: this.props.match.params.id, type: 'pcn'}})
-        this.props.dispatch({type: 'FETCH_CURRENT_PCN', payload: this.props.match.params.id})
+        this.props.dispatch({type: 'FETCH_CURRENT_PCN', payload: this.props.match.params.id});
+        this.props.dispatch({type: 'FETCH_PCN_IMAGES', payload: {id: this.props.match.params.id}});
     }
 
     componentDidUpdate = (prevProps) => {
@@ -240,6 +242,14 @@ class PcnForm extends Component {
     handleCloseSearch = () => {
         this.setState({ show: false })
     }
+
+    fileChange = (event) => {
+        this.setState({image: event.target.files[0]})
+    }
+
+    uploadImage = () => {
+        this.props.dispatch({type: 'UPLOAD_IMAGE', payload: {image: this.state.image, id: this.props.match.params.id}})
+    }   
 
     render(){
         const {classes} = this.props;
@@ -318,6 +328,10 @@ class PcnForm extends Component {
                     </div>
                 </div>
                 <br />
+                <div className={classes.imageUpload}>
+                    <TextField type="file" onChange={event => this.fileChange(event)} />
+                    <Button onClick={this.uploadImage}>Upload</Button>
+                </div>
                 <div className={classes.userDiv}>
                     <h3 className={classes.userHeader}>Contact Info</h3>
                     <TextField className={classes.userName} value={this.props.reduxStore.user.username} label="Name" disabled />
