@@ -42,7 +42,7 @@ const styles = {
         marginLeft: 'auto',
         marginRight: 'auto',
         width:'50%',
-        overflow:'scroll',
+        // overflow:'scroll',
         height:  '500px',
         borderWidth: '50px',
         marginBottom: '65px',

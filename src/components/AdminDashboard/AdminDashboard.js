@@ -25,7 +25,7 @@ const styles = theme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
         width:'50%',
-        overflow: 'scroll',
+        // overflow: 'scroll',
         height: '500px',
         borderWidth: '50px',
         marginBottom: '65px',
@@ -38,7 +38,7 @@ const styles = theme => ({
     },
     welcome: {
         backgroundColor: '#666F99',
-        marginTop: 0
+        marginTop: 0,
     },
     welcomeText: {
         color: 'white',
@@ -47,6 +47,13 @@ const styles = theme => ({
         fontWeight: 'lighter',
         marginRight: '1%'
     },
+    position:{
+        position: 'sticky',
+    top: 0,
+    backgroundColor: '#C7CAD9',
+    paddingBottom: '1%',
+    
+    }
 })
 
 class AdminDashboard extends Component {
@@ -196,11 +203,12 @@ class AdminDashboard extends Component {
         const { classes } = this.props;
         return (
             <>
+            <div style={{ zIndex: 1000 }} className={classes.position}>
                 <Nav history={this.props.history} />
                 <div className={classes.welcome}>
                     <h4 className={classes.welcomeText}>Admin Dashboard</h4>
                 </div>
-                <p className="welcome">Filter: &nbsp;&nbsp;
+                <p stickyHeader className="welcome">Filter: &nbsp;&nbsp;
                     {this.ifPending(this.props.status)}
                     &nbsp;
                     &nbsp;
@@ -215,8 +223,9 @@ class AdminDashboard extends Component {
                     &nbsp;
                     {this.ifAll(this.props.status)}
                 </p>
+                </div>
                 <div className={classes.tableDiv}>
-                <Table stickyHeader className={classes.table}>
+                <Table className={classes.table}>
                     <TableHead>
                         <TableRow component="tr" scope="row" className="header">
                             <TableCell className={classes.tableCell}>PCN - #</TableCell>
