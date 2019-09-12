@@ -454,7 +454,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM pcn_image WHERE pcn_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)
@@ -493,7 +493,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM eol_image WHERE eol_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)
@@ -532,7 +532,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM npi_image WHERE npi_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)
