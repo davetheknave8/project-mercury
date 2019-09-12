@@ -20,7 +20,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import AddIcon from '@material-ui/icons/AddCircle';
-import List from '@material-ui/core/List';
 import Modal from '@material-ui/core/Modal';
 
 const styles = theme => ({
