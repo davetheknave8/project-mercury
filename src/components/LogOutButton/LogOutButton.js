@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import LogoutIcon from '@material-ui/icons/ExitToApp';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const LogOutButton = props => (
   <button
@@ -11,7 +12,7 @@ const LogOutButton = props => (
     className={props.className}
     onClick={() => props.dispatch({ type: 'LOGOUT' })}
   >
-    <LogoutIcon />
+    <Tooltip title="Log Out"><LogoutIcon /></Tooltip>
   </button>
 );
 

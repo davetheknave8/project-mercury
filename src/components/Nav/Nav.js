@@ -55,8 +55,8 @@ const styles = theme => ({
     color: 'white',
     paddingRight: '0%',
     paddingLeft: '0%',
-    paddingTop: '13%',
-    paddingBottom: '13%'
+    paddingTop: '15%',
+    paddingBottom: '19%'
   },
   textField: {
     textAlign: 'center',
@@ -195,6 +195,14 @@ class Nav extends Component{
     this.setState({ showMessage: true })
   }
 
+  handleOpenDashboard = (event) => {
+    this.props.history.push('/dashboard');
+  }
+
+  handleOpenSearch = (event) => {
+    this.props.history.push('/search');
+  }
+
   handleCloseMessages = (event) => {
     this.setState({ showMessage: false })
   }
@@ -267,11 +275,11 @@ class Nav extends Component{
           {/* Show the link to the info page and the logout button if the user is logged in */}
           {this.props.user.id && (
             <>
-              <Tooltip title="Settings">
-                <Button onClick={event => this.handleOpenSettings(event)}size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
+              <Button onClick={event => this.handleOpenSettings(event)}size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
+                <Tooltip title="Settings" placement="top"> 
                   <SettingsIcon />
-                </Button>
-              </Tooltip>  
+                </Tooltip>
+              </Button>
               <Menu
                 id="simple-menu"
                 anchorEl={this.state.open}
@@ -382,24 +390,24 @@ class Nav extends Component{
                 </div>
              
               </Modal>
-              <Tooltip title="Dashboard">
-                <Link className="nav-link" to="/dashboard">
+              <Button onClick={event => this.handleOpenDashboard(event)} size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
+                <Tooltip title="Dashboard">
                   <UserIcon />
-                </Link>
-              </Tooltip>
+                </Tooltip>
+              </Button>
             </>
           )}
           {/* Always show this link since the about page is not protected */}
-          <Tooltip title="Search">
-            <Link className="nav-link" to="/search">
+          <Button onClick={event => this.handleOpenSearch(event)} size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
+            <Tooltip title="Search">
               <SearchIcon />
-            </Link>
-          </Tooltip>
+            </Tooltip>
+          </Button>
           {this.props.user.id && (
             <>{this.props.user.admin === 1 ?
               <>
-              <Tooltip title="Create"><Button onClick={event => this.handleOpenCreate(event)} size="small" className={classes.settingsBtn}><CreateIcon /></Button></Tooltip>
-              <Tooltip title="Messages"><Button onClick={event => this.handleOpenMessages(event)} size="small" className={classes.settingsBtn}><MessageIcon /></Button></Tooltip>
+              <Button onClick={event => this.handleOpenCreate(event)} size="small" className={classes.settingsBtn}><Tooltip title="Create"><CreateIcon /></Tooltip></Button>
+              <Button onClick={event => this.handleOpenMessages(event)} size="small" className={classes.settingsBtn}><Tooltip title="Messages"><MessageIcon /></Tooltip></Button>
               <Modal
                 aria-labelledby="View Messages"
                 aria-describedby="Modal to view messages"
@@ -437,9 +445,8 @@ class Nav extends Component{
               </>
               :
               <></>
-            } <Tooltip title="Log Out">
-                <LogOutButton className="nav-link" to="/dashboard"/>
-              </Tooltip>
+            }
+              <LogOutButton className="nav-link" to="/dashboard"/>
             </>
           )}
           
