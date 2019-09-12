@@ -86,9 +86,9 @@ const styles = {
     },
     position:{
         position: 'sticky',
-    top: 0,
-    backgroundColor: '#C7CAD9',
-    paddingBottom: '1%',
+        top: 0,
+        backgroundColor: '#C7CAD9',
+        paddingBottom: '1%',
     
     }
 };
