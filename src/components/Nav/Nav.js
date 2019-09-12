@@ -55,8 +55,8 @@ const styles = theme => ({
     color: 'white',
     paddingRight: '0%',
     paddingLeft: '0%',
-    paddingTop: '9.5%',
-    paddingBottom: '13%'
+    paddingTop: '15%',
+    paddingBottom: '19%'
   },
   textField: {
     textAlign: 'center',
@@ -390,7 +390,7 @@ class Nav extends Component{
                 </div>
              
               </Modal>
-              <Button onClick={event => this.handleOpenDashboard(event)} size="small" className={classes.settingsBtn}>
+              <Button onClick={event => this.handleOpenDashboard(event)} size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
                 <Tooltip title="Dashboard">
                   <UserIcon />
                 </Tooltip>
@@ -398,7 +398,7 @@ class Nav extends Component{
             </>
           )}
           {/* Always show this link since the about page is not protected */}
-          <Button onClick={event => this.handleOpenSearch(event)} size="small" className={classes.settingsBtn}>
+          <Button onClick={event => this.handleOpenSearch(event)} size="small" className={this.props.user.admin === 2 ? classes.settingsBtnAdmin : classes.settingsBtn}>
             <Tooltip title="Search">
               <SearchIcon />
             </Tooltip>
