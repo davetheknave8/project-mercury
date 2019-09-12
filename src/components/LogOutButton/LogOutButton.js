@@ -4,16 +4,17 @@ import { connect } from 'react-redux';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '@material-ui/core/Tooltip';
 
+
 const LogOutButton = props => (
-  <button
+  <Tooltip title="Log Out"><button
     // This button shows up in multiple locations and is styled differently
     // because it's styled differently depending on where it is used, the className
     // is passed to it from it's parents through React props
     className={props.className}
     onClick={() => props.dispatch({ type: 'LOGOUT' })}
   >
-    <Tooltip title="Log Out"><LogoutIcon /></Tooltip>
-  </button>
+    <LogoutIcon />
+  </button></Tooltip>
 );
 
 // This component doesn't need 'mapStateToProps'
