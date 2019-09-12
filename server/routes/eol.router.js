@@ -62,4 +62,18 @@ router.put('/edit', (req, res) => {
         })
 })
 
+router.put('/save', (req, res) => {
+    const objectToEdit = req.body;
+    const sqlText = `UPDATE eol SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, last_time_buy=$6, last_time_ship=$7, product=$8  WHERE id=$9;`;
+    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.buyDate, objectToEdit.shipDate, objectToEdit.product, objectToEdit.number]
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error editing eol', error);
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;

@@ -121,8 +121,8 @@ const styles = theme => ({
         marginBottom: '5%'
     },
     submitBtn: {
-        float: 'right',
-        marginRight: '10%',
+        marginRight: '3%',
+        marginLeft: '3%',
         marginTop: '2%'
     },
     audienceIn: {
@@ -145,7 +145,12 @@ const styles = theme => ({
     },
     uploadBtn: {
         float: 'right',
-    }
+    },
+    bottombuttons: {
+        textAlign: 'center',
+        width: '100%',
+        margin: 'auto',
+    },
 })
 
 let length = 0;
@@ -219,6 +224,16 @@ class PcnForm extends Component {
         event.preventDefault();
         console.log(this.state.newPcn);
         this.props.dispatch({type: 'EDIT_PCN', payload: data});
+        this.props.history.push('/dashboard');
+    }
+
+    handleSave = () => {
+        let data = {
+            id: this.props.reduxStore.user.id,
+            newPcn: this.state.newPcn
+        }
+        console.log(this.props.reduxStore.user.id);
+        this.props.dispatch({ type: 'SAVE_PCN', payload: data });
         this.props.history.push('/dashboard');
     }
 
@@ -349,7 +364,11 @@ class PcnForm extends Component {
                     <TextField className={classes.contactInfo} label="Email" value={this.props.reduxStore.user.email} disabled />
                 </div>
                 <br />
-                <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                <div className={classes.bottombuttons}>
+                    <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.props.history.push('/dashboard')}>Cancel</Button>
+                    <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.handleSave()}>Save</Button>
+                    <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                </div>
             </form>
             </>
         )

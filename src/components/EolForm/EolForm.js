@@ -116,8 +116,8 @@ const styles = theme => ({
         marginBottom: '5%'
     },
     submitBtn: {
-        float: 'right',
-        marginRight: '10%',
+        marginRight: '3%',
+        marginLeft: '3%',
         marginTop: '2%'
     },
     audienceIn: {
@@ -152,7 +152,12 @@ const styles = theme => ({
     product: {
         marginLeft: '12%',
         backgroundColor: 'white'
-    }
+    },
+    bottombuttons: {
+        textAlign: 'center',
+        width: '100%',
+        margin: 'auto',
+    },
 })
 
 let length = 0;
@@ -229,6 +234,12 @@ class EolForm extends Component {
         event.preventDefault();
         console.log(this.props.reduxStore.user.id);
         this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
+        this.props.history.push('/dashboard');
+    }
+
+    handleSave = () => {
+        console.log(this.props.reduxStore.user.id);
+        this.props.dispatch({ type: 'SAVE_EOL', payload: this.state.newEol });
         this.props.history.push('/dashboard');
     }
 
@@ -350,7 +361,11 @@ class EolForm extends Component {
                         <TextField className={classes.contactInfo} label="Email" value={this.props.reduxStore.user.email} disabled />
                     </div>
                     <br />
-                    <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                    <div className={classes.bottombuttons}>
+                        <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.props.history.push('/dashboard')}>Cancel</Button>
+                        <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.handleSave()}>Save</Button>
+                        <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                    </div>
                 </form>
             </>
         )

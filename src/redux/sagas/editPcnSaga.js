@@ -4,15 +4,26 @@ import axios from 'axios';
 function* editPcn(action){
     try{
         yield axios.put('/api/pcn/edit', action.payload.newPcn);
-        yield put({ type: 'FETCH_DASHBOARD', payload: action.payload.id })
+        yield put({ type: 'FETCH_DASHBOARD', payload: {userId: action.payload.userId, status: ''} })
     }
     catch(error){
         console.log('error editing pcn', error);
     }
 }
 
+function* savePcn(action){
+    try{
+        yield axios.put('/api/pcn/save', action.payload.newPcn);
+        yield put({ type: 'FETCH_DASHBOARD', payload: {userId: action.payload.userId, status: ''} })
+    }
+    catch(error){
+        console.log('error save pcn', error);
+    }
+}
+
 function* editPcnSaga(){
     yield takeEvery('EDIT_PCN', editPcn);
+    yield takeEvery('SAVE_PCN', savePcn);
 }
 
 export default editPcnSaga;

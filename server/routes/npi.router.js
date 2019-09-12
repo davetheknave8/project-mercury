@@ -52,4 +52,19 @@ router.put('/edit', (req, res) => {
         })
 })
 
+router.put('/save', (req, res) => {
+    console.log('req.body', req.body)
+    const objectToEdit = req.body;
+    const sqlText = `UPDATE npi SET type=$1, date=$2, audience=$3, description=$4, notes=$5, product=$6 WHERE id=$7;`;
+    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.description, objectToEdit.notes, objectToEdit.product, objectToEdit.number]
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error editing npi', error);
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;
