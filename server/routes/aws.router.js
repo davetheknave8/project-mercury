@@ -38,27 +38,32 @@ router.get('/retrieve', (req, res) => {
     }
     pool.query(`SELECT * FROM image WHERE pcn_id=$1`, [req.query.id])
         .then( response => {
-            for(let image of response.rows){
-                const s3 = new aws.S3();
-                const params = {
-                    Bucket: process.env.S3_BUCKET,
-                    Key: image.file_name,
-                    Expires: 10000,
-                };
-                s3.getSignedUrl('getObject', params, function (err, data) {
-                    if (err) {
-                        console.log(err);
-                        return err;
-                    } else {
-                        image.image_url = data;
-                        console.log(image);
-                        newResponse.push(image);
-                        console.log(newResponse);
-                    }
-                });
+            let result = response.rows;
+            async function getSignedUrl(key){
+                return new Promise((resolve, reject) => {
+                    const s3 = new aws.S3();
+                    let params = {
+                        Bucket: 'dreev84',
+                        Key: key,
+                        Expires: 100000,
+                    };
+                    s3.getSignedUrl('getObject', params, (err, url) => {
+                        if(err) reject(err)
+                        resolve(url);
+                    })
+                })
             }
-            console.log(newResponse);
-            res.send(newResponse);
+            async function process(items) {
+                for (let item of items) {
+                    const signedUrl = await getSignedUrl(item.file_name)
+                    item.image_url = signedUrl;
+                }
+                return items
+            }
+            process(result).then(response => {
+                console.log('promise', response);
+                res.send(response);
+            })
         })
 } )
 
