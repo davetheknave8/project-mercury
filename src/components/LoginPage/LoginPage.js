@@ -72,7 +72,7 @@ class LoginPage extends Component {
     const {classes} = this.props;
     return (
       <>
-        <Nav />
+        <Nav history={this.props.history}/>
         <div>
           {this.props.errors.loginMessage && (
             <h2
