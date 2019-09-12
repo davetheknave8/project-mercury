@@ -32,10 +32,6 @@ router.get('/upload', (req, res) => {
 })
 
 router.get('/retrieve', (req, res) => {
-    let newResponse = [];
-    function setImageUrl(image){
-        
-    }
     pool.query(`SELECT * FROM image WHERE pcn_id=$1`, [req.query.id])
         .then( response => {
             let result = response.rows;

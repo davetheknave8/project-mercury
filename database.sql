@@ -111,29 +111,9 @@ DEFAULT TO_CHAR
 CREATE TABLE image
 (
     id SERIAL PRIMARY KEY,
-    image_url character varying(1000),
-    figure character varying(200)
-);
-
-CREATE TABLE pcn_image
-(
-    id SERIAL PRIMARY KEY,
-    pcn_id VARCHAR REFERENCES pcn(id),
-    image_id integer REFERENCES image(id)
-);
-
-CREATE TABLE eol_image
-(
-    id SERIAL PRIMARY KEY,
-    eol_id VARCHAR REFERENCES eol(id),
-    image_id integer REFERENCES image(id)
-);
-
-CREATE TABLE npi_image
-(
-    id SERIAL PRIMARY KEY,
-    npi_id VARCHAR REFERENCES npi(id),
-    image_id integer REFERENCES "image"(id)
+    file_name character varying(1000),
+    figure character varying(200),
+    pcn_id
 );
 
 CREATE TABLE part
