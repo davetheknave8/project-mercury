@@ -331,6 +331,7 @@ class PcnForm extends Component {
                 <div className={classes.imageUpload}>
                     <TextField type="file" onChange={event => this.fileChange(event)} />
                     <Button onClick={this.uploadImage}>Upload</Button>
+                    
                 </div>
                 <div className={classes.userDiv}>
                     <h3 className={classes.userHeader}>Contact Info</h3>
