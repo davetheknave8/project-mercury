@@ -84,6 +84,13 @@ const styles = {
         width: '45%',
         backgroundColor: '#666F99',
     },
+    position:{
+        position: 'sticky',
+    top: 0,
+    backgroundColor: '#C7CAD9',
+    paddingBottom: '1%',
+    
+    }
 };
 
 class Search extends Component {
@@ -103,6 +110,7 @@ class Search extends Component {
 
         return (
             <>
+             <div style={{ zIndex: 1000 }} className={classes.position}>
                 <Nav history={this.props.history} />
                 <h1 className={classes.title}>&nbsp;</h1>
                 <h1 className={classes.title}>&nbsp;</h1>
@@ -114,6 +122,7 @@ class Search extends Component {
                         <SearchIcon />
                     </IconButton>
                 </Paper>
+                </div>
                 <h1 className={classes.title}>&nbsp;</h1>
                 <div className={classes.tableDiv}>
                 <Table stickyHeader className={classes.table} className="table">
