@@ -10,10 +10,8 @@
   /* display: inline-block; */
   width:100%;
   box-sizing: border-box;
-  overflow: hidden;
   background-color: #3D3D5C;
   position: "static";
-  
 }
 
 .nav-link {
@@ -21,9 +19,8 @@
   color: #f2f2f2;
   background-color: #3D3D5C;
   text-align: center;
-  padding: 38px 24px 52px 24px ;
   /* text-decoration: none; */
-  font-size: 15px;
+  font-size: 10px;
   
 
   /* these last two make the logout button in
@@ -31,6 +28,40 @@
   border:none;
   cursor: pointer;
   outline:0;
+}
+
+.logout {
+  margin-left: 'auto';
+  color: #f2f2f2;
+  background-color: #3D3D5C;
+  text-align: center;
+  /* text-decoration: none; */
+  font-size: 10px;
+  float: right;
+  padding-top: 5.25%;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.logoutAdmin {
+  margin-left: 'auto';
+  color: #f2f2f2;
+  background-color: #3D3D5C;
+  text-align: center;
+  /* text-decoration: none; */
+  font-size: 10px;
+  float: right;
+  padding-top: 8.2%;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
 }
 
 .nav-link:hover {

@@ -63,7 +63,7 @@ const styles = theme => ({
         backgroundColor: 'white',        
     },
     topElements: {
-        backgroundColor: '#A3A8C2',
+        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -151,6 +151,10 @@ const styles = theme => ({
         width: '100%',
         margin: 'auto',
     },
+    product: {
+        marginLeft: '12%',
+        backgroundColor: 'white'
+    }
 })
 
 let length = 0;
@@ -161,6 +165,7 @@ class PcnForm extends Component {
             date: '',
             change_description: '',
             number: '',
+            product:'',
             audience: '',
             type: 'pcn',
             notes: ''
@@ -189,6 +194,7 @@ class PcnForm extends Component {
             this.setState({
                 newPcn: {
                     date: moment(this.props.reduxStore.currentPcnReducer.date).format('YYYY-MM-DD'),
+                    product:this.props.reduxStore.currentPcnReducer.product,
                     change_description: this.props.reduxStore.currentPcnReducer.change_description,
                     number: this.props.reduxStore.currentPcnReducer.id,
                     audience: this.props.reduxStore.currentPcnReducer.audience,
@@ -287,6 +293,7 @@ class PcnForm extends Component {
                         shrink: true,
                     }}
                     />
+                    <TextField className={classes.product} value={this.state.newPcn.product} label="Product Name" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{shrink: true}} />
                     <TextField className={classes.number} value={this.props.match.params.id} label="PCN #:" disabled />
                 </div>
                 <br />
