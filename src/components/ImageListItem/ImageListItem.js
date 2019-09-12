@@ -9,7 +9,9 @@ const styles = theme => ({
         width: '75px',
         height: '50px',
         objectFit: 'cover',
-        display: 'inline-block'
+        display: 'inline-block',
+        marginTop: '3%',
+        marginRight: '3%'
     }
 })
 
