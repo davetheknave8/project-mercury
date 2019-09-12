@@ -63,7 +63,7 @@ const styles = theme => ({
         backgroundColor: 'white',
     },
     topElements: {
-        backgroundColor: '#A3A8C2',
+        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -164,6 +164,7 @@ class EolForm extends Component {
             date: '',
             change_description: '',
             number: '',
+            product:'',
             audience: '',
             type: 'EOL',
             notes: '',
@@ -275,7 +276,7 @@ class EolForm extends Component {
                             shrink: true,
                         }}
                         />
-                        <TextField className={classes.product} value={this.state.newEol.product} label="Product" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{shrink: true}} />
+                        <TextField className={classes.product} value={this.state.newEol.product} label="Product Name" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{shrink: true}} />
                         <TextField className={classes.number} value={this.props.match.params.id} label="EOL #:" disabled />
                         <br />
                         <TextField className={classes.buyDate} value={this.state.newEol.buyDate} type="date" label="Last Purchase Date:" onChange={event => this.handleChange(event, 'buyDate')} InputLabelProps={{shrink: true}} />

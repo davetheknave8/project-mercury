@@ -51,6 +51,11 @@ router.get(`/search`, (req, res) => {
             npi.status as status, npi.date as date, npi.description as descripiton
             FROM npi
             WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
+            UNION
+            (SELECT npi."type" as "type", npi.id as id, 
+            npi.status as status, npi.date as date, npi.description as descripiton
+            FROM npi
+            WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
             ORDER BY id ASC LIMIT 30;`;
     pool.query(queryText, sqlValues)
         .then((response) => {
@@ -343,8 +348,8 @@ router.post('/create', (req, res) => {
 
 router.put('/edit', (req, res) => {
     const objectToEdit = req.body;
-    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='PENDING' WHERE id=$6;`;
-    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
+    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, product=$6, status='PENDING' WHERE id=$7;`;
+    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.product, objectToEdit.number]
     pool.query(sqlText, values)
         .then(response => {
             res.sendStatus(200);
