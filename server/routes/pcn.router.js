@@ -56,6 +56,21 @@ router.get(`/search`, (req, res) => {
             npi.status as status, npi.date as date, npi.description as descripiton
             FROM npi
             WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
+            UNION
+            (select pcn.type as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description from part 
+            join pcn_part on part.id = pcn_part.id
+            join pcn on pcn_part.pcn_id = pcn.id
+            where pcn.id like 'PCN-000001')
+            UNION
+            (select eol.type as "type", eol.id as id, eol.status as status, eol.date as date, eol.change_description as description from part 
+            join eol_part on part.id = eol_part.id
+            join eol on eol_part.eol_id = eol.id
+            where eol.id like 'PCN-000001')
+            UNION
+            (select npi.type as "type", npi.id as id, npi.status as status, npi.date as date, npi.description as description from part 
+            join npi_part on part.id = npi_part.id
+            join npi on npi_part.npi_id = npi.id
+            where npi.id like 'PCN-000001')
             ORDER BY id ASC LIMIT 30;`;
     pool.query(queryText, sqlValues)
         .then((response) => {
