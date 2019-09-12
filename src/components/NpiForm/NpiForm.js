@@ -18,7 +18,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import AddIcon from '@material-ui/icons/AddCircle';
-import List from '@material-ui/core/List';
 import Modal from '@material-ui/core/Modal';
 
 const styles = theme => ({
@@ -49,12 +48,15 @@ const styles = theme => ({
         marginLeft: '10%'
     },
     product: {
-        textAlign:'center',
         marginLeft: '9%',
-        width: '30vh',
         backgroundColor: 'white'
     },
     notesLabel: {
+        marginLeft: '5%',
+        color: 'white'
+    },
+    pastsLabel:{
+        marginLeft: '10%',
         color: 'white'
     },
     date: {
@@ -86,18 +88,17 @@ const styles = theme => ({
         marginTop: '3%',
     },
     audience: {
-        display: 'block',
-        width: '60%',
+        width: '80%',
+        margin: 'auto',
         textAlign: 'left',
-        marginLeft: '20%',
         marginTop: '3%',
     },
     audienceLabel: {
         color: 'white'
     },
     notesDiv: {
-        width: '60%',
-        marginLeft: '20%',
+        width: '80%',
+        margin: 'auto',
         display: 'block',
         marginTop: '3%',
         
@@ -290,6 +291,8 @@ class NpiForm extends Component {
                 value={this.state.newNpi.description || ''}
                  />
                 <br />
+                <label className={classes.pastsLabel}>Parts:</label>
+
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
