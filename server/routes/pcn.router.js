@@ -360,6 +360,20 @@ router.put('/edit', (req, res) => {
         })
 })
 
+router.put('/save', (req, res) => {
+    const objectToEdit = req.body;
+    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5 WHERE id=$6;`;
+    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error editing pcn', error);
+            res.sendStatus(500);
+        })
+})
+
 router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
     if( req.body.type === 'PCN' ){
         if (req.body.status === 'DENIED'){
@@ -459,7 +473,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM pcn_image WHERE pcn_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)
@@ -498,7 +512,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM eol_image WHERE eol_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)
@@ -537,7 +551,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM npi_image WHERE npi_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)

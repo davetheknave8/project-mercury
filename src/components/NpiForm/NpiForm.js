@@ -125,8 +125,8 @@ const styles = theme => ({
         marginBottom: '5%'
     },
     submitBtn: {
-        float: 'right',
-        marginRight: '10%',
+        marginRight: '3%',
+        marginLeft: '3%',
         marginTop: '2%'
     },
     audienceIn: {
@@ -142,7 +142,12 @@ const styles = theme => ({
         outline: 'none',
         overflowY: 'auto',
         height: '40%'
-    }
+    },
+    bottombuttons: {
+        textAlign: 'center',
+        width: '100%',
+        margin: 'auto',
+    },
 })
 
 let length = 0;
@@ -217,6 +222,16 @@ class NpiForm extends Component {
         event.preventDefault();
         console.log(this.state.newNpi);
         this.props.dispatch({type: 'EDIT_NPI', payload: data});
+        this.props.history.push('/dashboard');
+    }
+
+    handleSave = () => {
+        let data = {
+            id: this.props.reduxStore.user.id,
+            newNpi: this.state.newNpi
+        }
+        console.log(this.props.reduxStore.user.id);
+        this.props.dispatch({ type: 'SAVE_NPI', payload: data });
         this.props.history.push('/dashboard');
     }
 
@@ -336,7 +351,11 @@ class NpiForm extends Component {
                     <TextField className={classes.contactInfo} label="Email" value={this.props.reduxStore.user.email} disabled />
                 </div>
                 <br />
-                <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                <div className={classes.bottombuttons}>
+                    <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.props.history.push('/dashboard')}>Cancel</Button>
+                    <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.handleSave()}>Save</Button>
+                    <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                </div>
             </form>
             </>
         )

@@ -18,7 +18,7 @@ class MessageList extends Component {
                 </p>)
             }
             else if (type === 'read') {
-                return (<p onClick={() => this.navigate(message.id)}>
+                return (<p className={'messagetext'} onClick={() => this.navigate(message.id)}>
                     {message.id} was {message.status.toLowerCase()} on {Moment(message.message_time).format('MM/DD/YYYY')}
                 </p>)
             }
