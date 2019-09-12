@@ -199,6 +199,10 @@ class Nav extends Component{
     this.props.history.push('/dashboard');
   }
 
+  handleOpenSearch = (event) => {
+    this.props.history.push('/search');
+  }
+
   handleCloseMessages = (event) => {
     this.setState({ showMessage: false })
   }
@@ -394,7 +398,7 @@ class Nav extends Component{
             </>
           )}
           {/* Always show this link since the about page is not protected */}
-          <Button onClick={event => this.handleOpenDashboard(event)} size="small" className={classes.settingsBtn}>
+          <Button onClick={event => this.handleOpenSearch(event)} size="small" className={classes.settingsBtn}>
             <Tooltip title="Search">
               <SearchIcon />
             </Tooltip>
