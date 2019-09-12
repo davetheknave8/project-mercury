@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* uploadImage(action){
     try{
-        yield axios.get(`/api/aws/upload?name=${action.payload.image.name}`, action.payload)
+        yield axios.get(`/api/aws/upload?name=${action.payload.image.name}`)
             .then(response => {
                 axios.put(response.data, action.payload.image)
             })

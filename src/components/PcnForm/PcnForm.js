@@ -4,6 +4,7 @@ import PartListItem from '../PartListItem/PartListItem';
 import Nav from '../Nav/Nav';
 import SearchPartListItem from '../SearchPartListItem/SearchPartListItem';
 import moment from 'moment';
+import ImageListItem from '../ImageListItem/ImageListItem';
 
 //React Quill
 import ReactQuill from 'react-quill';
@@ -137,6 +138,13 @@ const styles = theme => ({
         outline: 'none',
         overflowY: 'auto',
         height: '40%'
+    },
+    imageUpload: {
+        marginLeft: '17%'
+    },
+    uploadBtn: {
+        float: 'right',
+        marginRight: '17%'
     }
 })
 
@@ -330,8 +338,9 @@ class PcnForm extends Component {
                 <br />
                 <div className={classes.imageUpload}>
                     <TextField type="file" onChange={event => this.fileChange(event)} />
-                    <Button onClick={this.uploadImage}>Upload</Button>
-                    
+                    <Button className={classes.uploadBtn} onClick={this.uploadImage} size="small" variant="contained">Upload</Button>
+                    <br />
+                    {this.props.reduxStore.pcnImage.map((image, i) => <ImageListItem key={i} image={image} />)}
                 </div>
                 <div className={classes.userDiv}>
                     <h3 className={classes.userHeader}>Contact Info</h3>
