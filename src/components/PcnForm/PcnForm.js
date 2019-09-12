@@ -140,11 +140,11 @@ const styles = theme => ({
         height: '40%'
     },
     imageUpload: {
-        marginLeft: '17%'
+        marginLeft: '25%',
+        marginRight: '30%'
     },
     uploadBtn: {
         float: 'right',
-        marginRight: '17%'
     }
 })
 
@@ -337,7 +337,7 @@ class PcnForm extends Component {
                 </div>
                 <br />
                 <div className={classes.imageUpload}>
-                    <TextField type="file" onChange={event => this.fileChange(event)} />
+                    <TextField style={{backgroundColor: 'white'}} type="file" onChange={event => this.fileChange(event)} />
                     <Button className={classes.uploadBtn} onClick={this.uploadImage} size="small" variant="contained">Upload</Button>
                     <br />
                     {this.props.reduxStore.pcnImage.map((image, i) => <ImageListItem key={i} image={image} />)}
