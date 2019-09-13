@@ -81,18 +81,17 @@ const styles = theme => ({
         marginTop: '3%',
     },
     audience: {
-        display: 'block',
-        width: '60%',
+        width: '80%',
+        margin: 'auto',
         textAlign: 'left',
-        marginLeft: '20%',
         marginTop: '3%',
     },
     audienceLabel: {
         color: 'white'
     },
     notesDiv: {
-        width: '60%',
-        marginLeft: '20%',
+        width: '80%',
+        margin: 'auto',
         display: 'block',
         marginTop: '3%',
         

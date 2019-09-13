@@ -81,16 +81,17 @@ const styles = theme => ({
         marginTop: '3%'
     },
     audience: {
-        display: 'inline-block',
-        marginRight: '10%',
-        width: '35%',
+        width: '80%',
+        margin: 'auto',
         textAlign: 'left',
-        marginLeft: '10%'
+        marginTop: '3%',
     },
     notesDiv: {
-        width: '35%',
-        marginLeft: '10%',
-        display: 'inline-block'
+        width: '80%',
+        margin: 'auto',
+        display: 'block',
+        marginTop: '3%',
+        
     },
     userDiv: {
         marginTop: '5%',

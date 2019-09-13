@@ -372,7 +372,7 @@ class Nav extends Component{
                             <Select  className={classes.textField} value={this.state.access}  onChange={this.handleInputChangeFor('access')}  
                                   inputProps={{name: 'none',}}>
                                   <MenuItem value={"0"}>Select Access Level</MenuItem>
-                                  <MenuItem value={"1"}>Level 1</MenuItem>
+                                  <MenuItem value={"1"}>Level 1 - Product Manager</MenuItem>
                                   <MenuItem value={"2"}>Level 2 - Admin</MenuItem>
                             </Select>
                           </div>
