@@ -33,9 +33,8 @@ const styles = theme => ({
 class SearchListItem extends Component {
    
     // function creates a clickable event for the pcn document to be opened.
-    goToLink = (event) => {
-        this.props.history.push(`/pcn-view/${this.props.item.type}/${this.props.item.id}`)
-        console.log('clicked link', event);
+    goToLink = (type) => {
+        this.props.history.push(`/${type}-view/${type}/${this.props.item.id}`)
     }
 
     render() {
@@ -49,7 +48,7 @@ class SearchListItem extends Component {
         const { classes } = this.props;
         return (
             <>
-                <TableRow className="tc" align="center" style={{height: 10}} onClick={() => this.goToLink()}>
+                <TableRow className="tc" align="center" style={{height: 10}} onClick={() => this.goToLink(this.props.item.type)}>
                     <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell>
                     <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
                     <TableCell className={classes.tableCell3}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
