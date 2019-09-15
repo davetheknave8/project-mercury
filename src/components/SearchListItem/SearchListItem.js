@@ -25,7 +25,6 @@ const styles = theme => ({
     tableCell4: {
         textAlign: 'left',
         width: '60%',
-       
         padding: '1%',
         
     },
@@ -45,7 +44,7 @@ class SearchListItem extends Component {
         console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
-        console.log(div.innerText);
+        console.log(div.textContent);
 
         const { classes } = this.props;
         return (
@@ -54,7 +53,7 @@ class SearchListItem extends Component {
                     <TableCell className={classes.tableCell1}>{this.props.item.id}</TableCell>
                     <TableCell className={classes.tableCell2}>{this.props.item.type}</TableCell>
                     <TableCell className={classes.tableCell3}>{moment(this.props.item.date).format('MM/DD/YYYY')}</TableCell>
-                    <TableCell className={classes.tableCell4}>{div.innerText.substr(0, 95)}</TableCell>
+                    <TableCell className={classes.tableCell4}>{div.textContent.substr(0, 95)}</TableCell>
                 </TableRow>
             </>
         );

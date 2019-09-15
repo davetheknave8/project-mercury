@@ -11,8 +11,19 @@ function* editEol(action) {
     }
 }
 
+function* saveEol(action) {
+    try {
+        yield axios.put('/api/eol/save', action.payload);
+        yield put({ type: 'FETCH_DASHBOARD', payload: { userId: action.payload.userId, status: '' } })
+    }
+    catch (error) {
+        console.log('error saving eol', error);
+    }
+}
+
 function* editEolSaga() {
     yield takeEvery('EDIT_EOL', editEol);
+    yield takeEvery('SAVE_EOL', saveEol);
 }
 
 export default editEolSaga;

@@ -20,7 +20,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import AddIcon from '@material-ui/icons/AddCircle';
-import List from '@material-ui/core/List';
 import Modal from '@material-ui/core/Modal';
 
 const styles = theme => ({
@@ -64,7 +63,7 @@ const styles = theme => ({
         backgroundColor: 'white',
     },
     topElements: {
-        backgroundColor: '#A3A8C2',
+        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -83,16 +82,17 @@ const styles = theme => ({
         marginTop: '3%'
     },
     audience: {
-        display: 'inline-block',
-        marginRight: '10%',
-        width: '35%',
+        width: '80%',
+        margin: 'auto',
         textAlign: 'left',
-        marginLeft: '10%'
+        marginTop: '3%',
     },
     notesDiv: {
-        width: '35%',
-        marginLeft: '10%',
-        display: 'inline-block'
+        width: '80%',
+        margin: 'auto',
+        display: 'block',
+        marginTop: '3%',
+        
     },
     userDiv: {
         marginTop: '5%',
@@ -117,8 +117,8 @@ const styles = theme => ({
         marginBottom: '5%'
     },
     submitBtn: {
-        float: 'right',
-        marginRight: '10%',
+        marginRight: '3%',
+        marginLeft: '3%',
         marginTop: '2%'
     },
     audienceIn: {
@@ -160,7 +160,12 @@ const styles = theme => ({
     },
     uploadBtn: {
         float: 'right',
-    }
+    },
+    bottombuttons: {
+        textAlign: 'center',
+        width: '100%',
+        margin: 'auto',
+    },
 })
 
 let length = 0;
@@ -172,6 +177,7 @@ class EolForm extends Component {
             date: '',
             change_description: '',
             number: '',
+            product:'',
             audience: '',
             type: 'EOL',
             notes: '',
@@ -241,6 +247,12 @@ class EolForm extends Component {
         this.props.history.push('/dashboard');
     }
 
+    handleSave = () => {
+        console.log(this.props.reduxStore.user.id);
+        this.props.dispatch({ type: 'SAVE_EOL', payload: this.state.newEol });
+        this.props.history.push('/dashboard');
+    }
+
     handleSubmitPart = (event) => {
         console.log('submit part');
         console.log(this.props.reduxStore.user);
@@ -292,7 +304,7 @@ class EolForm extends Component {
                             shrink: true,
                         }}
                         />
-                        <TextField className={classes.product} value={this.state.newEol.product} label="Product" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{shrink: true}} />
+                        <TextField className={classes.product} value={this.state.newEol.product} label="Product Name" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{shrink: true}} />
                         <TextField className={classes.number} value={this.props.match.params.id} label="EOL #:" disabled />
                         <br />
                         <TextField className={classes.buyDate} value={this.state.newEol.buyDate} type="date" label="Last Purchase Date:" onChange={event => this.handleChange(event, 'buyDate')} InputLabelProps={{shrink: true}} />
@@ -374,7 +386,11 @@ class EolForm extends Component {
                         <TextField className={classes.contactInfo} label="Email" value={this.props.reduxStore.user.email} disabled />
                     </div>
                     <br />
-                    <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                    <div className={classes.bottombuttons}>
+                        <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.props.history.push('/dashboard')}>Cancel</Button>
+                        <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.handleSave()}>Save</Button>
+                        <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                    </div>
                 </form>
             </>
         )

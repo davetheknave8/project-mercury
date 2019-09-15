@@ -51,6 +51,26 @@ router.get(`/search`, (req, res) => {
             npi.status as status, npi.date as date, npi.description as descripiton
             FROM npi
             WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
+            UNION
+            (SELECT npi."type" as "type", npi.id as id, 
+            npi.status as status, npi.date as date, npi.description as descripiton
+            FROM npi
+            WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
+            UNION
+            (select pcn.type as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description from part 
+            join pcn_part on part.id = pcn_part.part_id
+            join pcn on pcn_part.pcn_id = pcn.id
+            where number like $1)
+            UNION
+            (select eol.type as "type", eol.id as id, eol.status as status, eol.date as date, eol.change_description as description from part 
+            join eol_part on part.id = eol_part.part_id
+            join eol on eol_part.eol_id = eol.id
+            where number like $1)
+            UNION
+            (select npi.type as "type", npi.id as id, npi.status as status, npi.date as date, npi.description as description from part 
+            join npi_part on part.id = npi_part.part_id
+            join npi on npi_part.npi_id = npi.id
+            where number like $1)
             ORDER BY id ASC LIMIT 30;`;
     pool.query(queryText, sqlValues)
         .then((response) => {
@@ -343,7 +363,21 @@ router.post('/create', (req, res) => {
 
 router.put('/edit', (req, res) => {
     const objectToEdit = req.body;
-    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, status='PENDING' WHERE id=$6;`;
+    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, product=$6, status='PENDING' WHERE id=$7;`;
+    const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.product, objectToEdit.number]
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error editing pcn', error);
+            res.sendStatus(500);
+        })
+})
+
+router.put('/save', (req, res) => {
+    const objectToEdit = req.body;
+    const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5 WHERE id=$6;`;
     const values = [objectToEdit.type, objectToEdit.date, objectToEdit.audience, objectToEdit.change_description, objectToEdit.notes, objectToEdit.number]
     pool.query(sqlText, values)
         .then(response => {
@@ -454,7 +488,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM pcn_image WHERE pcn_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)
@@ -493,7 +527,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM eol_image WHERE eol_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)
@@ -532,7 +566,7 @@ router.delete('/deletepcn', (req, res) => {
                     })
             })
             .then(response => {
-                const sqlText = `DELETE FROM npi_image WHERE npi_id = $1;`;
+                const sqlText = `DELETE FROM image WHERE pcn_id = $1;`;
                 pool.query(sqlText, [req.query.id])
                     .then((response) => {
                         res.sendStatus(200)

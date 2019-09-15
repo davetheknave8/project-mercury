@@ -113,7 +113,7 @@ CREATE TABLE image
     id SERIAL PRIMARY KEY,
     file_name character varying(1000),
     figure character varying(200),
-    pcn_id
+    pcn_id VARCHAR(100)
 );
 
 CREATE TABLE part

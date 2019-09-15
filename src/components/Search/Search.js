@@ -30,22 +30,15 @@ const styles = {
         marginRight: 'auto',
         width: '35%',
     },
-    table: {
-        width: '50%',
-        margin: 'auto',
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: '2px',
-        
-    },
     tableDiv: {
         marginLeft: 'auto',
         marginRight: 'auto',
         width:'50%',
-        // overflow:'scroll',
-        height:  '500px',
         borderWidth: '50px',
         marginBottom: '65px',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '2px',
     },
     input: {
         marginLeft: 8,
@@ -86,9 +79,9 @@ const styles = {
     },
     position:{
         position: 'sticky',
-    top: 0,
-    backgroundColor: '#C7CAD9',
-    paddingBottom: '1%',
+        top: 0,
+        backgroundColor: '#C7CAD9',
+        paddingBottom: '1%',
     
     }
 };

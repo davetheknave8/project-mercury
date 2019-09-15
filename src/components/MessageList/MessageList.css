@@ -1,4 +1,7 @@
 .messagetext {
     cursor: pointer;
-    
 };
+
+.messagetext:hover {
+    color: blue;
+}

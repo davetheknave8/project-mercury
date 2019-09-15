@@ -10,10 +10,8 @@
   /* display: inline-block; */
   width:100%;
   box-sizing: border-box;
-  overflow: hidden;
   background-color: #3D3D5C;
   position: "static";
-  
 }
 
 .nav-link {
@@ -21,9 +19,8 @@
   color: #f2f2f2;
   background-color: #3D3D5C;
   text-align: center;
-  padding: 38px 24px 52px 24px ;
   /* text-decoration: none; */
-  font-size: 15px;
+  font-size: 10px;
   
 
   /* these last two make the logout button in
@@ -31,6 +28,40 @@
   border:none;
   cursor: pointer;
   outline:0;
+}
+
+.logout {
+  margin-left: 'auto';
+  color: #f2f2f2;
+  background-color: #3D3D5C;
+  text-align: center;
+  /* text-decoration: none; */
+  font-size: 10px;
+  float: right;
+  padding-top: 5.25%;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.logoutAdmin {
+  margin-left: 'auto';
+  color: #f2f2f2;
+  background-color: #3D3D5C;
+  text-align: center;
+  /* text-decoration: none; */
+  font-size: 10px;
+  float: right;
+  padding-top: 8.2%;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
 }
 
 .nav-link:hover {
@@ -41,32 +72,4 @@
 
 .nav-right {
   float: right;
-}
-
-[data-title]:hover:after {
-  opacity: 1;
-  transition: all 0.1s ease 0.1s;
-  visibility: visible;
-}
-
-[data-title]:after {
-  content: attr(data-title);
-  background-color: #00FF00;
-  color: #111;
-  font-size: 10px;
-  position: absolute;
-  padding: 1px 5px 2px 5px;
-  bottom: -0.3em;
-  left: center;
-  right: center;
-  white-space: nowrap;
-  box-shadow: 1px 1px 3px #222222;
-  opacity: 0;
-  border: 1px solid #111111;
-  z-index: 99999;
-  visibility: hidden;
-}
-
-[data-title] {
-  position: relative;
 }

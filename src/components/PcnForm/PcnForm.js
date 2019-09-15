@@ -20,7 +20,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import AddIcon from '@material-ui/icons/AddCircle';
-import List from '@material-ui/core/List';
 import Modal from '@material-ui/core/Modal';
 
 const styles = theme => ({
@@ -63,7 +62,7 @@ const styles = theme => ({
         backgroundColor: 'white',        
     },
     topElements: {
-        backgroundColor: '#A3A8C2',
+        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -82,18 +81,17 @@ const styles = theme => ({
         marginTop: '3%',
     },
     audience: {
-        display: 'block',
-        width: '60%',
+        width: '80%',
+        margin: 'auto',
         textAlign: 'left',
-        marginLeft: '20%',
         marginTop: '3%',
     },
     audienceLabel: {
         color: 'white'
     },
     notesDiv: {
-        width: '60%',
-        marginLeft: '20%',
+        width: '80%',
+        margin: 'auto',
         display: 'block',
         marginTop: '3%',
         
@@ -121,8 +119,8 @@ const styles = theme => ({
         marginBottom: '5%'
     },
     submitBtn: {
-        float: 'right',
-        marginRight: '10%',
+        marginRight: '3%',
+        marginLeft: '3%',
         marginTop: '2%'
     },
     audienceIn: {
@@ -145,6 +143,15 @@ const styles = theme => ({
     },
     uploadBtn: {
         float: 'right',
+    },
+    bottombuttons: {
+        textAlign: 'center',
+        width: '100%',
+        margin: 'auto',
+    },
+    product: {
+        marginLeft: '12%',
+        backgroundColor: 'white'
     }
 })
 
@@ -156,6 +163,7 @@ class PcnForm extends Component {
             date: '',
             change_description: '',
             number: '',
+            product:'',
             audience: '',
             type: 'pcn',
             notes: ''
@@ -184,6 +192,7 @@ class PcnForm extends Component {
             this.setState({
                 newPcn: {
                     date: moment(this.props.reduxStore.currentPcnReducer.date).format('YYYY-MM-DD'),
+                    product:this.props.reduxStore.currentPcnReducer.product,
                     change_description: this.props.reduxStore.currentPcnReducer.change_description,
                     number: this.props.reduxStore.currentPcnReducer.id,
                     audience: this.props.reduxStore.currentPcnReducer.audience,
@@ -219,6 +228,16 @@ class PcnForm extends Component {
         event.preventDefault();
         console.log(this.state.newPcn);
         this.props.dispatch({type: 'EDIT_PCN', payload: data});
+        this.props.history.push('/dashboard');
+    }
+
+    handleSave = () => {
+        let data = {
+            id: this.props.reduxStore.user.id,
+            newPcn: this.state.newPcn
+        }
+        console.log(this.props.reduxStore.user.id);
+        this.props.dispatch({ type: 'SAVE_PCN', payload: data });
         this.props.history.push('/dashboard');
     }
 
@@ -272,6 +291,7 @@ class PcnForm extends Component {
                         shrink: true,
                     }}
                     />
+                    <TextField className={classes.product} value={this.state.newPcn.product} label="Product Name" onChange={event => this.handleChange(event, 'product')} InputLabelProps={{shrink: true}} />
                     <TextField className={classes.number} value={this.props.match.params.id} label="PCN #:" disabled />
                 </div>
                 <br />
@@ -349,7 +369,11 @@ class PcnForm extends Component {
                     <TextField className={classes.contactInfo} label="Email" value={this.props.reduxStore.user.email} disabled />
                 </div>
                 <br />
-                <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                <div className={classes.bottombuttons}>
+                    <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.props.history.push('/dashboard')}>Cancel</Button>
+                    <Button variant="contained" size="large" className={classes.submitBtn} onClick={() => this.handleSave()}>Save</Button>
+                    <Button variant="contained" size="large" className={classes.submitBtn} type="submit">Submit</Button>
+                </div>
             </form>
             </>
         )
