@@ -13,14 +13,15 @@ class MessageList extends Component {
     checkStatus = (message, type) => {
         if( message.status === 'PUBLISHED' || message.status === 'DENIED'){
             if(type === 'unread'){
-                return (<p className={'messagetext'} onClick={() => this.navigate(message.id)}>
+                return (<div className={'messagediv'}
+                ><p className={'messagetext'} onClick={() => this.navigate(message.id)}>
                     {message.id} was denied on {Moment(message.message_time).format('MM/DD/YYYY')}
-                </p>)
+                </p></div>)
             }
             else if (type === 'read') {
-                return (<p className={'messagetext'} onClick={() => this.navigate(message.id)}>
+                return (<div className={'messagediv'}> <p className={'messagetext'} onClick={() => this.navigate(message.id)}>
                     {message.id} was {message.status.toLowerCase()} on {Moment(message.message_time).format('MM/DD/YYYY')}
-                </p>)
+                </p> </div>)
             }
         }
     }

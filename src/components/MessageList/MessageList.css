@@ -2,6 +2,10 @@
     cursor: pointer;
 };
 
-.messagetext:hover {
-    color: blue;
+p.messagetext:hover {
+    color: #537FAC
 }
+
+.messagediv p.messagetext:hover {
+    color: #537FAC
+ }
