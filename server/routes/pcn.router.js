@@ -12,12 +12,12 @@ router.get('/', (req, res) => {
             WHERE pcn.status = 'PUBLISHED')
             UNION
             (SELECT eol."type" as "type", eol.id as id, 
-            eol.status as status, eol.date as date, eol.change_description as descripiton
+            eol.status as status, eol.date as date, eol.change_description as description
             FROM eol
             WHERE eol.status = 'PUBLISHED')
             UNION
             (SELECT npi."type" as "type", npi.id as id, 
-            npi.status as status, npi.date as date, npi.description as descripiton
+            npi.status as status, npi.date as date, npi.description as description
             FROM npi
             WHERE npi.status = 'PUBLISHED')
             ORDER BY id ASC LIMIT 50;`
@@ -38,39 +38,35 @@ router.get(`/search`, (req, res) => {
     console.log('search req.query', req.query);
     value = req.query.search.toUpperCase();
     sqlValues = [`%${value}%`]
-    const queryText = `(SELECT pcn."type" as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description
+    const queryText = `(SELECT pcn."type" as "type", pcn.id as id, 
+            pcn.status as status, pcn.date as date, pcn.change_description as description
             FROM pcn
             WHERE "id" LIKE $1 AND pcn.status = 'PUBLISHED')
             UNION
             (SELECT eol."type" as "type", eol.id as id, 
-            eol.status as status, eol.date as date, eol.change_description as descripiton
+            eol.status as status, eol.date as date, eol.change_description as description
             FROM eol
             WHERE "id" LIKE $1 AND eol.status = 'PUBLISHED')
             UNION
             (SELECT npi."type" as "type", npi.id as id, 
-            npi.status as status, npi.date as date, npi.description as descripiton
-            FROM npi
-            WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
-            UNION
-            (SELECT npi."type" as "type", npi.id as id, 
-            npi.status as status, npi.date as date, npi.description as descripiton
+            npi.status as status, npi.date as date, npi.description as description
             FROM npi
             WHERE "id" LIKE $1 AND npi.status = 'PUBLISHED')
             UNION
             (select pcn.type as "type", pcn.id as id, pcn.status as status, pcn.date as date, pcn.change_description as description from part 
             join pcn_part on part.id = pcn_part.part_id
             join pcn on pcn_part.pcn_id = pcn.id
-            where number like $1)
+            where number like $1 AND pcn.status = 'PUBLISHED')
             UNION
             (select eol.type as "type", eol.id as id, eol.status as status, eol.date as date, eol.change_description as description from part 
             join eol_part on part.id = eol_part.part_id
             join eol on eol_part.eol_id = eol.id
-            where number like $1)
+            where number like $1 AND eol.status = 'PUBLISHED')
             UNION
             (select npi.type as "type", npi.id as id, npi.status as status, npi.date as date, npi.description as description from part 
             join npi_part on part.id = npi_part.part_id
             join npi on npi_part.npi_id = npi.id
-            where number like $1)
+            where number like $1 AND npi.status = 'PUBLISHED')
             ORDER BY id ASC LIMIT 30;`;
     pool.query(queryText, sqlValues)
         .then((response) => {
