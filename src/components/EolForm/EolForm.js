@@ -242,14 +242,22 @@ class EolForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.props.reduxStore.user.id);
-        this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
+        let data = {
+            newEol: this.state.newEol,
+            userId: this.props.reduxStore.user.id
+        }
+        console.log('submitting EOL, payload is:', data);
+        this.props.dispatch({ type: 'EDIT_EOL', payload: data });
         this.props.history.push('/dashboard');
     }
 
     handleSave = () => {
-        console.log(this.props.reduxStore.user.id);
-        this.props.dispatch({ type: 'SAVE_EOL', payload: this.state.newEol });
+        let data = {
+            newEol: this.state.newEol,
+            userId: this.props.reduxStore.user.id
+        }
+        console.log('saving EOL, payload is:', data);
+        this.props.dispatch({ type: 'SAVE_EOL', payload: data });
         this.props.history.push('/dashboard');
     }
 
@@ -291,6 +299,22 @@ class EolForm extends Component {
         this.props.dispatch({ type: 'UPLOAD_IMAGE', payload: { image: this.state.image, id: this.props.match.params.id } })
     }   
 
+    demoFill = () => {
+        this.setState({
+            newEol: {
+                ...this.state.newEol,
+                change_description: '',
+                product: '',
+                audience: '',
+                type: 'EOL',
+                notes: 'asdf',
+                buyDate: '',
+                shipDate: '',
+                userId: this.props.reduxStore.user.id
+            }
+        })
+    }
+
     render() {
         const { classes } = this.props;
         console.log(this.props.reduxStore.currentEolReducer.change_description)
@@ -298,7 +322,7 @@ class EolForm extends Component {
             <>
                 <Nav history={this.props.history} />
                 <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
-                    <h1 className={classes.formHeader}>EOL Form</h1>
+                    <h1 className={classes.formHeader} onClick={() => this.demoFill()}>EOL Form</h1>
                     <div className={classes.topElements}>
                         <TextField className={classes.date} value={this.state.newEol.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
                             shrink: true,
