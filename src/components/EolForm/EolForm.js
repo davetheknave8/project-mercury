@@ -28,6 +28,7 @@ const styles = theme => ({
         marginTop: '5%',
         backgroundColor: '#3D3D5C',
         paddingBottom: '7%',
+        marginBottom: '65px',
     },
     description: {
         margin: 'auto',
