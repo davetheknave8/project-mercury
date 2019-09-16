@@ -8,7 +8,7 @@ function* uploadImage(action){
                 axios.put(response.data, action.payload.image)
             })
         yield axios.post(`/api/aws/upload`, {image: action.payload.image.name, id: action.payload.id})
-        yield put({type: 'FETCH_PCN_IMAGES', payload: {id: action.payload.id}})
+        yield put({ type: 'FETCH_PCN_IMAGES', payload: { id: action.payload.id } })
     }
     catch(error){
         console.log('error uploading image', error);

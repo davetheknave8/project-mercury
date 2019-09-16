@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 
 //Material-UI
 import {withStyles} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+//Icons
+import ExitIcon from '@material-ui/icons/Cancel'
 
 const styles = theme => ({
     image: {
@@ -20,7 +24,10 @@ class ImageListItem extends Component {
         const {classes} = this.props;
         return(
             <>
+            <div>
+                <Button><ExitIcon /></Button>
                 <img className={classes.image} src={this.props.image.image_url} />
+            </div>   
             </>
         )
     }

@@ -4,6 +4,7 @@ import PartListItem from '../PartListItem/PartListItem';
 import Nav from '../Nav/Nav';
 import SearchPartListItem from '../SearchPartListItem/SearchPartListItem';
 import moment from 'moment';
+import ImageListItem from '../ImageListItem/ImageListItem';
 //React Quill
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
@@ -149,6 +150,13 @@ const styles = theme => ({
         width: '100%',
         margin: 'auto',
     },
+    imageUpload: {
+        marginLeft: '25%',
+        marginRight: '30%'
+    },
+    uploadBtn: {
+        float: 'right',
+    },
 })
 
 let length = 0;
@@ -180,6 +188,7 @@ class NpiForm extends Component {
     componentDidMount = () => {
         this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {id: this.props.match.params.id, type: 'npi'}})
         this.props.dispatch({type: 'FETCH_CURRENT_NPI', payload: this.props.match.params.id})
+        this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: { id: this.props.match.params.id } });
     }
 
     componentDidUpdate = (prevProps) => {
@@ -265,6 +274,14 @@ class NpiForm extends Component {
         this.setState({ show: false })
     }
 
+    fileChange = (event) => {
+        this.setState({ image: event.target.files[0] })
+    }
+
+    uploadImage = () => {
+        this.props.dispatch({ type: 'UPLOAD_IMAGE', payload: { image: this.state.image, id: this.props.match.params.id } })
+    }  
+
     render(){
         const {classes} = this.props;
      
@@ -345,6 +362,13 @@ class NpiForm extends Component {
                         <br />
                         <ReactQuill value={this.state.newNpi.audience || ''} className={classes.audienceIn} onChange={event => this.handleChange(event, 'audience') } />                        
                     </div>
+                </div>
+                <br />
+                <div className={classes.imageUpload}>
+                        <TextField style={{ backgroundColor: 'white' }} type="file" onChange={event => this.fileChange(event)} />
+                        <Button className={classes.uploadBtn} onClick={this.uploadImage} size="small" variant="contained">Upload</Button>
+                        <br />
+                        {this.props.reduxStore.pcnImage.map((image, i) => <ImageListItem key={i} image={image} />)}
                 </div>
                 <br />
                 <div className={classes.userDiv}>
