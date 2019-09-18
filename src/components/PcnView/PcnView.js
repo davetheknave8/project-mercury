@@ -138,6 +138,7 @@ const styles = theme => ({
     },
 });
 
+// define review modal position
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -150,6 +151,7 @@ function getModalStyle() {
 
 }
 
+// define image modal position
 function getImageModalStyle() {
     const top = 50;
     const left = 50;
@@ -174,6 +176,7 @@ class PcnView extends Component {
         alt: '',
     };
 
+    // On component mount, fetch PCN info, its parts, and its images
     componentDidMount() {
         let data = {
             id: this.props.match.params.id,
@@ -184,6 +187,7 @@ class PcnView extends Component {
         this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data });
     }
 
+    // Checks current EOL to see if it has been denied. If it has, render the denial message in a div.
     checkMessage() {
         const { classes } = this.props;
         if (this.props.reduxStore.pcnInfo.status === 'DENIED') {
@@ -196,20 +200,24 @@ class PcnView extends Component {
         }
     }
 
+    // OPEN REVIEW MODAL
     handleOpen = () => {
         this.setState({ open: true });
     };
 
+    // Set state to clicked image info, then OPEN IMAGE MODAL
     handleOpenImage = (imageURL, imageAlt) => {
         this.setState({ image: imageURL });
         this.setState({ alt: imageAlt });
         this.setState({ openImage: true });
     };
 
+    // CLOSE REVIEW MODAL
     handleClose = () => {
         this.setState({ open: false });
     };
 
+    // CLOSE IMAGE MODAL
     handleCloseImage = () => {
         this.setState({ openImage: false });
     };
@@ -220,6 +228,7 @@ class PcnView extends Component {
         })
     }
 
+    // dispatch when admin reviews the PCN form to update PCN status
     reviewPCN = (action) => {
         const data = {
             id: this.props.reduxStore.pcnInfo.id,
@@ -233,6 +242,7 @@ class PcnView extends Component {
         this.props.history.push('/dashboard');
     }
 
+    // Conditionally render buttons at the bottom of the form based on logged in user access level and status of the current PCN document.
     renderButton = () => {
         const { classes } = this.props;
         let pcnInfo = this.props.reduxStore.pcnInfo;

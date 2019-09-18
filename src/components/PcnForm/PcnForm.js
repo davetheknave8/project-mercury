@@ -63,7 +63,6 @@ const styles = theme => ({
         backgroundColor: 'white',        
     },
     topElements: {
-        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -167,7 +166,8 @@ class PcnForm extends Component {
             product:'',
             audience: '',
             type: 'pcn',
-            notes: ''
+            notes: '',
+            userID: this.props.reduxStore.user.id,
         },
         newPart: {
             name: '',
@@ -182,12 +182,14 @@ class PcnForm extends Component {
         image: ''
     }
 
+    // On mount, get current EOL info, its parts, and its images
     componentDidMount = () => {
         this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {id: this.props.match.params.id, type: 'pcn'}})
         this.props.dispatch({type: 'FETCH_CURRENT_PCN', payload: this.props.match.params.id});
         this.props.dispatch({type: 'FETCH_PCN_IMAGES', payload: {id: this.props.match.params.id}});
     }
-
+    
+    // Compare PCN info against previous props, once it sees a change it will set local state to the PCN info in the currentPCNReducer
     componentDidUpdate = (prevProps) => {
         if(prevProps.reduxStore.currentPcnReducer !== this.props.reduxStore.currentPcnReducer){
             this.setState({
@@ -204,7 +206,6 @@ class PcnForm extends Component {
     }
 
     handleChange = (event, propToChange) => {
-        console.log(propToChange);
         if(propToChange !== 'change_description' && propToChange !== 'notes' && propToChange !== 'audience'){
             this.setState({newPcn: {...this.state.newPcn, [propToChange]: event.target.value}})
         } else {
@@ -212,10 +213,8 @@ class PcnForm extends Component {
             console.log(this.state);
         }
         let html = this.state.newPcn.change_description;
-        console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
-        console.log(div.innerText);
         length = div.innerText.length;
         this.setState({descriptionLength: 2000})
         this.setState({descriptionLength: this.state.descriptionLength - length})
@@ -223,7 +222,7 @@ class PcnForm extends Component {
 
     handleSubmit = (event) => {
         let data = {
-            id: this.props.reduxStore.user.id,
+            userId: this.props.reduxStore.user.id,
             newPcn: this.state.newPcn
         }
         event.preventDefault();
@@ -234,7 +233,7 @@ class PcnForm extends Component {
 
     handleSave = () => {
         let data = {
-            id: this.props.reduxStore.user.id,
+            userId: this.props.reduxStore.user.id,
             newPcn: this.state.newPcn
         }
         console.log(this.props.reduxStore.user.id);

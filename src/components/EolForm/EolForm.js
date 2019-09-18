@@ -39,7 +39,6 @@ const styles = theme => ({
     },
     cell: {
         padding: 4,
-
     },
     table: {
         backgroundColor: 'white',
@@ -198,12 +197,14 @@ class EolForm extends Component {
         show: false
     }
 
+    // On mount, get current EOL info, its parts, and its images
     componentDidMount = () => {
         this.props.dispatch({ type: 'FETCH_CURRENT_PARTS', payload: { id: this.props.match.params.id, type: 'eol' } })
         this.props.dispatch({ type: 'FETCH_CURRENT_EOL', payload: this.props.match.params.id })
         this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: { id: this.props.match.params.id } });
     }
 
+    // Compare EoL info against previous props, once it sees a change it will set local state to the EoL info in the currentEolReducer
     componentDidUpdate = (prevProps) => {
         if (prevProps.reduxStore.currentEolReducer !== this.props.reduxStore.currentEolReducer) {
             this.setState({
@@ -219,6 +220,7 @@ class EolForm extends Component {
                     shipDate: this.props.reduxStore.currentEolReducer.shipDate,
                 }
             })
+            console.log(this.state.newEol);
         }
     }
 

@@ -31,11 +31,8 @@ router.get('/', (req, res) => {
         })
 });
 
-// search route for main search page.
-// expecting in req.query: PCN type, PCN id, PCN status, PCN date, and PCN description
-// this route will grab the info associated with the pcn ID sent
+// search route for main search page. Will return all published forms.
 router.get(`/search`, (req, res) => {
-    console.log('search req.query', req.query);
     value = req.query.search.toUpperCase();
     sqlValues = [`%${value}%`]
     const queryText = `(SELECT pcn."type" as "type", pcn.id as id, 
@@ -70,7 +67,6 @@ router.get(`/search`, (req, res) => {
             ORDER BY id ASC LIMIT 30;`;
     pool.query(queryText, sqlValues)
         .then((response) => {
-            console.log('response.rows', response.rows);
             res.send(response.rows);
         })
         .catch((error) => {
@@ -79,8 +75,8 @@ router.get(`/search`, (req, res) => {
         })
 });
 
+// Route to return the PCNs created by the logged in user, type can be specified and sent to filter results.
 router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
-    console.log('get dashboard, req.query is', req.query);
     if (req.query.status != '') {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
                             pcn.status as status, pcn.date as "date"
@@ -127,7 +123,6 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
         const sqlValues = [req.query.id]
         pool.query(sqlText, sqlValues)
             .then(response => {
-                console.log(response.rows);
                 res.send(response.rows)
             })
             .catch(error => {
@@ -137,8 +132,8 @@ router.get('/getdashboard', rejectUnauthenticated, (req, res) => {
     }
 });
 
+// Route to return the PCNs created by all users. Admin Dashboard View.
 router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
-    console.log('get admin dashboard, req.query is', req.query);
     if (req.query.status != '') {
         const sqlText = `(SELECT pcn."type" as "type", pcn.id as id,
                             pcn.status as status, pcn.date as "date"
@@ -157,7 +152,6 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
                             ORDER BY id;`
         pool.query(sqlText, [req.query.status])
             .then(response => {
-                console.log(response.rows);
                 res.send(response.rows)
             })
             .catch(error => {
@@ -191,13 +185,12 @@ router.get('/getadmindashboard', rejectUnauthenticated, (req, res) => {
 });
 
 // expecting in req.query: PCN id
-// this route will grab the info associated with the pcn ID sent
+// this route will return the info associated with the pcn ID sent
 router.get('/current', (req, res) => {
     const idToGet = req.query.id;
     const sqlText = `SELECT * FROM pcn WHERE id=$1;`;
     pool.query(sqlText, [idToGet])
         .then(response => {
-            console.log(response.rows[0])
             res.send(response.rows[0])
         })
         .catch(error => {
@@ -207,14 +200,13 @@ router.get('/current', (req, res) => {
 })
 
 // expecting in req.query: PCN type and PCN id
-// this route will grab the info associated with the pcn ID sent
+// this route will return the PCN info associated with the pcn ID sent
 router.get('/info', (req, res) => {
     console.log('getting specific pcn info, req.query is:', req.query)
     if (req.query.type === 'PCN') {
         let sqlText = 'select * from pcn where id = $1';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
-                console.log('sending response', response.rows);
                 res.send(response.rows)
             })
             .catch((error) => {
@@ -226,7 +218,6 @@ router.get('/info', (req, res) => {
         let sqlText = 'select * from eol where id = $1';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
-                console.log('sending response', response.rows);
                 res.send(response.rows)
             })
             .catch((error) => {
@@ -238,7 +229,6 @@ router.get('/info', (req, res) => {
         let sqlText = 'select * from npi where id = $1';
         pool.query(sqlText, [req.query.id])
             .then((response) => {
-                console.log('sending response', response.rows);
                 res.send(response.rows)
             })
             .catch((error) => {
@@ -252,14 +242,12 @@ router.get('/info', (req, res) => {
 });
 
 // expecting in req.query: PCN type and PCN id
-// this route will grab the parts associated with the pcn ID sent
+// this route will return the parts associated with the pcn ID sent
 router.get('/pcnparts', (req, res) => {  
-    console.log('getting parts for specific pcn, req.query is:', req.query)
     if( req.query.type === 'PCN' ){
         let sqlText = 'select name, number, description from part join pcn_part on part.id = pcn_part.part_id where pcn_part.pcn_id = $1;';
             pool.query(sqlText, [req.query.id])
                 .then((response) => {
-                    console.log('sending response', response.rows);
                     res.send(response.rows)
                 })
                 .catch((error) => {
@@ -271,7 +259,6 @@ router.get('/pcnparts', (req, res) => {
         let sqlText = 'select part.id, part.name, part.number, part.description, replacement_id, part2.number as replacement_number from eol_part left join part on part.id = eol_part.part_id left join part as part2 on part2.id = eol_part.replacement_id where eol_part.eol_id = $1;';
             pool.query(sqlText, [req.query.id])
                 .then((response) => {
-                    console.log('sending response', response.rows);
                     res.send(response.rows)
                 })
                 .catch((error) => {
@@ -283,7 +270,6 @@ router.get('/pcnparts', (req, res) => {
         let sqlText = 'select name, number, description from part join npi_part on part.id = npi_part.part_id where npi_part.npi_id = $1;';
             pool.query(sqlText, [req.query.id])
                 .then((response) => {
-                    console.log('sending response', response.rows);
                     res.send(response.rows)
                 })
                 .catch((error) => {
@@ -296,10 +282,8 @@ router.get('/pcnparts', (req, res) => {
     }
 });
 
-// expecting in req.query: PCN type and PCN id
-// this route will grab the images associated with the pcn ID sent
-
-
+// expecting in req.query: User ID
+// this route will return all notifications from EOLs, NPIs, and PCNs
 router.get('/messages', (req, res) => {
     const sqlText = `(select eol_review_log.eol_id as id, eol_review_log.message_time, eol_review_log.notification_message, eol_review_log.status from eol_review_log join eol on eol.id = eol_review_log.eol_id where creator_id = $1)
                         union
@@ -317,6 +301,8 @@ router.get('/messages', (req, res) => {
         })
 })
 
+// expecting in req.query: User ID
+// this route will return notifications from EOLs, NPIs, and PCNs that have been denied, and not yet re-submitted.
 router.get('/unreadmessages', (req, res) => {
     const sqlText = `(select eol.id as id, eol.message_time, eol.notification_message, eol.status from eol where creator_id = $1 and message_read = 0 and status = 'DENIED')
                         union
@@ -336,6 +322,7 @@ router.get('/unreadmessages', (req, res) => {
 
 //POST Routes
 
+// This route will create the PCN form in the database, generating a unique ID and assigning the creator_ID
 router.post('/create', (req, res) => {
     console.log(req.body.type);
     const userId = req.user.id
@@ -345,7 +332,6 @@ router.post('/create', (req, res) => {
                             RETURNING id;`;
         pool.query(sqlText, [userId, userId, 'PCN'])
             .then(response => {
-                console.log(response.rows);
                 res.send(response.rows);
             })
             .catch(error => {
@@ -357,6 +343,7 @@ router.post('/create', (req, res) => {
 
 // PUT Routes
 
+// Route will update the PCN form that is currently being modified when it is submitted
 router.put('/edit', (req, res) => {
     const objectToEdit = req.body;
     const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5, product=$6, status='PENDING' WHERE id=$7;`;
@@ -371,6 +358,7 @@ router.put('/edit', (req, res) => {
         })
 })
 
+// Route will update the PCN form that is currently being modified when it is saved
 router.put('/save', (req, res) => {
     const objectToEdit = req.body;
     const sqlText = `UPDATE pcn SET type=$1, date=$2, audience=$3, change_description=$4, notes=$5 WHERE id=$6;`;
@@ -385,6 +373,7 @@ router.put('/save', (req, res) => {
         })
 })
 
+// Route to handle admin reviews of submitted forms. Expecting to receive the PCN ID, denial message values, and denial status.
 router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
     if( req.body.type === 'PCN' ){
         if (req.body.status === 'DENIED'){
@@ -395,7 +384,7 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
                 res.sendStatus(200);
             })
             .catch(error => {
-                console.log('error editing pcn', error);
+                console.log('error reviewing pcn', error);
                 res.sendStatus(500);
             })
         }
@@ -407,7 +396,7 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
                 res.sendStatus(200);
             })
             .catch(error => {
-                console.log('error editing pcn', error);
+                console.log('error reviewing pcn', error);
                 res.sendStatus(500);
             })
         }
@@ -421,7 +410,7 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
                     res.sendStatus(200);
                 })
                 .catch(error => {
-                    console.log('error editing eol', error);
+                    console.log('error reviewing eol', error);
                     res.sendStatus(500);
                 })
         }
@@ -433,7 +422,7 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
                     res.sendStatus(200);
                 })
                 .catch(error => {
-                    console.log('error editing eol', error);
+                    console.log('error reviewing eol', error);
                     res.sendStatus(500);
                 })
         }
@@ -447,7 +436,7 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
                     res.sendStatus(200);
                 })
                 .catch(error => {
-                    console.log('error editing npi', error);
+                    console.log('error reviewing npi', error);
                     res.sendStatus(500);
                 })
         }
@@ -459,7 +448,7 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
                     res.sendStatus(200);
                 })
                 .catch(error => {
-                    console.log('error editing npi', error);
+                    console.log('error reviewing npi', error);
                     res.sendStatus(500);
                 })
         }
@@ -468,6 +457,7 @@ router.put('/reviewpcn/:id', rejectUnauthenticatedAdmin, (req, res) => {
     }
 })
 
+// Route to delete a PCN form from the PM dashboard, expecting PCN ID
 router.delete('/deletepcn', (req, res) => {
     if (req.query.type === 'PCN') {
         const sqlText = `DELETE FROM pcn_part WHERE pcn_id = $1;`;

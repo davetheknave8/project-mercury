@@ -25,7 +25,6 @@ const styles = theme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
         width:'50%',
-        // overflow: 'scroll',
         height: '500px',
         borderWidth: '50px',
         marginBottom: '65px',
@@ -208,7 +207,7 @@ class AdminDashboard extends Component {
                 <div className={classes.welcome}>
                     <h4 className={classes.welcomeText}>Admin Dashboard</h4>
                 </div>
-                <p stickyHeader className="welcome">Filter: &nbsp;&nbsp;
+                <p stickyheader="true" className="welcome">Filter: &nbsp;&nbsp;
                     {this.ifPending(this.props.status)}
                     &nbsp;
                     &nbsp;

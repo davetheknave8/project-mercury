@@ -3,12 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const {rejectUnauthenticated} = require('../modules/authentication-middleware');
 
-/**
- * GET route template
- */
+// route used to get parts that are assigned to the PCN, EOL, or NPI form that is currently being edited.
 router.get('/current', rejectUnauthenticated, (req, res) => {
     const idToGet = req.query.id;
-    console.log(req.query);
     if(req.query.type === 'pcn'){
         const sqlText = `SELECT pcn_part.id, part.name, part.number, part.description FROM part
                             JOIN pcn_part ON part.id = pcn_part.part_id
@@ -19,7 +16,6 @@ router.get('/current', rejectUnauthenticated, (req, res) => {
                 res.send(response.rows);
             })
             .catch(error => {
-                console.log('error getting current pcn parts', error);
                 res.sendStatus(500);
             })
     } else if (req.query.type === 'eol'){
@@ -31,7 +27,6 @@ router.get('/current', rejectUnauthenticated, (req, res) => {
         const values = [idToGet];
         pool.query(sqlText, values)
             .then(response => {
-                console.log(response.rows);
                 res.send(response.rows);
             })
             .catch(error => {
@@ -45,7 +40,6 @@ router.get('/current', rejectUnauthenticated, (req, res) => {
         const values = [idToGet];
         pool.query(sqlText, values)
             .then(response => {
-                console.log(response.rows);
                 res.send(response.rows);
             })
             .catch(error => {
@@ -55,6 +49,7 @@ router.get('/current', rejectUnauthenticated, (req, res) => {
     }
 });
 
+// Route to search all parts in the DB, used in the add parts field on the PCN, EOL, and NPI forms.
 router.get('/search', rejectUnauthenticated, (req, res) => {
     const search = `%${req.query.search}%`;
     const sqlText = `SELECT * FROM part WHERE number LIKE $1;`;
@@ -68,11 +63,8 @@ router.get('/search', rejectUnauthenticated, (req, res) => {
         })
 })
 
-/**
- * POST route template
- */
+// Route to create a new part when posting a part in the PCN, EOL, or NPI creation form
 router.post('/create', rejectUnauthenticated, (req, res) => {
-    console.log(req.body);
     const sqlText = `INSERT INTO part(name, number, description)
                         VALUES($1, $2, $3)
                         RETURNING id;`;
@@ -120,8 +112,8 @@ router.post('/create', rejectUnauthenticated, (req, res) => {
         })
 });
 
+// Route to post a part to the PCN, EoL, or NPI form that is being edited.
 router.post('/add', rejectUnauthenticated, (req, res) => {
-    console.log('hello');
     if(req.body.type === 'pcn'){
         const partToAdd = req.body;
         const sqlText = `INSERT INTO pcn_part(pcn_id, part_id)
@@ -164,6 +156,7 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
     }
 })
 
+// Route to remove a part from the PCN, EOL, or NPI form that is being edited.
 router.delete('/pcn_part', rejectUnauthenticated, (req, res) => {
     if(req.query.type === 'pcn'){
         const sqlText = `DELETE FROM pcn_part WHERE id=$1;`;
@@ -198,9 +191,8 @@ router.delete('/pcn_part', rejectUnauthenticated, (req, res) => {
     }
 })
 
-//EDIT 
+// Route to add a replacement part to a listed part in the EoL form.
 router.put('/replacement', rejectUnauthenticated, (req, res) => {
-    console.log(req.body);
     const sqlText = `UPDATE eol_part SET replacement_id=$1 WHERE id=$2;`;
     const values = [req.body.replacement_id, req.body.part_number];
     pool.query(sqlText, values)

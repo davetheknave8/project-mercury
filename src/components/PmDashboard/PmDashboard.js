@@ -28,8 +28,6 @@ const styles = theme => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     width:'50%',
-    // overflow: 'scroll',
-    // height: '500px',
     borderWidth: '50px',
     marginBottom: '65px',
   },

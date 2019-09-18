@@ -14,7 +14,6 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 
 //Icons
-import AddIcon from '@material-ui/icons/AddOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
@@ -53,10 +52,12 @@ class PartListItem extends Component {
         this.setState({search: event.target.value})
     }
 
+    // OPEN MODAL
     handleOpen = (event) => {
         this.setState({show: true})
     }
 
+    // CLOSE MODAL
     handleClose = () => {
         this.setState({show: false})
     }
@@ -66,7 +67,6 @@ class PartListItem extends Component {
     }
 
     render(){
-        console.log(this.props.part)
         const {classes} = this.props;
         return(
             <>

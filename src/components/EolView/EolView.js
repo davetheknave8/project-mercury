@@ -176,6 +176,7 @@ class EolView extends Component {
         alt: '',
     };
 
+    // On component mount, fetch EOL info, its parts, and its images
     componentDidMount() {
         let data = {
             id: this.props.match.params.id,
@@ -186,6 +187,7 @@ class EolView extends Component {
         this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: data });
     }
 
+    // Checks current EOL to see if it has been denied. If it has, render the denial message in a div.
     checkMessage() {
         const { classes } = this.props;
         if (this.props.reduxStore.pcnInfo.status === 'DENIED') {
@@ -198,20 +200,24 @@ class EolView extends Component {
         }
     }
 
+    // OPEN REVIEW MODAL
     handleOpen = () => {
         this.setState({ open: true });
     };
 
+    //set state to the clicked image information, open image modal
     handleOpenImage = (imageURL, imageAlt) => {
         this.setState({ image: imageURL });
         this.setState({ alt: imageAlt });
         this.setState({ openImage: true });
     };
 
+    // CLOSE REVIEW MODAL
     handleClose = () => {
         this.setState({ open: false });
     };
 
+    // CLOSE IMAGE MODAL
     handleCloseImage = () => {
         this.setState({ openImage: false });
     };
@@ -222,6 +228,7 @@ class EolView extends Component {
         })
     }
 
+    // dispatch when admin reviews the EoL form to update EoL status
     reviewPCN = (action) => {
         const data = {
             id: this.props.reduxStore.pcnInfo.id,
@@ -235,6 +242,7 @@ class EolView extends Component {
         this.props.history.push('/dashboard');
     }
 
+    // Conditionally render buttons at the bottom of the form based on logged in user access level and status of the current EoL document.
     renderButton = () => {
         const { classes } = this.props;
         let pcnInfo = this.props.reduxStore.pcnInfo;
