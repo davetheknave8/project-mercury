@@ -176,7 +176,7 @@ class EolView extends Component {
         alt: '',
     };
 
-    // On component mount, fetch PCN info, its parts, and its images
+    // On component mount, fetch EOL info, its parts, and its images
     componentDidMount() {
         let data = {
             id: this.props.match.params.id,
@@ -228,7 +228,7 @@ class EolView extends Component {
         })
     }
 
-    // dispatch when admin reviews the EoL form to update EoL statusf
+    // dispatch when admin reviews the EoL form to update EoL status
     reviewPCN = (action) => {
         const data = {
             id: this.props.reduxStore.pcnInfo.id,
@@ -242,7 +242,7 @@ class EolView extends Component {
         this.props.history.push('/dashboard');
     }
 
-    //Conditionally render buttons at the bottom of the form based on logged in user access level and status of the current EoL document.
+    // Conditionally render buttons at the bottom of the form based on logged in user access level and status of the current EoL document.
     renderButton = () => {
         const { classes } = this.props;
         let pcnInfo = this.props.reduxStore.pcnInfo;
