@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Moment from 'moment';
 import './MessageList.css'
 
+
+// Component returns message items in the messages modal in the Nav
 class MessageList extends Component {
 
     navigate = (id) => {

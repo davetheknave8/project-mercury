@@ -71,7 +71,6 @@ const styles = theme => ({
         backgroundColor: 'white',        
     },
     topElements: {
-        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -209,18 +208,14 @@ class NpiForm extends Component {
     }
 
     handleChange = (event, propToChange) => {
-        console.log(propToChange);
         if(propToChange !== 'description' && propToChange !== 'notes' && propToChange !== 'audience'){
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event.target.value}})
         } else {
             this.setState({newNpi: {...this.state.newNpi, [propToChange]: event}})
-            console.log(this.state);
         }
         let html = this.state.newNpi.description;
-        console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
-        console.log(div.innerText);
         length = div.innerText.length;
         this.setState({descriptionLength: 2000})
         this.setState({descriptionLength: this.state.descriptionLength - length})
@@ -232,7 +227,6 @@ class NpiForm extends Component {
             newNpi: this.state.newNpi
         }
         event.preventDefault();
-        console.log(this.state.newNpi);
         this.props.dispatch({type: 'EDIT_NPI', payload: data});
         this.props.history.push('/dashboard');
     }
@@ -242,13 +236,11 @@ class NpiForm extends Component {
             userId: this.props.reduxStore.user.id,
             newNpi: this.state.newNpi
         }
-        console.log(this.props.reduxStore.user.id);
         this.props.dispatch({ type: 'SAVE_NPI', payload: data });
         this.props.history.push('/dashboard');
     }
 
     handleSubmitPart = (event) => {
-        console.log('submit part');
         this.props.dispatch({type: 'CREATE_PART', payload: this.state.newPart})
         this.setState({newPart: {name: '', number: '', description: ''}})
     }
@@ -258,13 +250,11 @@ class NpiForm extends Component {
     }
 
     handleSearchPartChange = (event) => {
-        console.log(event.target.value.length)
         if(event.target.value.length < 2){
             this.setState({searching: false})
         } else{
             this.setState({searching: true})
         }
-        console.log(this.state.searching);
         this.props.dispatch({type: 'SEARCH_PARTS', payload: {query: event.target.value}})
     }
 
@@ -332,23 +322,22 @@ class NpiForm extends Component {
                     </TableBody>
                 </Table>
                 <Modal
-                        open={this.state.show}
-                        onClose={this.handleCloseSearch}
-                        >
-                            <div style={{top: '10%', left: '35%'}} className={classes.search}>
-                            <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
-                                <Table>
-                                    <TableHead>
-                                        <TableCell>Part Number</TableCell>
-                                        <TableCell>Part Name</TableCell>
-                                        <TableCell>Description</TableCell>
-                                    </TableHead>
-                                    <TableBody>
-                                        {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='NPI' npiNumber={this.props.match.params.id} part={part} />) : <></>}
-                                    </TableBody>
-                                </Table>
-                            </div>
-                        </Modal>
+                    open={this.state.show}
+                    onClose={this.handleCloseSearch}
+                    >
+                        <div style={{top: '10%', left: '35%'}} className={classes.search}>
+                        <TextField variant="outlined" label="Search Part #'s" onChange={event => this.handleSearchPartChange(event)} />
+                            <Table>                                    <TableHead>
+                                     <TableCell>Part Number</TableCell>
+                                    <TableCell>Part Name</TableCell>
+                                    <TableCell>Description</TableCell>
+                                </TableHead>
+                                <TableBody>
+                                    {this.state.searching ? this.props.reduxStore.searchPartReducer.map(part => <SearchPartListItem type='NPI' npiNumber={this.props.match.params.id} part={part} />) : <></>}
+                                </TableBody>
+                            </Table>
+                        </div>
+                </Modal>
                 <br />
                 <div>
                     <div className={classes.notesDiv}>
