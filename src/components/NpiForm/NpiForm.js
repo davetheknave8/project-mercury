@@ -186,12 +186,14 @@ class NpiForm extends Component {
         show: false,
     }
 
+    // On mount, get current NPI info, its parts, and its images
     componentDidMount = () => {
         this.props.dispatch({type: 'FETCH_CURRENT_PARTS', payload: {id: this.props.match.params.id, type: 'npi'}})
         this.props.dispatch({type: 'FETCH_CURRENT_NPI', payload: this.props.match.params.id})
         this.props.dispatch({ type: 'FETCH_PCN_IMAGES', payload: { id: this.props.match.params.id } });
     }
 
+    // Compare NPI info against previous props, once it sees a change it will set local state to the EoL info in the currentNPIReducer
     componentDidUpdate = (prevProps) => {
         if(prevProps.reduxStore.currentNpiReducer !== this.props.reduxStore.currentNpiReducer){
             this.setState({
