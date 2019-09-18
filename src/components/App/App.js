@@ -5,17 +5,10 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
-
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import Dashboard from '../Dashboard/Dashboard';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import Search from '../Search/Search';
 import PcnForm from '../PcnForm/PcnForm';
 import PcnView from '../PcnView/PcnView';
