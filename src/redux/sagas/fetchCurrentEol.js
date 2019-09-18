@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+//
 function* fetchCurrentEol(action) {
     try {
         const response = yield axios.get(`/api/eol/current?id=${action.payload}`)
