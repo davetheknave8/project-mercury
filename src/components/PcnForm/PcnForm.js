@@ -167,7 +167,8 @@ class PcnForm extends Component {
             product:'',
             audience: '',
             type: 'pcn',
-            notes: ''
+            notes: '',
+            userID: this.props.reduxStore.user.id,
         },
         newPart: {
             name: '',
@@ -223,7 +224,7 @@ class PcnForm extends Component {
 
     handleSubmit = (event) => {
         let data = {
-            id: this.props.reduxStore.user.id,
+            userId: this.props.reduxStore.user.id,
             newPcn: this.state.newPcn
         }
         event.preventDefault();
@@ -234,7 +235,7 @@ class PcnForm extends Component {
 
     handleSave = () => {
         let data = {
-            id: this.props.reduxStore.user.id,
+            userId: this.props.reduxStore.user.id,
             newPcn: this.state.newPcn
         }
         console.log(this.props.reduxStore.user.id);

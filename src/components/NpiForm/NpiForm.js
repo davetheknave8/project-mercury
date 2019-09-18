@@ -171,7 +171,8 @@ class NpiForm extends Component {
             number: '',
             audience: '',
             type: 'npi',
-            notes: ''
+            notes: '',
+            userId: this.props.reduxStore.user.id
         },
         newPart: {
             name: '',
@@ -227,7 +228,7 @@ class NpiForm extends Component {
 
     handleSubmit = (event) => {
         let data = {
-            id: this.props.reduxStore.user.id,
+            userId: this.props.reduxStore.user.id,
             newNpi: this.state.newNpi
         }
         event.preventDefault();
@@ -238,7 +239,7 @@ class NpiForm extends Component {
 
     handleSave = () => {
         let data = {
-            id: this.props.reduxStore.user.id,
+            userId: this.props.reduxStore.user.id,
             newNpi: this.state.newNpi
         }
         console.log(this.props.reduxStore.user.id);

@@ -39,7 +39,6 @@ const styles = theme => ({
     },
     cell: {
         padding: 4,
-
     },
     table: {
         backgroundColor: 'white',
@@ -219,6 +218,7 @@ class EolForm extends Component {
                     shipDate: this.props.reduxStore.currentEolReducer.shipDate,
                 }
             })
+            console.log(this.state.newEol);
         }
     }
 
