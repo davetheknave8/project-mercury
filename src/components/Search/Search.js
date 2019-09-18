@@ -110,7 +110,7 @@ class Search extends Component {
                 <Paper className={classes.root} elevation={1}>
                     <IconButton className={classes.iconButton} aria-label="Menu">
                     </IconButton>
-                    <InputBase className={classes.input} placeholder="Search for PCN by #" onChange={(event) => this.handleChange(event)} />
+                    <InputBase className={classes.input} placeholder="Search by PCN or Part ID" onChange={(event) => this.handleChange(event)} />
                     <IconButton className={classes.iconButton} aria-label="Search">
                         <SearchIcon />
                     </IconButton>

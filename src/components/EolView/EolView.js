@@ -326,7 +326,7 @@ class EolView extends Component {
                             onClose={this.handleClose}
                             >
                             <div style={getModalStyle()} className={classes.paper}>
-                                <Typography variant="h6" id="modal-title">Notes</Typography>
+                                <Typography variant="h6" id="modal-title">Reasons for denial</Typography>
                                 <textarea value={this.state.message} onChange={(event) => this.handleChangeFor(event, 'message')} rows='4' cols='50'></textarea>
                                 <br/>
                                 <Button size='small' color='secondary' onClick={() => this.reviewPCN('DENIED')}>Confirm</Button>
