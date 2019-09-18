@@ -64,7 +64,6 @@ const styles = theme => ({
         backgroundColor: 'white',
     },
     topElements: {
-        // backgroundColor: '#A3A8C2',
         marginRight: '10%',
         marginLeft: '10%',
         paddingTop: '3%',
@@ -224,18 +223,14 @@ class EolForm extends Component {
     }
 
     handleChange = (event, propToChange) => {
-        console.log(propToChange);
         if (propToChange !== 'change_description' && propToChange !== 'notes' && propToChange !== 'audience') {
             this.setState({ newEol: { ...this.state.newEol, [propToChange]: event.target.value } })
         } else {
             this.setState({ newEol: { ...this.state.newEol, [propToChange]: event } })
-            console.log(this.state);
         }
         let html = this.state.newEol.change_description;
-        console.log(html);
         let div = document.createElement("div");
         div.innerHTML = html;
-        console.log(div.innerText);
         length = div.innerText.length;
         this.setState({ descriptionLength: 2000 })
         this.setState({ descriptionLength: this.state.descriptionLength - length })
@@ -243,20 +238,24 @@ class EolForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.props.reduxStore.user.id);
-        this.props.dispatch({ type: 'EDIT_EOL', payload: this.state.newEol });
+        let data = {
+            newEol: this.state.newEol,
+            userId: this.props.reduxStore.user.id
+        }
+        this.props.dispatch({ type: 'EDIT_EOL', payload: data });
         this.props.history.push('/dashboard');
     }
 
     handleSave = () => {
-        console.log(this.props.reduxStore.user.id);
-        this.props.dispatch({ type: 'SAVE_EOL', payload: this.state.newEol });
+        let data = {
+            newEol: this.state.newEol,
+            userId: this.props.reduxStore.user.id
+        }
+        this.props.dispatch({ type: 'SAVE_EOL', payload: data });
         this.props.history.push('/dashboard');
     }
 
     handleSubmitPart = (event) => {
-        console.log('submit part');
-        console.log(this.props.reduxStore.user);
         this.props.dispatch({ type: 'CREATE_PART', payload: {...this.state.newPart, type: 'eol', id: this.props.match.params.id}})
         this.setState({ newPart: { name: '', number: '', description: '' } })
     }
@@ -266,13 +265,11 @@ class EolForm extends Component {
     }
 
     handleSearchPartChange = (event) => {
-        console.log(event.target.value.length)
         if (event.target.value.length < 2) {
             this.setState({ searching: false })
         } else {
             this.setState({ searching: true })
         }
-        console.log(this.state.searching);
         this.props.dispatch({ type: 'SEARCH_PARTS', payload: { query: event.target.value } })
     }
 
@@ -294,7 +291,6 @@ class EolForm extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props.reduxStore.currentEolReducer.change_description)
         return (
             <>
                 <Nav history={this.props.history} />
