@@ -5,10 +5,6 @@ import {connect} from 'react-redux';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import {withStyles} from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
-//Icon
-import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
     searchItem: {
