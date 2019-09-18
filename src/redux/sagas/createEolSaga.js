@@ -1,9 +1,8 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-
+// Posts an EOL form to the EOL table in the DB.
 function* createEol(action) {
     try {
-        console.log('create')
         const response = yield axios.post(`/api/eol/create`, action.payload);
         yield put({ type: 'SET_CREATE_EOL', payload: response.data })
     }

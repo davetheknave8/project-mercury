@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-// fetchs current npi.
+// fetchs current npi by ID.
 function* fetchCurrentNpi(action){
     try{
         const response = yield axios.get(`/api/npi/current?id=${action.payload}`)

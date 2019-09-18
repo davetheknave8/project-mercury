@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-
+// sends updated parts to the table to put the changes to the current column
 function* editEol(action) {
     try {
         yield axios.put('/api/eol/edit', action.payload.newEol);

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 // worker Saga: will be fired on "REGISTER" actions
 function* fetchPcnImage(action) {
-    console.log('in fetchPcnImage, action.payload is', action.payload)
     try {
         const id = action.payload.id;
         const response = yield axios.get(`/api/aws/retrieve?id=${id}`);

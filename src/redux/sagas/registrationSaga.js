@@ -9,7 +9,6 @@ function* registerUser(action) {
 
     // passes the username and password from the payload to the server
     yield axios.post('/api/user/register', action.payload);
-    console.log('action.payload', action.payload)
 
     // automatically log a user in after registration
     //This was turned off to stop it from being people to the UserPage

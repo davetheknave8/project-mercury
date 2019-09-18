@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-
+// queries the DB for the parts.
 function* searchParts(action){
     try{
         const response = yield axios.get(`/api/parts/search?search=${action.payload.query}`)

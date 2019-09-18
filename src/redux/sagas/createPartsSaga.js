@@ -3,7 +3,6 @@ import axios from 'axios';
 
 function* createParts(action){
     try{
-        console.log(action.payload.pcnNumber);
         const pcnNumber = action.payload.pcnNumber
         yield axios.post('/api/parts/create', action.payload);
         yield put({type: 'FETCH_CURRENT_PARTS', payload: {id: action.payload.id, type: action.payload.type}})

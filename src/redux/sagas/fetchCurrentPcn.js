@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+//gets the current pcn from the when its click on the DOM.
 function* fetchCurrentPcn(action){
     try{
         const response = yield axios.get(`/api/pcn/current?id=${action.payload}`)

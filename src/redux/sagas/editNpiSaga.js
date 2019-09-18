@@ -1,6 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
-
+// sends updated parts to the table to put the changes to the current column
 function* editNpi(action){
     try{
         yield axios.put('/api/npi/edit', action.payload.newNpi);

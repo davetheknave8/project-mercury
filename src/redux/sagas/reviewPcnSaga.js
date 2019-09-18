@@ -7,7 +7,6 @@ function* reviewPcn(action) {
         userId: 1,
         status: ''
     }
-    console.log('in reviewPcn, action.payload is', action.payload)
     try {
         yield axios.put(`/api/pcn/reviewpcn/${action.payload.id}`, action.payload);
         yield put({ type: 'FETCH_ADMIN_DASHBOARD', payload: data })

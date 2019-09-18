@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-
+// Deletes the pcn part by id number and type removing it from the table
 function* deletePcnPart(action){
     try{
         yield axios.delete(`/api/parts/pcn_part?id=${action.payload.id}&type=${action.payload.type}`);
