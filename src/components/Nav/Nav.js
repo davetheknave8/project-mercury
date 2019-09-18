@@ -19,7 +19,6 @@ import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Modal from '@material-ui/core/Modal';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -124,7 +123,6 @@ class Nav extends Component{
     this.setState({
       [propertyName]: event.target.value,
     });
-    console.log('event.target.value', event.target.value)
   }
 
   componentDidUpdate = (prevProps) => {
@@ -171,7 +169,6 @@ class Nav extends Component{
   handleSubmitNewPassword = event => {
     event.preventDefault();
     this.setState({show: false})
-    console.log(this.props.user);
   }
 
   handleChange = (event, propToChange) => {
@@ -208,20 +205,18 @@ class Nav extends Component{
   }
 
   handlePcn = () => {
-    console.log('create pcn');
     this.props.dispatch({type: 'CREATE_PCN', payload: {type: 'pcn'}})
   }
 
   handleEol = () => {
-    console.log('create eol');
     this.props.dispatch({type: 'CREATE_EOL', payload: {type: 'eol'}})
   }
 
   handleNpi = () => {
-    console.log('create npi');
     this.props.dispatch({type: 'CREATE_NPI', payload: {type: 'npi'}})
 	}
 
+  // Function to check user messages and render them
 	checkMessages = () => {
 		if( this.state.messages === 'new' ){
 			if( this.props.reduxStore.unreadMessages.length === 0 ){
@@ -417,18 +412,6 @@ class Nav extends Component{
                 <div style={getModalStyle()} className={classes.paper} >
                   <div className={classes.messages}>
 										{this.checkMessages()}
-                  	{/* <Typography variant="h5" id="modal-title">New Messages</Typography>
-										<div>
-											{this.props.reduxStore.unreadMessages.map((message, i) => {
-												return (<MessageList history={this.props.history} message={message} key={i} show={this.state.messages}/>);
-											})}
-										</div> */}
-										{/* <Typography variant="h5" id="modal-title">History</Typography>
-										<div>
-											{this.props.reduxStore.messages.map((message, i) => {
-												return (<MessageList history={this.props.history} message={message} key={i} type='read'/>);
-											})}
-										</div> */}
                   </div>
                   <Button size='small' color='secondary' onClick={() => this.handleCloseMessages()}>Back</Button>
                 </div>
