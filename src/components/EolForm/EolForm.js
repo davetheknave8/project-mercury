@@ -299,31 +299,13 @@ class EolForm extends Component {
         this.props.dispatch({ type: 'UPLOAD_IMAGE', payload: { image: this.state.image, id: this.props.match.params.id } })
     }   
 
-    demoFill = () => {
-        console.log(this.state.newEol)
-        this.setState({
-            newEol: {
-                ...this.state.newEol,
-                change_description: '<p>The DROK Bluetooth Receiver DC 5V-35V Bluetooth Board product is being discontinued. Please note last time buy and last time ship dates as noted below. We ask that all orders be placed seven days before the listed last-time-buy date.</p>',
-                product: 'DROK Bluetooth Receiver',
-                audience: '<p>To all customers and distributors of this product</p>',
-                type: 'EOL',
-                notes: '<p>Please see the following products for replacement drop-ins:</p><ul><li>DROK Digital Amplifier Wireless BT 3.0</li><li>DROK Digital Amplifier Wireless BT 4.0</li><li>DROK Digital Amplifier Wireless BT 4.1</li></ul>',
-                buyDate: '2019-10-19',
-                shipDate: '2019-10-26',
-                userId: this.props.reduxStore.user.id
-            }
-        })
-    }
-
     render() {
         const { classes } = this.props;
-        console.log(this.props.reduxStore.currentEolReducer.change_description)
         return (
             <>
                 <Nav history={this.props.history} />
                 <form className={classes.form} onSubmit={event => this.handleSubmit(event)}>
-                    <h1 className={classes.formHeader} onClick={() => this.demoFill()}>EOL Form</h1>
+                    <h1 className={classes.formHeader}>EOL Form</h1>
                     <div className={classes.topElements}>
                         <TextField className={classes.date} value={this.state.newEol.date} type="date" label="Date:" onChange={event => this.handleChange(event, 'date')} InputLabelProps={{
                             shrink: true,
