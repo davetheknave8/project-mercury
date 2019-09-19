@@ -113,3 +113,26 @@ This code is also heavily commented. We recommend reading through the comments, 
 ## Update Documentation
 
 Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+
+# AWS Steps
+
+
+Links:
+Create AWS Account: 
+    https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
+Create S3 Bucket:
+    https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html
+Authenticate User:
+    https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example1.html
+
+
+1. Create FREE AWS Account.
+
+2. Follow the link above to create an S3 Bucket.
+
+3. Use the link under Authenticate User to create User and authorize access to the Bucket.
+
+4. Create an .env file in the repo and create a variable called S3_BUCKET and set it to the name of your bucket, another variable called AWS_ACCESS_KEY_ID1 and set it to the user's access key, and a last variable called AWS_SECRET_ACCESS_KEY1 and set it to the user's secret access key.
+
+5. Test an upload to see if it goes to the bucket.
+
