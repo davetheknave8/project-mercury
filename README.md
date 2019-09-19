@@ -1,5 +1,10 @@
-# Prime Project
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+# Project Mercury
+
+Project Mercury is a web application for creating and tracking PCNs (Product Change Notifications). Administrators will be able to create users and approve PCN requests. Product Managers will use one of the existing templates to submit a PCN for approval and publication. Users can then search for and view PCNs.
+
+The goal is to streamline and standardize the PCN creation process, while providing a user-friendly experience for locating and viewing the PCNs.
+
+This version uses AWS, Material UI, Javascript, React, Redux, Node.js, Express.js, PostgreSQL (a full list of dependencies can be found in `package.json`).
 
 We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
 
@@ -13,23 +18,15 @@ We **STRONGLY** recommend following these instructions carefully. It's a lot, an
 
 Before you get started, make sure you have the following software installed on your computer:
 
+- [postico] https://eggerapps.at/postico/
 - [Node.js](https://nodejs.org/en/)
 - [PostrgeSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
-
+- [AWS] is not necessary to run the app but will be needed for photo upload
 ## Create database and table
 
-Create a new database called `prime_app` and create a `user` table:
+Create a new database called `project-mercury` and Add the sql code from the `databse.sql` file in the project code and execute the statements it. This will get your database setup correctly.
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
-
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
 
 ## Development Setup Instructions
 
@@ -85,30 +82,8 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
 * `public/` contains static assets for the client-side
 * `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
 * `server/` contains the Express App
+* `redux/` contains all reducers and sagas
 
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-* src/components
-  * App/App
-  * Footer/Footer
-  * Nav/Nav
-  * AboutPage/AboutPage
-  * InfoPage/InfoPage
-  * UserPage/UserPage
-  * LoginPage/LoginPage
-  * RegisterPage/RegisterPage
-  * LogOutButton/LogOutButton
-  * ProtectedRoute/ProtectedRoute
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
 
 ## Update Documentation
 
@@ -135,4 +110,27 @@ Authenticate User:
 4. Create an .env file in the repo and create a variable called S3_BUCKET and set it to the name of your bucket, another variable called AWS_ACCESS_KEY_ID1 and set it to the user's access key, and a last variable called AWS_SECRET_ACCESS_KEY1 and set it to the user's secret access key.
 
 5. Test an upload to see if it goes to the bucket.
+
+### Completed Features
+
+High level list of items completed.
+
+-  Feature A
+	Search documents by pcn number and part number
+-  Feature B
+CreateNPI, PCN, and EOL documents.
+-  Feature C
+Admin can create users 
+-  Feature D
+Admin approves or denies PCNs 
+-  Feature E
+Admin approves or denies PCNs 
+
+
+## Authors
+
+- David Reeves
+- Mark McNally 
+- Mitch Olson
+- Blake Peterson
 
