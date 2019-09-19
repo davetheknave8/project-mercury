@@ -1,7 +1,5 @@
 # Project Mercury
 
-https://vast-ocean-01066.herokuapp.com/#/dashboard
-
 Project Mercury is a web application for creating and tracking PCNs (Product Change Notifications). Administrators will be able to create users and approve PCN requests. Product Managers will use one of the existing templates to submit a PCN for approval and publication. Users can then search for and view PCNs.
 
 The goal is to streamline and standardize the PCN creation process, while providing a user-friendly experience for locating and viewing the PCNs.
